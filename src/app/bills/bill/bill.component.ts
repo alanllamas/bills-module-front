@@ -60,13 +60,12 @@ export class BillComponent implements OnInit {
     'salsa_roja',
     'salsa_verde',
     '1/2_docena',
-    'sopes_(dz)'
+    'pieza',
+    'sopes_(dz)',
   ]
 
   ngOnInit(): void {
-    console.log(this.route);
     this.bills = this.route.snapshot.data["bills"]
-    console.log(this.bills);
     const headers:any[] = this.bills.values[0]
     let products; 
     this.bill = this.bills.values.reduce((billacc: any[], bill: string[], i: number) => {
@@ -101,14 +100,11 @@ export class BillComponent implements OnInit {
           Object.assign(obj, {[newcurr]: bill[j].trim().replace('# ','').replace(/[\n]/g, ' ').normalize("NFD")})
           return {...acc, ...obj}
         }, {})
-        console.log('this.headers: ', this.headers);
         
       }
       return billacc
       
-    }, []).filter((bill: any) => bill.nota === this.route.snapshot.params['id'])[0]
-    console.log(this.bill);
-    
+    }, []).filter((bill: any) => bill.nota === this.route.snapshot.params['id'])[0]    
   }
   
 }

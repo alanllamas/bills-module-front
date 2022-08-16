@@ -13,9 +13,7 @@ export class BillsComponent implements OnInit {
   bills:any = {}
 
   ngOnInit(): void {
-    console.log(this.route);
     this.bills = this.route.snapshot.data["bills"]
-    console.log(this.bills);
     const headers:any[] = this.bills.values[0]
 
     this.bills = this.bills.values.reduce((billacc: any[], bill: string[], i: number) => {
@@ -44,8 +42,6 @@ export class BillsComponent implements OnInit {
           Object.assign(obj, {[newcurr]: bill[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
           return {...acc, ...obj}
         }, {})
-        console.log('this.headers: ', this.headers);
-        
       }
       return billacc
       
