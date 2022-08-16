@@ -1,0 +1,36 @@
+<div>
+    <h2># {{headers.nota}}: {{bill.nota}} | {{headers.cliente}}: {{bill.cliente}} | {{headers.fecha_de_venta}}: {{bill.fecha_de_venta}}  </h2>
+    <p> {{headers.status}}: {{bill.status}}</p>
+    <p> {{headers.area}}: {{bill.area}}</p>
+    <p> {{headers.cliente}}: {{bill.cliente}}</p>
+    <p> {{headers.comentarios}}: {{bill.comentarios}}</p>
+    <p> {{headers.costo_envio}}: {{bill.costo_envio}}</p>
+    <p> {{headers.fecha_de_pago}}: {{bill.fecha_de_pago}}</p>
+    <p> {{headers.fecha_de_venta}}: {{bill.fecha_de_venta}}</p>
+    <p> {{headers.metodo_de_pago}}: {{bill.metodo_de_pago}}</p>
+    <p> {{headers.monto}}: {{bill.monto}}</p>
+    <p> {{headers.monto_total}}: {{bill.monto_total}}</p>
+    <p> {{headers.nota}}: {{bill.nota}}</p>
+    <p> {{headers.periodo_de_pago}}: {{bill.periodo_de_pago}}</p>
+    <p> {{headers.pieza}}: {{bill.pieza}}</p>
+    <p> {{headers.status}}: {{bill.status}}</p>
+
+    <table>
+        <thead>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </thead>
+        <tbody>
+            <ng-container  *ngFor="let product of bill.products">
+                <tr *ngIf="product[product.key]">
+                    <td>{{headers[product.key]}}</td>
+                    <td>{{product[product.key]}}</td>
+                    <td></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+
+</div>
+

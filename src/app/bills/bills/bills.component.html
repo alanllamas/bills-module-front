@@ -1,0 +1,20 @@
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true" width="1240" height="681" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+
+
+<table>
+    <thead>
+        <th>{{headers.nota}}</th>
+        <th>{{headers.cliente}}</th>
+        <th>{{headers.fecha_de_venta}}</th>
+        <th>{{headers.status}}</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let bill of bills; let i = index;">
+            <td><a [href]="bill.url"># {{bill.nota}}</a></td>
+            <td>{{bill.cliente}}</td>
+            <td>{{bill.fecha_de_venta}}</td>
+            <td>{{bill.status}}</td>
+        </tr>
+    </tbody>
+</table>
