@@ -1,18 +1,63 @@
-<div>
-    <h2># {{headers.nota}}: {{bill.nota}} | {{headers.cliente}}: {{bill.cliente}} | {{headers.fecha_de_venta}}: {{bill.fecha_de_venta}}  </h2>
-    <p> {{headers.status}}: {{bill.status}}</p>
+<div class="">
+
+    <section id="note" class="m-auto w-50 border border-secondary p-4">
+        <div class="d-flex flex-row">
+            <img src="https://via.placeholder.com/350x100?text=El%20itacate" alt="">
+            <div class="d-flex flex-column align-items-center ms-4 w-100">
+                <h3 class="fs-6">Nota de venta</h3>
+                <p class="rounded border border-secondary text-center px-2">{{bill.numero_de_nota}}</p>
+                <h3 class="fs-6">Fecha</h3>
+                <p class="rounded border border-secondary text-center px-2">{{bill.fecha}}</p>
+            </div>
+        </div>
+        <div class="d-flex my-3 justify-content-around">
+            <div class="d-flex w-75">
+                <h3 class="fs-6">Cliente</h3>
+                <p class="border-bottom border-secondary w-75 text-center px-2">{{bill.cliente}}</p>
+            </div>
+            <h3 class="fs-6 w-25 text-center">Pago</h3>
+        </div>
+        
+        <div class="d-flex my-3 justify-content-around">
+            <table class="table table-bordered table-rounded">
+                <thead>
+                    <tr class="table-secondary">
+
+                        <th>Cantidad</th>
+                        <th>Concepto</th>
+                        <th>Precio</th>
+                        <th>Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container  *ngFor="let product of bill.products">
+                        <tr *ngIf="product[product.key]">
+                            <td>{{product[product.key]}}</td>
+                            <td>{{headers[product.key]}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <button printSectionId="note" [printStyle]="{section : {'width': '50%'}}" ngxPrint>imprimir</button> 
+
+    <p> {{headers.status_de_pago}}: {{bill.status_de_pago}}</p>
     <p> {{headers.area}}: {{bill.area}}</p>
     <p> {{headers.cliente}}: {{bill.cliente}}</p>
     <p> {{headers.comentarios}}: {{bill.comentarios}}</p>
-    <p> {{headers.costo_envio}}: {{bill.costo_envio}}</p>
+    <p> {{headers.monto_de_envio}}: {{bill.monto_de_envio}}</p>
     <p> {{headers.fecha_de_pago}}: {{bill.fecha_de_pago}}</p>
-    <p> {{headers.fecha_de_venta}}: {{bill.fecha_de_venta}}</p>
+    <p> {{headers.fecha}}: {{bill.fecha}}</p>
     <p> {{headers.metodo_de_pago}}: {{bill.metodo_de_pago}}</p>
     <p> {{headers.monto}}: {{bill.monto}}</p>
     <p> {{headers.monto_total}}: {{bill.monto_total}}</p>
-    <p> {{headers.nota}}: {{bill.nota}}</p>
+    <p> {{headers.numero_de_nota}}: {{bill.numero_de_nota}}</p>
     <p> {{headers.periodo_de_pago}}: {{bill.periodo_de_pago}}</p>
-    <p> {{headers.status}}: {{bill.status}}</p>
+    <p> {{headers.status_de_pago}}: {{bill.status_de_pago}}</p>
 
     <table>
         <thead>
@@ -30,6 +75,5 @@
             </ng-container>
         </tbody>
     </table>
-
 </div>
 

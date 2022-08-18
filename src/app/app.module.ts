@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BillsModule } from './bills/bills.module';
+import { SpentsModule } from './spents/spents.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BillsModule } from './bills/bills.module';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    BillsModule
+    BillsModule,
+    SpentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

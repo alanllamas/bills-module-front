@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BillComponent } from './bill/bill.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BillsComponent } from './bills/bills.component';
+import { NgxPrintModule } from 'ngx-print';
 
 
 
@@ -15,7 +16,8 @@ import { BillsComponent } from './bills/bills.component';
   imports: [
     CommonModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPrintModule
   ],
   exports:[
     BillComponent

@@ -1,20 +1,40 @@
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true" width="1240" height="681" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-
-
-<table>
-    <thead>
-        <th>{{headers.nota}}</th>
-        <th>{{headers.cliente}}</th>
-        <th>{{headers.fecha_de_venta}}</th>
-        <th>{{headers.status}}</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let bill of bills; let i = index;">
-            <td><a [href]="bill.url"># {{bill.nota}}</a></td>
-            <td>{{bill.cliente}}</td>
-            <td>{{bill.fecha_de_venta}}</td>
-            <td>{{bill.status}}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="d-flex justify-content-end my-4 mx-2">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newNote">
+            Crear nota
+          </button>
+    </div>
+    <div id="newNote" class="modal modal-lg" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nueva nota</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true" width="700" height="600" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <div class=" overflow-auto h-75">
+        <table class="table  table-sm w-75 mx-auto">
+            <thead>
+                <th>{{headers.numero_de_nota}}</th>
+                <th>{{headers.cliente}}</th>
+                <th>{{headers.fecha}}</th>
+                <th>{{headers.status_de_pago}}</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bill of bills; let i = index;">
+                    <td><a [href]="bill.url"># {{bill.numero_de_nota}}</a></td>
+                    <td>{{bill.cliente}}</td>
+                    <td>{{bill.fecha}}</td>
+                    <td>{{bill.status_de_pago}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    

@@ -1,0 +1,51 @@
+
+    <div class="d-flex justify-content-end my-4 mx-2">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newNote">
+            Crear vale de caja
+          </button>
+    </div>
+    <div id="newNote" class="modal modal-lg" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nueva nota</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4a6LQnbcnUcvJR8I-2bCWR2dbAUxf6-PYCktsZNe4K7KknQ/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <div class=" overflow-auto h-75">
+        <table class="table  table-sm w-75 mx-auto">
+            <thead>
+                <th>{{headers.numero_de_comprobante}}</th>
+                <th>{{headers.proveedor}}</th>
+                <th>{{headers.fecha_de_egreso}}</th>
+                <th>{{headers.status_de_pago}}</th>
+                <th>{{headers.monto_total}}</th>
+                <th>{{headers.metodo_de_pago}}</th>
+                <th>{{headers.concepto}}</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let spent of spents; let i = index;">
+                    <td><a [href]="spent.url"># {{spent.numero_de_comprobante}}</a></td>
+                    <td>{{spent.proveedor}}</td>
+                    <td>{{spent.fecha_de_egreso}}</td>
+                    <td>{{spent.status_de_pago}}</td>
+                    <td>{{spent.monto_total}}</td>
+                    <td>{{spent.metodo_de_pago}}</td>
+                    <td>{{spent.concepto}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+    

@@ -14,6 +14,7 @@ export class BillsComponent implements OnInit {
 
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
+    
     const headers:any[] = this.bills.values[0]
 
     this.bills = this.bills.values.reduce((billacc: any[], bill: string[], i: number) => {
@@ -24,7 +25,7 @@ export class BillsComponent implements OnInit {
           let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
           let obj = {}
           const d =  bill[j]
-          if (newcurr === 'nota' && d) {
+          if (newcurr === 'numero_de_nota' && d) {
             
             Object.assign(obj, {[newcurr]: d.replace('# ', '')})
             Object.assign(obj, {url: `bills/${d.replace('# ', '')}`})
@@ -45,6 +46,6 @@ export class BillsComponent implements OnInit {
       }
       return billacc
       
-    }, []).filter((bill: any) => bill.nota)
+    }, []).filter((bill: any) => bill.numero_de_nota) 
   }
 }
