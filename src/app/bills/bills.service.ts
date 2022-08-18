@@ -18,25 +18,26 @@ export class BillsService {
       credit30: 75,
     },
     tortilla : {
-      default: 50,
-      credit30: 75,
+      default: 45,
+      credit30: 67.5,
     },
     maiz : {
-      default: 50,
-      credit30: 75,
+      default: 45,
+      credit30: 67.5,
     },
     sopes: {
       default: 45
     },
     tlacoyos : {
-      dza: 180,
-      six: 100,
-      pza: 15
+      docena: 180,
+      media_docena: 100,
+      pieza: 15
     },
     complementos: {
       nopales: 40,
       salsa: 25,
       frijol: 40,
+      queso: 40
     },
     afilado: {
       default: 200,

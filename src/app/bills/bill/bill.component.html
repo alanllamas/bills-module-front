@@ -1,8 +1,8 @@
-<div class="">
+<div class=" py-5 m-auto w-75">
 
     <section id="note" class="m-auto w-50 border border-secondary p-4">
         <div class="d-flex flex-row">
-            <img src="https://via.placeholder.com/350x100?text=El%20itacate" alt="">
+            <app-logo></app-logo>
             <div class="d-flex flex-column align-items-center ms-4 w-100">
                 <h3 class="fs-6">Nota de venta</h3>
                 <p class="rounded border border-secondary text-center px-2">{{bill.numero_de_nota}}</p>
@@ -10,12 +10,11 @@
                 <p class="rounded border border-secondary text-center px-2">{{bill.fecha}}</p>
             </div>
         </div>
-        <div class="d-flex my-3 justify-content-around">
+        <div class="d-flex my-3">
             <div class="d-flex w-75">
                 <h3 class="fs-6">Cliente</h3>
-                <p class="border-bottom border-secondary w-75 text-center px-2">{{bill.cliente}}</p>
+                <p class="border-bottom border-secondary w-100 text-center px-2">{{bill.cliente}}</p>
             </div>
-            <h3 class="fs-6 w-25 text-center">Pago</h3>
         </div>
         
         <div class="d-flex my-3 justify-content-around">
@@ -31,49 +30,47 @@
                 </thead>
                 <tbody>
                     <ng-container  *ngFor="let product of bill.products">
-                        <tr *ngIf="product[product.key]">
-                            <td>{{product[product.key]}}</td>
-                            <td>{{headers[product.key]}}</td>
-                            <td></td>
-                            <td></td>
+                        <tr [ngClass]="{'text-white': product.label === 'data' }" class="fs-6 p-1">
+                            <td>{{product.quantity}}</td>
+                            <td>{{headers[product.label]}}</td>
+                            <td>{{product.price | currency}}</td>
+                            <td>{{product.total | currency}}</td>
                         </tr>
                     </ng-container>
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-around">
+            <div class="w-50 p-1 fs-8">
+                <p>Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
+                <p>Email: itacatedemaiz@gmail.com Telefono: 322-294-7798</p>
+            </div>
+            <div class="w-50">
+                
+                <table class="table table-bordered table-rounded table-striped-columns">
+                    <tbody>
+                        <tr>
+                            <td class="visually-hidden">Subtotal</td>
+                            <td>Subtotal</td>
+                            <td>{{bill.billTotal | currency}}</td>
+                        </tr>
+                        <tr>
+                            <td class="visually-hidden">Envío</td>
+                            <td>Envío</td>
+                            <td>{{bill.monto_de_envio}}</td>
+                        </tr>
+                        <tr>
+                            <td class="visually-hidden">Total</td>
+                            <td>Total</td>
+                            <td>{{bill.monto_total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
     
-    <button printSectionId="note" [printStyle]="{section : {'width': '50%'}}" ngxPrint>imprimir</button> 
+    <button printSectionId="note" [printStyle]="{'#note' : {'width': '50%'}}" ngxPrint>imprimir</button> 
 
-    <p> {{headers.status_de_pago}}: {{bill.status_de_pago}}</p>
-    <p> {{headers.area}}: {{bill.area}}</p>
-    <p> {{headers.cliente}}: {{bill.cliente}}</p>
-    <p> {{headers.comentarios}}: {{bill.comentarios}}</p>
-    <p> {{headers.monto_de_envio}}: {{bill.monto_de_envio}}</p>
-    <p> {{headers.fecha_de_pago}}: {{bill.fecha_de_pago}}</p>
-    <p> {{headers.fecha}}: {{bill.fecha}}</p>
-    <p> {{headers.metodo_de_pago}}: {{bill.metodo_de_pago}}</p>
-    <p> {{headers.monto}}: {{bill.monto}}</p>
-    <p> {{headers.monto_total}}: {{bill.monto_total}}</p>
-    <p> {{headers.numero_de_nota}}: {{bill.numero_de_nota}}</p>
-    <p> {{headers.periodo_de_pago}}: {{bill.periodo_de_pago}}</p>
-    <p> {{headers.status_de_pago}}: {{bill.status_de_pago}}</p>
-
-    <table>
-        <thead>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-        </thead>
-        <tbody>
-            <ng-container  *ngFor="let product of bill.products">
-                <tr *ngIf="product[product.key]">
-                    <td>{{headers[product.key]}}</td>
-                    <td>{{product[product.key]}}</td>
-                    <td></td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
 </div>
 

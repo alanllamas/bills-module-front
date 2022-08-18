@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BillsModule } from './bills/bills.module';
 import { SpentsModule } from './spents/spents.module';
+import { UtilsModule } from './utils/utils.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SpentsModule } from './spents/spents.module';
     HttpClientModule,
     AppRoutingModule,
     BillsModule,
-    SpentsModule
+    SpentsModule,
+    UtilsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
