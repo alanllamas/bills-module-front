@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { MatDialog } from '@angular/material/dialog';
+import { SpentDialogComponent } from '../spent-dialog/spent-dialog.component';
+
 @Component({
   selector: 'app-spents',
   templateUrl: './spents.component.html',
@@ -8,9 +11,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SpentsComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute) { }
+  constructor(public route: ActivatedRoute, public dialog: MatDialog) { }
   headers: any = {}
   spents:any = {}
+  columnsToDisplay = [
+    'numero_de_comprobante',
+    'proveedor',
+    'fecha_de_egreso',
+    'status_de_pago',
+    'monto_total',
+    'metodo_de_pago',
+    'concepto',
+  ];
+
 
   ngOnInit(): void {
     this.spents = this.route.snapshot.data["spents"]
@@ -46,12 +59,21 @@ export class SpentsComponent implements OnInit {
           Object.assign(obj, {[newcurr]: spent[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
           return {...acc, ...obj}
         }, {})
-        console.log(this.headers);
         
         return spentacc
       }
       
     }, []);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SpentDialogComponent, {
+      width: '700px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
