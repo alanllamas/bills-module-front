@@ -1,16 +1,15 @@
 <div  class="">
-  <nav class="">
-    <div class="">
-      <a class="" href="/">Notas</a>
-      <ul class="">
-        <li class="">
-          <a class="" aria-current="page" href="bills">Bills</a>
-        </li>
-        <li class="">
-          <a class="" aria-current="page" href="spents">Spents</a>
-        </li>
-      </ul>
-    </div>
+  <nav class="flex justify-between h-16 items-center px-4 bg-slate-300">
+    <a class="text-4xl" href="/">Notas</a>
+    <ul class="flex justify-around w-40">
+      <li class="">
+        <a class="" aria-current="page" href="bills">Bills</a>
+      </li>
+      <li class="">
+        <a class="" aria-current="page" href="spents">Spents</a>
+      </li>
+    </ul>
+    
   </nav>
   <router-outlet></router-outlet>
 </div>
