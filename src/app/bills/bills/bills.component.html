@@ -3,29 +3,30 @@
     Crear nota
   </button>
 </div>
-    
-<table mat-table [dataSource]="bills" class="">
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-  <ng-container matColumnDef="numero_de_nota">
-    <th mat-header-cell *matHeaderCellDef> {{headers.numero_de_nota}} </th>
-    <td mat-cell *matCellDef="let bill"><a [href]="bill.url"># {{bill.numero_de_nota}}</a></td>
-  </ng-container>
-  <ng-container matColumnDef="cliente">
-    <th mat-header-cell *matHeaderCellDef> {{headers.cliente}} </th>
-    <td mat-cell *matCellDef="let bill"> {{bill.cliente}} </td>
-  </ng-container>
-  <ng-container matColumnDef="monto_total">
-    <th mat-header-cell *matHeaderCellDef> {{headers.monto_total}} </th>
-    <td mat-cell *matCellDef="let bill"> {{bill.monto_total}} </td>
-  </ng-container>
-  <ng-container matColumnDef="fecha">
-    <th mat-header-cell *matHeaderCellDef> {{headers.fecha}} </th>
-    <td mat-cell *matCellDef="let bill"> {{bill.fecha}} </td>
-  </ng-container>
-  <ng-container matColumnDef="status_de_pago">
-    <th mat-header-cell *matHeaderCellDef> {{headers.status_de_pago}} </th>
-    <td mat-cell *matCellDef="let bill"> {{bill.status_de_pago}} </td>
-  </ng-container>
-</table>
+<section class="w-10/12 flex justify-center overflow-y-scroll h-120">
+  <table mat-table [dataSource]="bills" class="">
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    <ng-container matColumnDef="numero_de_nota">
+      <th mat-header-cell *matHeaderCellDef> {{headers.numero_de_nota}} </th>
+      <td mat-cell *matCellDef="let bill"><a [href]="bill.url"># {{bill.numero_de_nota}}</a></td>
+    </ng-container>
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> {{headers.cliente}} </th>
+      <td mat-cell *matCellDef="let bill"> {{bill.cliente}} </td>
+    </ng-container>
+    <ng-container matColumnDef="monto_total">
+      <th mat-header-cell *matHeaderCellDef> {{headers.monto_total}} </th>
+      <td mat-cell *matCellDef="let bill"> {{bill.monto_total}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> {{headers.fecha}} </th>
+      <td mat-cell *matCellDef="let bill"> {{bill.fecha}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status_de_pago">
+      <th mat-header-cell *matHeaderCellDef> {{headers.status_de_pago}} </th>
+      <td mat-cell *matCellDef="let bill"> {{bill.status_de_pago}} </td>
+    </ng-container>
+  </table>
+</section>
     
