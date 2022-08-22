@@ -5,6 +5,11 @@ module.exports = {
     extend: {
       spacing: {
         120: '480px'
+      },
+      screens: {
+          '': { 'raw': 'print' },
+          'print': { 'raw': 'print' },
+
       }
     },
   },

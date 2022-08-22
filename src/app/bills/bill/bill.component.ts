@@ -99,7 +99,7 @@ export class BillComponent implements OnInit {
   prices = this.billsService.prices
   creditCustomers = this.billsService.creditCustomers
   checktlacoyos (newcurr: string): number {
-    console.log(newcurr);
+    // console.log(newcurr);
     let price = 0;
     switch (newcurr) {
       case 'docena':
@@ -116,7 +116,7 @@ export class BillComponent implements OnInit {
     return price
   }
   checkcomplementos (newcurr: string): number {
-    console.log(newcurr);
+    // console.log(newcurr);
     let price = 0;
     switch (newcurr) {
       case 'nopales':

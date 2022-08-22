@@ -1,76 +1,73 @@
-<div class="">
+<div class="w-1/2">
 
-    <section id="note" class="">
-        <div class="">
-            <app-logo></app-logo>
-            <div class="">
-                <h3 class="">Nota de venta</h3>
-                <p class="">{{bill.numero_de_nota}}</p>
-                <h3 class="">Fecha</h3>
-                <p class="">{{bill.fecha}}</p>
-            </div>
-        </div>
-        <div class="">
-            <div class="">
-                <h3 class="">Cliente</h3>
-                <p class="">{{bill.cliente}}</p>
-            </div>
-        </div>
-        
-        <div class="">
-            <table class="">
-                <thead>
-                    <tr class="">
+  <section id="note" class="">
+    <div class="flex mx-4">
+      <app-logo class=""></app-logo>
+      <div class="">
+        <h3 class="">Nota de venta</h3>
+        <p class="">{{bill.numero_de_nota}}</p>
+        <h3 class="">Fecha</h3>
+        <p class="">{{bill.fecha}}</p>
+      </div>
+    </div>
+    <div class="w-3/4 flex my-4">
+      <h3 class="">Cliente</h3>
+      <p class="w-full border-b border-black text-center">{{bill.cliente}}</p>
+    </div>
 
-                        <th>Cantidad</th>
-                        <th>Concepto</th>
-                        <th>Precio</th>
-                        <th>Importe</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container  *ngFor="let product of bill.products">
-                        <tr [ngClass]="{'text-white': product.label === 'data' }" class="">
-                            <td>{{product.quantity}}</td>
-                            <td>{{headers[product.label]}}</td>
-                            <td>{{product.price | currency}}</td>
-                            <td>{{product.total | currency}}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-        <div class="">
-            <div class="">
-                <p>Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
-                <p>Email: itacatedemaiz@gmail.com Telefono: 322-294-7798</p>
-            </div>
-            <div class="">
-                
-                <table class="">
-                    <tbody>
-                        <tr>
-                            <td class="">Subtotal</td>
-                            <td>Subtotal</td>
-                            <td>{{bill.billTotal | currency}}</td>
-                        </tr>
-                        <tr>
-                            <td class="">Envío</td>
-                            <td>Envío</td>
-                            <td>{{bill.monto_de_envio}}</td>
-                        </tr>
-                        <tr>
-                            <td class="">Total</td>
-                            <td>Total</td>
-                            <td>{{bill.monto_total}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-    
-    <button printSectionId="note" [printStyle]="{'#note' : {'width': '50%'}}" ngxPrint>imprimir</button> 
+    <div class="">
+      <table class=" border">
+        <thead>
+          <tr class="">
+
+            <th>Cantidad</th>
+            <th>Concepto</th>
+            <th>Precio</th>
+            <th>Importe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let product of bill.products">
+            <tr [ngClass]="{'text-white': product.label === 'data' }" class="">
+              <td>{{product.quantity}}</td>
+              <td>{{headers[product.label]}}</td>
+              <td>{{product.price | currency}}</td>
+              <td>{{product.total | currency}}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="">
+      <div class="">
+        <p>Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
+        <p>Email: itacatedemaiz@gmail.com Telefono: 322-294-7798</p>
+      </div>
+      <div class="">
+
+        <table class="">
+          <tbody>
+            <tr>
+              <td class="">Subtotal</td>
+              <td>Subtotal</td>
+              <td>{{bill.billTotal | currency}}</td>
+            </tr>
+            <tr>
+              <td class="">Envío</td>
+              <td>Envío</td>
+              <td>{{bill.monto_de_envio}}</td>
+            </tr>
+            <tr>
+              <td class="">Total</td>
+              <td>Total</td>
+              <td>{{bill.monto_total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <button printSectionId="note" ngxPrint [useExistingCss]="true">imprimir</button>
 
 </div>
-
