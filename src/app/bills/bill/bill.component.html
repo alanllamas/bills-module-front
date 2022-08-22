@@ -1,26 +1,26 @@
-<div class=" py-5 m-auto w-75">
+<div class="">
 
-    <section id="note" class="m-auto w-50 border border-secondary p-4">
-        <div class="d-flex flex-row">
+    <section id="note" class="">
+        <div class="">
             <app-logo></app-logo>
-            <div class="d-flex flex-column align-items-center ms-4 w-100">
-                <h3 class="fs-6">Nota de venta</h3>
-                <p class="rounded border border-secondary text-center px-2">{{bill.numero_de_nota}}</p>
-                <h3 class="fs-6">Fecha</h3>
-                <p class="rounded border border-secondary text-center px-2">{{bill.fecha}}</p>
+            <div class="">
+                <h3 class="">Nota de venta</h3>
+                <p class="">{{bill.numero_de_nota}}</p>
+                <h3 class="">Fecha</h3>
+                <p class="">{{bill.fecha}}</p>
             </div>
         </div>
-        <div class="d-flex my-3">
-            <div class="d-flex w-75">
-                <h3 class="fs-6">Cliente</h3>
-                <p class="border-bottom border-secondary w-100 text-center px-2">{{bill.cliente}}</p>
+        <div class="">
+            <div class="">
+                <h3 class="">Cliente</h3>
+                <p class="">{{bill.cliente}}</p>
             </div>
         </div>
         
-        <div class="d-flex my-3 justify-content-around">
-            <table class="table table-bordered table-rounded">
+        <div class="">
+            <table class="">
                 <thead>
-                    <tr class="table-secondary">
+                    <tr class="">
 
                         <th>Cantidad</th>
                         <th>Concepto</th>
@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                     <ng-container  *ngFor="let product of bill.products">
-                        <tr [ngClass]="{'text-white': product.label === 'data' }" class="fs-6 p-1">
+                        <tr [ngClass]="{'text-white': product.label === 'data' }" class="">
                             <td>{{product.quantity}}</td>
                             <td>{{headers[product.label]}}</td>
                             <td>{{product.price | currency}}</td>
@@ -40,27 +40,27 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around">
-            <div class="w-50 p-1 fs-8">
+        <div class="">
+            <div class="">
                 <p>Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
                 <p>Email: itacatedemaiz@gmail.com Telefono: 322-294-7798</p>
             </div>
-            <div class="w-50">
+            <div class="">
                 
-                <table class="table table-bordered table-rounded table-striped-columns">
+                <table class="">
                     <tbody>
                         <tr>
-                            <td class="visually-hidden">Subtotal</td>
+                            <td class="">Subtotal</td>
                             <td>Subtotal</td>
                             <td>{{bill.billTotal | currency}}</td>
                         </tr>
                         <tr>
-                            <td class="visually-hidden">Envío</td>
+                            <td class="">Envío</td>
                             <td>Envío</td>
                             <td>{{bill.monto_de_envio}}</td>
                         </tr>
                         <tr>
-                            <td class="visually-hidden">Total</td>
+                            <td class="">Total</td>
                             <td>Total</td>
                             <td>{{bill.monto_total}}</td>
                         </tr>

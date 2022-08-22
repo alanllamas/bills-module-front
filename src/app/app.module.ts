@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BillsModule } from './bills/bills.module';
 import { SpentsModule } from './spents/spents.module';
 import { UtilsModule } from './utils/utils.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UtilsModule } from './utils/utils.module';
     AppRoutingModule,
     BillsModule,
     SpentsModule,
-    UtilsModule
+    UtilsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
