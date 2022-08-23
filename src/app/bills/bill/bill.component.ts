@@ -221,7 +221,6 @@ export class BillComponent implements OnInit {
     }
     
     const empty = new Array(missingObjs === -1 ? 10 : missingObjs).fill(emptydata) 
-    console.log('this.bill: ', this.bill);
     this.bill.products = [...this.bill.products, ...empty]
   }
   
