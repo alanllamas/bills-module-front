@@ -210,7 +210,6 @@ export class BillComponent implements OnInit {
         
       }
       return billacc
-      
     }, []).filter((bill: any) => bill.numero_de_nota === this.route.snapshot.params['id'])[0]  
     const missingObjs = 10 - this.bill.products.length
     const emptydata = {
@@ -219,9 +218,8 @@ export class BillComponent implements OnInit {
       price: 0,
       total: 0
     }
-    
-    const empty = new Array(missingObjs === -1 ? 10 : missingObjs).fill(emptydata) 
-    console.log('this.bill: ', this.bill);
+
+    const empty = new Array(missingObjs === -1 ? 10 : missingObjs).fill(emptydata)
     this.bill.products = [...this.bill.products, ...empty]
   }
   
