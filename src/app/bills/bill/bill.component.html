@@ -1,76 +1,66 @@
-<div class=" py-5 m-auto w-75">
+<div class="w-3/4 m-auto py-5">
+  
+  <button mat-raised-button printSectionId="note" ngxPrint [useExistingCss]="true">Imprimir Nota</button>
+  <div id="note" class="w-1/2 m-auto">
 
-    <section id="note" class="m-auto w-50 border border-secondary p-4">
-        <div class="d-flex flex-row">
-            <app-logo></app-logo>
-            <div class="d-flex flex-column align-items-center ms-4 w-100">
-                <h3 class="fs-6">Nota de venta</h3>
-                <p class="rounded border border-secondary text-center px-2">{{bill.numero_de_nota}}</p>
-                <h3 class="fs-6">Fecha</h3>
-                <p class="rounded border border-secondary text-center px-2">{{bill.fecha}}</p>
-            </div>
+    <section class="border flex flex-col items-center p-10">
+      <div class="flex w-full justify-around">
+        <app-logo class=""></app-logo>
+        <div class="">
+          <h3 class="text-center font-bold">Folio</h3>
+          <p class="rounded border border-black text-lg px-2 text-center">{{bill.numero_de_nota}}</p>
+          <h3 class="text-center font-bold mt-4">Fecha</h3>
+          <p class="rounded border border-black text-lg px-2 text-center">{{bill.fecha}}</p>
         </div>
-        <div class="d-flex my-3">
-            <div class="d-flex w-75">
-                <h3 class="fs-6">Cliente</h3>
-                <p class="border-bottom border-secondary w-100 text-center px-2">{{bill.cliente}}</p>
-            </div>
+      </div>
+      <div class="w-full flex my-6 items-baseline">
+        <h3 class="font-bold">Cliente</h3>
+        <p class="w-full border-b border-black text-center text-xl">{{bill.cliente}}</p>
+      </div>
+  
+  
+      <table class="border w-full">
+        <thead>
+          <tr class="bg-slate-200">
+            <th class="px-2 py-1 border">Cantidad</th>
+            <th class="px-2 py-1 border">Concepto</th>
+            <th class="px-2 py-1 border">Precio</th>
+            <th class="px-2 py-1 border">Importe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let product of bill.products">
+            <tr [ngClass]="{'text-white': product.label === 'data' }" class="border-b">
+              <td class="px-2 py-1 border text-center">{{product.quantity}}</td>
+              <td class="px-2 py-1 border">{{headers[product.label]}}</td>
+              <td class="px-2 py-1 border text-right">{{product.price | currency}}</td>
+              <td class="px-2 py-1 border text-right">{{product.total | currency}}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="flex mt-6 w-full">
+        <div class="">
+          <p class="mb-1">Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
+          <p><span class="font-bold">Email:</span> itacatedemaiz@gmail.com <br> <span class="font-bold">Telefono:</span> 322-294-7798</p>
         </div>
-        
-        <div class="d-flex my-3 justify-content-around">
-            <table class="table table-bordered table-rounded">
-                <thead>
-                    <tr class="table-secondary">
-
-                        <th>Cantidad</th>
-                        <th>Concepto</th>
-                        <th>Precio</th>
-                        <th>Importe</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container  *ngFor="let product of bill.products">
-                        <tr [ngClass]="{'text-white': product.label === 'data' }" class="fs-6 p-1">
-                            <td>{{product.quantity}}</td>
-                            <td>{{headers[product.label]}}</td>
-                            <td>{{product.price | currency}}</td>
-                            <td>{{product.total | currency}}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex justify-content-around">
-            <div class="w-50 p-1 fs-8">
-                <p>Tu compra ayuda a la conservación de nuestros maíces nativos. Gracias!</p>
-                <p>Email: itacatedemaiz@gmail.com Telefono: 322-294-7798</p>
-            </div>
-            <div class="w-50">
-                
-                <table class="table table-bordered table-rounded table-striped-columns">
-                    <tbody>
-                        <tr>
-                            <td class="visually-hidden">Subtotal</td>
-                            <td>Subtotal</td>
-                            <td>{{bill.billTotal | currency}}</td>
-                        </tr>
-                        <tr>
-                            <td class="visually-hidden">Envío</td>
-                            <td>Envío</td>
-                            <td>{{bill.monto_de_envio}}</td>
-                        </tr>
-                        <tr>
-                            <td class="visually-hidden">Total</td>
-                            <td>Total</td>
-                            <td>{{bill.monto_total}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table class="">
+          <tbody>
+            <tr>
+              <td class="font-bold bg-slate-200 py-1 px-2">Subtotal</td>
+              <td class="border text-right py-1 px-2">{{bill.billTotal | currency}}</td>
+            </tr>
+            <tr>
+              <td class="font-bold bg-slate-200 py-1 px-2">Envío</td>
+              <td class="border text-right py-1 px-2">{{bill.monto_de_envio}}</td>
+            </tr>
+            <tr>
+              <td class="font-bold bg-slate-200 py-1 px-2">Total</td>
+              <td class="border text-right py-1 px-2">{{bill.monto_total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
-    
-    <button printSectionId="note" [printStyle]="{'#note' : {'width': '50%'}}" ngxPrint>imprimir</button> 
-
+  </div>
 </div>
-

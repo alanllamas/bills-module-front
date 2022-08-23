@@ -7,19 +7,28 @@ import { BillsComponent } from './bills/bills.component';
 import { NgxPrintModule } from 'ngx-print';
 import { UtilsModule } from '../utils/utils.module';
 
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import { BillDialogComponent } from './bill-dialog/bill-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
   declarations: [
     BillComponent,
-    BillsComponent
+    BillsComponent,
+    BillDialogComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
     NgxPrintModule,
-    UtilsModule
+    UtilsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatDialogModule
   ],
   exports:[
     BillComponent
