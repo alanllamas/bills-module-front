@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
 
 @Component({
   selector: 'app-bills',
@@ -8,9 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BillsComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute) { }
+  constructor(public route: ActivatedRoute, public dialog: MatDialog) { }
   headers: any = {}
   bills:any = {}
+
+
+  columnsToDisplay = ['numero_de_nota','cliente','monto_total','fecha','status_de_pago',];
 
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
@@ -48,4 +53,16 @@ export class BillsComponent implements OnInit {
       
     }, []).filter((bill: any) => bill.numero_de_nota) 
   }
+
+  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(BillDialogComponent, {
+      width: '700px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }

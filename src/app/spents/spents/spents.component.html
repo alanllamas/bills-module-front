@@ -1,51 +1,43 @@
 
-    <div class="d-flex justify-content-end my-4 mx-2">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newNote">
-            Crear vale de caja
-          </button>
-    </div>
-    <div id="newNote" class="modal modal-lg" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Nueva nota</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4a6LQnbcnUcvJR8I-2bCWR2dbAUxf6-PYCktsZNe4K7KknQ/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    
-    <div class=" overflow-auto h-75">
-        <table class="table  table-sm w-75 mx-auto">
-            <thead>
-                <th>{{headers.numero_de_comprobante}}</th>
-                <th>{{headers.proveedor}}</th>
-                <th>{{headers.fecha_de_egreso}}</th>
-                <th>{{headers.status_de_pago}}</th>
-                <th>{{headers.monto_total}}</th>
-                <th>{{headers.metodo_de_pago}}</th>
-                <th>{{headers.concepto}}</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let spent of spents; let i = index;">
-                    <td><a [href]="spent.url"># {{spent.numero_de_comprobante}}</a></td>
-                    <td>{{spent.proveedor}}</td>
-                    <td>{{spent.fecha_de_egreso}}</td>
-                    <td>{{spent.status_de_pago}}</td>
-                    <td>{{spent.monto_total}}</td>
-                    <td>{{spent.metodo_de_pago}}</td>
-                    <td>{{spent.concepto}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="flex justify-end w-full px-6 py-4 ">
+  <button  mat-raised-button (click)="openDialog()" type="button" >
+    Crear vale de caja
+  </button>
+</div>
+<section class="w-10/12 flex justify-center overflow-y-scroll h-120">
 
-
-
-
-
-    
+  <table mat-table [dataSource]="spents" class="" >
+    <section class="overflow-y-scroll">
+      <tr mat-header-row  *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      <ng-container matColumnDef="numero_de_comprobante">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.numero_de_comprobante}} </th>
+        <td mat-cell *matCellDef="let spent"><a [href]="spent.url"># {{spent.numero_de_comprobante}}</a></td>
+      </ng-container>
+      <ng-container matColumnDef="proveedor">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.proveedor}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.proveedor}} </td>
+      </ng-container>
+      <ng-container matColumnDef="monto_total">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.monto_total}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.monto_total}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fecha_de_egreso">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.fecha_de_egreso}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.fecha_de_egreso}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status_de_pago">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.status_de_pago}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.status_de_pago}} </td>
+      </ng-container>
+      <ng-container matColumnDef="metodo_de_pago">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.metodo_de_pago}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.metodo_de_pago}} </td>
+      </ng-container>
+      <ng-container matColumnDef="concepto">
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.concepto}} </th>
+        <td mat-cell *matCellDef="let spent"> {{spent.concepto}} </td>
+      </ng-container>
+    </section>
+  </table>
+</section>
