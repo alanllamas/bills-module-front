@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-bills',
@@ -10,12 +11,37 @@ import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
 })
 export class BillsComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(public route: ActivatedRoute, public dialog: MatDialog) { 
+    this.filterSelectObj = [
+      {
+        name: '# Nota',
+        columnProp: 'numero_de_nota',
+        options: []
+      },
+      {
+        name: 'Cliente',
+        columnProp: 'cliente',
+        options: []
+      },
+      {
+        name: 'Fecha',
+        columnProp: 'fecha',
+        options: []
+      },
+      {
+        name: 'Status de pago',
+        columnProp: 'status_de_pago',
+        options: []
+      }
+    ]
+  }
+  filterValues: any = {};
+  dataSource = new MatTableDataSource();
   headers: any = {}
   bills:any = {}
+  displayedColumns: any[] = ['numero_de_nota','cliente','fecha','status_de_pago',];
+  filterSelectObj: any[] = []
 
-
-  columnsToDisplay = ['numero_de_nota','cliente','monto_total','fecha','status_de_pago',];
 
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
@@ -51,7 +77,66 @@ export class BillsComponent implements OnInit {
       }
       return billacc
       
-    }, []).filter((bill: any) => bill.numero_de_nota) 
+    }, []).filter((bill: any) => bill.numero_de_nota)
+    this.dataSource.data = this.bills;
+    this.dataSource.filterPredicate = this.createFilter();
+    this.filterSelectObj.filter((o) => {
+      o.options = this.getFilterObject(this.bills, o.columnProp);
+    });
+  }
+  createFilter() {
+    let filterFunction = function (data: any, filter: string): boolean {
+      let searchTerms = JSON.parse(filter);
+      let isFilterSet = false;
+      for (const col in searchTerms) {
+        if (searchTerms[col].toString() !== '') {
+          isFilterSet = true;
+        } else {
+          delete searchTerms[col];
+        }
+      }
+
+      let nameSearch = () => {
+        let found = false;
+        if (isFilterSet) {
+          for (const col in searchTerms) {
+            found = searchTerms[col].trim().toLowerCase() ==  data[col].toString().toLowerCase()
+          }
+          return found
+        } else {
+          return true;
+        }
+      }
+      return nameSearch()
+    }
+    return filterFunction
+  }
+
+    // Called on Filter change
+  filterChange(filter: { columnProp: string }, event :any) {
+    //let filterValues = {}
+    this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
+    this.dataSource.filter = JSON.stringify(this.filterValues)
+  }
+
+  // Reset table filters
+  resetFilters() {
+    this.filterValues = {}
+    this.filterSelectObj.forEach((value, key) => {
+      value.modelValue = undefined;
+    })
+    this.dataSource.filter = "";
+  }
+
+  getFilterObject(fullObj:any, key : string) {
+    const uniqChk: any[] = [];
+    fullObj.filter((obj:any) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk;
   }
 
   
