@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { CreateFilterService } from 'src/app/utils/create-filter.service';
 
 @Component({
   selector: 'app-bills',
