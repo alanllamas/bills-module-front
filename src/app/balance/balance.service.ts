@@ -12,10 +12,12 @@ export class BalanceService {
   apiKey : string = '';
   googleSheet : string = '';
   
+
   constructor(public http: HttpClient) { }
-  getForm = (month: string) => {
+  getForm = (range: string) => {
+    
     this.spreadsheetId = '1K3OwbHzHqnbJzysqMoNRnIustkK9ISf5Uos_wVkFa68'
-    this.range = `${month}!B2:AZ`
+    this.range = range
     this.apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
     this.googleSheet = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`
     return this.http.get(this.googleSheet)
