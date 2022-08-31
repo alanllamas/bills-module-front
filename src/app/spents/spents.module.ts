@@ -7,6 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import { SpentDialogComponent } from './spent-dialog/spent-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { UtilsModule } from '../utils/utils.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   imports: [
     CommonModule,
+    UtilsModule,
     MatButtonModule,
     MatTableModule,
     MatDialogModule

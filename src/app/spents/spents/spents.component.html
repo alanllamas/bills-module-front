@@ -1,15 +1,27 @@
 
-<div class="flex justify-end w-full px-6 py-4 ">
+<div class="flex justify-between w-full px-6 py-4 ">
+  <div>
+    <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+      <mat-label>{{filter.name}}</mat-label>
+      <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+        (change)="filterChange(filter,$event)">
+        <option value=""> </option>
+        <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+      </select>
+    </mat-form-field>
+    &nbsp;
+    <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+  </div>
   <button  mat-raised-button (click)="openDialog(createData)" type="button" >
     Crear vale de caja
   </button>
 </div>
 <section class="w-10/12 flex justify-center overflow-y-scroll h-120">
 
-  <table mat-table [dataSource]="spents" class="" >
+  <table mat-table [dataSource]="dataSource" class="" >
     <section class="overflow-y-scroll">
-      <tr mat-header-row  *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
       <ng-container matColumnDef="numero_de_comprobante">
         <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.numero_de_comprobante}} </th>
         <td mat-cell *matCellDef="let spent"><a [href]="spent.url"># {{spent.numero_de_comprobante}}</a></td>
