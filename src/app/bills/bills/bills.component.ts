@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 
 @Component({
   selector: 'app-bills',
@@ -170,7 +170,7 @@ export class BillsComponent implements OnInit {
 
   
   openDialog(data: any): void {
-    const dialogRef = this.dialog.open(BillDialogComponent, {
+    const dialogRef = this.dialog.open(FormDialogComponent, {
       width: '700px',
       data
     });
