@@ -41,6 +41,7 @@ export class BillsComponent implements OnInit {
   bills:any = {}
   displayedColumns: any[] = ['numero_de_nota','cliente','fecha','status_de_pago',];
   filterSelectObj: any[] = []
+  bill = null;
 
 
   ngOnInit(): void {
@@ -78,9 +79,9 @@ export class BillsComponent implements OnInit {
       return billacc
       
     }, []).filter((bill: any) => bill.numero_de_nota)
-    this.dataSource.data = this.bills;
-    this.dataSource.filterPredicate = this.createFilter();
-    this.filterSelectObj.filter((o) => {
+      this.dataSource.data = this.bills;
+      this.dataSource.filterPredicate = this.createFilter();
+      this.filterSelectObj.filter((o) => {
       o.options = this.getFilterObject(this.bills, o.columnProp);
     });
   }
@@ -114,7 +115,6 @@ export class BillsComponent implements OnInit {
 
     // Called on Filter change
   filterChange(filter: { columnProp: string }, event :any) {
-    //let filterValues = {}
     this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
     this.dataSource.filter = JSON.stringify(this.filterValues)
   }

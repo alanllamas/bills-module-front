@@ -10,6 +10,7 @@ import { SpentsModule } from './spents/spents.module';
 import { UtilsModule } from './utils/utils.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { BalanceModule } from './balance/balance.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     BillsModule,
     SpentsModule,
     UtilsModule,
+    BalanceModule,
     BrowserAnimationsModule,
     MatSidenavModule
   ],
