@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { SheetParserService } from 'src/app/utils/sheet-parser.service';
 
 @Component({
   selector: 'app-spents',
@@ -12,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SpentsComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute, public dialog: MatDialog) { 
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService) { 
     this.filterSelectObj = [
       {
         name: '# Comprobante',
@@ -80,57 +81,17 @@ export class SpentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.spents = this.route.snapshot.data["spents"]
 
-    const headers:any[] = this.spents.values[0]
-
-    this.spents = this.spents.values.reduce((spentacc: any[], spent: string[], i: number) => {
-      if (i > 0) {
-        
-        spentacc = [...spentacc, headers.reduce((acc, curr, j) => {
-          
-          let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-          let obj = {}
-          const d =  spent[j]
-          
-          if (newcurr === 'comprobante' && d) {
-            
-            Object.assign(obj, {[newcurr]: d})
-            Object.assign(obj, {url: `spents/${this.spents.values.length - i}`, id: this.spents.values.length - i})
-          } else if (this.actions.includes(newcurr) && d) {
-            let actions = {
-              edit: ''
-            }
-            switch (newcurr) {
-              case 'form_response_edit_url':
-                  actions['edit'] = d
-                break;
-            }
-            // const actions = {
-            //   edit: d
-            // }
-            Object.assign(obj, { actions })
-          } else  {
-
-            Object.assign(obj, {[newcurr]: d})
-          }
-          return {...acc, ...obj}
-        }, {})]
-        return spentacc
-        
-      } else {
-        this.headers = headers.reduce((acc, curr, j) => {
-          
-          let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-          let obj = {}
-          Object.assign(obj, {[newcurr]: spent[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
-          return {...acc, ...obj}
-        }, {})
-        
-        return spentacc
-      }
-      
-    }, []).filter((spent: any) => spent.fecha_de_egreso );
+     
+    const config = {
+      actions: [{action:'form_response_edit_url', key: 'edit'}],
+      chars:  [],
+      url: 'spents',
+      index: 'comprobante',
+      use_index : true
+    }
+    this.spents = this.parser.parseData( this.route.snapshot.data["spents"].values, config)
+      .filter((spent: any) => spent.fecha_de_egreso );
 
 
     this.dataSource.data = this.spents;
