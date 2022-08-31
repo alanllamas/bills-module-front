@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BillDialogComponent } from '../bill-dialog/bill-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { CreateFilterService } from 'src/app/utils/create-filter.service';
 
 @Component({
   selector: 'app-bills',
@@ -51,7 +52,7 @@ export class BillsComponent implements OnInit {
     title: 'Editar nota',
     url:  ''
   }
-
+  
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
     
@@ -70,15 +71,11 @@ export class BillsComponent implements OnInit {
             Object.assign(obj, {[newcurr]: d.replace('# ', '')})
             Object.assign(obj, {url: `bills/${d.replace('# ', '')}`})
           } else if (this.actions.includes(newcurr) && d) {
-            let actions = {
-              edit: ''
-            }
             switch (newcurr) {
               case 'form_response_edit_url':
-                  actions['edit'] = d
+                  Object.assign(obj, { edit: d })
                 break;
             }
-            Object.assign(obj, { actions })
           } else {
 
             Object.assign(obj, {[newcurr]: d})
@@ -105,6 +102,7 @@ export class BillsComponent implements OnInit {
       o.options = this.getFilterObject(this.bills, o.columnProp);
     });
   }
+
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {
       let searchTerms = JSON.parse(filter);
@@ -116,12 +114,23 @@ export class BillsComponent implements OnInit {
           delete searchTerms[col];
         }
       }
+      let checkData = (data: any, col: string) => {
+
+        
+        // console.log(data['numero_de_nota']);
+        // console.log(typeof data[col]);
+        // console.log(data[col]);
+        const res = data[col].toString().toLowerCase()
+        // console.log(res);
+        
+        return res
+      }
 
       let nameSearch = () => {
         let found = false;
         if (isFilterSet) {
           for (const col in searchTerms) {
-            found = searchTerms[col].trim().toLowerCase() ==  data[col].toString().toLowerCase()
+            found = searchTerms[col].trim().toLowerCase() ==  checkData(data, col)
           }
           return found
         } else {
@@ -133,7 +142,18 @@ export class BillsComponent implements OnInit {
     return filterFunction
   }
 
-    // Called on Filter change
+ 
+  getFilterObject(fullObj:any, key : string) {
+    const uniqChk: any[] = [];
+    fullObj.filter((obj:any) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk;
+  }
+
   filterChange(filter: { columnProp: string }, event :any) {
     this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
     this.dataSource.filter = JSON.stringify(this.filterValues)
@@ -148,16 +168,6 @@ export class BillsComponent implements OnInit {
     this.dataSource.filter = "";
   }
 
-  getFilterObject(fullObj:any, key : string) {
-    const uniqChk: any[] = [];
-    fullObj.filter((obj:any) => {
-      if (!uniqChk.includes(obj[key])) {
-        uniqChk.push(obj[key]);
-      }
-      return obj;
-    });
-    return uniqChk;
-  }
 
   
   openDialog(data: any): void {
