@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class BillsService {
   spreadsheetId = '1ngjMaDo5KeXP0mcSD9u0yd4cByZXfOqw2WHPHOocXL8'
-  range = 'Full Data!B1:AZ3000'
+  range = 'Full Data!B1:BA'
   apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
 
   googleForm = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`

@@ -39,6 +39,10 @@
       <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.status_de_pago}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"> {{bill.status_de_pago}} </td>
     </ng-container>
+    <ng-container matColumnDef="actions">
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td class="px-6"  mat-cell *matCellDef="let bill"> <a target="_blank" [href]="bill.actions?.edit">edit</a> </td>
+    </ng-container>
   </table>
 </section>
 <div class="w-3/4 m-auto py-5">

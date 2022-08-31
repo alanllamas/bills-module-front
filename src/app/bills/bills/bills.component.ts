@@ -32,17 +32,17 @@ export class BillsComponent implements OnInit {
         name: 'Status de pago',
         columnProp: 'status_de_pago',
         options: []
-      }
+      },
     ]
   }
   filterValues: any = {};
   dataSource = new MatTableDataSource();
   headers: any = {}
   bills:any = {}
-  displayedColumns: any[] = ['numero_de_nota','cliente','fecha','status_de_pago',];
+  displayedColumns: any[] = ['numero_de_nota','cliente','fecha','status_de_pago', 'actions'];
   filterSelectObj: any[] = []
   bill = null;
-
+  actions = ['form_response_edit_url']
 
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
@@ -61,6 +61,16 @@ export class BillsComponent implements OnInit {
             
             Object.assign(obj, {[newcurr]: d.replace('# ', '')})
             Object.assign(obj, {url: `bills/${d.replace('# ', '')}`})
+          } else if (this.actions.includes(newcurr) && d) {
+            let actions = {
+              edit: ''
+            }
+            switch (newcurr) {
+              case 'form_response_edit_url':
+                  actions['edit'] = d
+                break;
+            }
+            Object.assign(obj, { actions })
           } else {
 
             Object.assign(obj, {[newcurr]: d})
@@ -73,12 +83,14 @@ export class BillsComponent implements OnInit {
           let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
           let obj = {}
           Object.assign(obj, {[newcurr]: bill[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
+          console.log(obj);
+          
           return {...acc, ...obj}
         }, {})
       }
       return billacc
       
-    }, []).filter((bill: any) => bill.numero_de_nota)
+    }, []).filter((bill: any) => bill.fecha)
     
     this.dataSource.data = this.bills;
     this.dataSource.filterPredicate = this.createFilter();

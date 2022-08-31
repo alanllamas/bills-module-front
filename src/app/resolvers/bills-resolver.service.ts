@@ -6,7 +6,6 @@ import { BillsService } from '../bills/bills.service';
   providedIn: 'root'
 })
 export class BillsResolverService implements Resolve<any> {
-  headers: any = {}
 
   constructor(public bills: BillsService) { }
 

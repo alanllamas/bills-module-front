@@ -22,7 +22,9 @@ export class SpentsComponent implements OnInit {
     'monto_total',
     'metodo_de_pago',
     'concepto',
+    'actions'
   ];
+  actions = ['form_response_edit_url']
 
 
   ngOnInit(): void {
@@ -43,7 +45,20 @@ export class SpentsComponent implements OnInit {
             
             Object.assign(obj, {[newcurr]: d})
             Object.assign(obj, {url: `spents/${this.spents.values.length - i}`, id: this.spents.values.length - i})
-          } else {
+          } else if (this.actions.includes(newcurr) && d) {
+            let actions = {
+              edit: ''
+            }
+            switch (newcurr) {
+              case 'form_response_edit_url':
+                  actions['edit'] = d
+                break;
+            }
+            // const actions = {
+            //   edit: d
+            // }
+            Object.assign(obj, { actions })
+          } else  {
 
             Object.assign(obj, {[newcurr]: d})
           }
@@ -63,7 +78,7 @@ export class SpentsComponent implements OnInit {
         return spentacc
       }
       
-    }, []);
+    }, []).filter((spent: any) => spent.fecha_de_egreso );
   }
 
   openDialog(): void {
