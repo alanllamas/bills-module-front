@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BalanceComponent } from './balance/balance.component';
 import { RouterModule } from '@angular/router';
+import { UtilsModule } from '../utils/utils.module';
 
 
 
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    UtilsModule
   ]
 })
 export class BalanceModule { }
