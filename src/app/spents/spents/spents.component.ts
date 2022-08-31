@@ -26,6 +26,14 @@ export class SpentsComponent implements OnInit {
   ];
   actions = ['form_response_edit_url']
 
+  createData = {
+    title: 'Nuevo gasto',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSe4a6LQnbcnUcvJR8I-2bCWR2dbAUxf6-PYCktsZNe4K7KknQ/viewform?embedded=true'
+  }
+  editData = {
+    title: 'Editar gasto',
+    url:  ''
+  }
 
   ngOnInit(): void {
     this.spents = this.route.snapshot.data["spents"]
@@ -81,9 +89,10 @@ export class SpentsComponent implements OnInit {
     }, []).filter((spent: any) => spent.fecha_de_egreso );
   }
 
-  openDialog(): void {
+  openDialog(data: any): void {
     const dialogRef = this.dialog.open(SpentDialogComponent, {
-      width: '700px'
+      width: '700px',
+      data
     });
 
     dialogRef.afterClosed().subscribe(result => {

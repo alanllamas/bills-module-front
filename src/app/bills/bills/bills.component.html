@@ -11,7 +11,7 @@
     &nbsp;
     <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
   </div>
-  <button  mat-raised-button (click)="openDialog()" type="button" class="">
+  <button  mat-raised-button (click)="openDialog(createData)" type="button" class="">
     Crear nota
   </button>
 </div>
@@ -41,7 +41,11 @@
     </ng-container>
     <ng-container matColumnDef="actions">
       <th class="px-6"  mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td class="px-6"  mat-cell *matCellDef="let bill"> <a target="_blank" [href]="bill.actions?.edit">edit</a> </td>
+      <td class="px-6"  mat-cell *matCellDef="let bill">
+        <button (click)="openDialog({title:'Editar nota', url: bill.actions?.edit })">
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+      </td>
     </ng-container>
   </table>
 </section>

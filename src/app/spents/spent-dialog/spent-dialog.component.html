@@ -1,13 +1,13 @@
 <div id="newSpent" class="" tabindex="-1">
+  <div class="">
     <div class="">
-      <div class="">
-        <div class="flex justify-between">
-          <h5 class="">Nueva nota</h5>
-          <button type="button" class="" [mat-dialog-close]>X</button>
-        </div>
-        <div class=" ">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4a6LQnbcnUcvJR8I-2bCWR2dbAUxf6-PYCktsZNe4K7KknQ/viewform?embedded=true" width="640" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-        </div>
+      <div class="flex justify-between">
+        <h5 class="">{{data.title}}</h5>
+        <button type="button" class="" [mat-dialog-close]><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class=" ">
+          <iframe [src]="url" width="640" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
       </div>
     </div>
   </div>
+</div>

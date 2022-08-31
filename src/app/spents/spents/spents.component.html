@@ -1,6 +1,6 @@
 
 <div class="flex justify-end w-full px-6 py-4 ">
-  <button  mat-raised-button (click)="openDialog()" type="button" >
+  <button  mat-raised-button (click)="openDialog(createData)" type="button" >
     Crear vale de caja
   </button>
 </div>
@@ -40,7 +40,11 @@
       </ng-container>
       <ng-container matColumnDef="actions">
         <th class="px-6"  mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td class="px-6"  mat-cell *matCellDef="let spent"> <a target="_blank" [href]="spent.actions?.edit">edit</a> </td>
+        <td class="px-6"  mat-cell *matCellDef="let spent">
+          <button (click)="openDialog({title:'Editar nota', url: spent.actions?.edit })">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
+        </td>
       </ng-container>
     </section>
   </table>

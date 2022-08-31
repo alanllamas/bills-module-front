@@ -2,11 +2,11 @@
     <div class="">
       <div class="">
         <div class="flex justify-between">
-          <h5 class="">Nueva nota</h5>
-          <button type="button" class="" [mat-dialog-close]>X</button>
+          <h5 class="">{{data.title}}</h5>
+          <button type="button" class="" [mat-dialog-close]><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class=" ">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true" width="640" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            <iframe [src]="url" width="640" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
         </div>
       </div>
     </div>

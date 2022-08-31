@@ -10,7 +10,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./bills.component.scss']
 })
 export class BillsComponent implements OnInit {
-
   constructor(public route: ActivatedRoute, public dialog: MatDialog) { 
     this.filterSelectObj = [
       {
@@ -43,6 +42,15 @@ export class BillsComponent implements OnInit {
   filterSelectObj: any[] = []
   bill = null;
   actions = ['form_response_edit_url']
+
+  createData = {
+    title: 'Nueva nota',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true'
+  }
+  editData = {
+    title: 'Editar nota',
+    url:  ''
+  }
 
   ngOnInit(): void {
     this.bills = this.route.snapshot.data["bills"]
@@ -83,7 +91,6 @@ export class BillsComponent implements OnInit {
           let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
           let obj = {}
           Object.assign(obj, {[newcurr]: bill[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
-          console.log(obj);
           
           return {...acc, ...obj}
         }, {})
@@ -153,9 +160,10 @@ export class BillsComponent implements OnInit {
   }
 
   
-  openDialog(): void {
+  openDialog(data: any): void {
     const dialogRef = this.dialog.open(BillDialogComponent, {
-      width: '700px'
+      width: '700px',
+      data
     });
 
     dialogRef.afterClosed().subscribe(result => {
