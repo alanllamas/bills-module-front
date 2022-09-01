@@ -48,7 +48,7 @@
       <ng-container matColumnDef="actions">
         <th class="px-6"  mat-header-cell *matHeaderCellDef> Acciones </th>
         <td class="px-6"  mat-cell *matCellDef="let spent">
-          <button (click)="openDialog({title:'Editar nota', url: spent.form_response_edit_url })">
+          <button (click)="openDialog({title:'Editar nota', url: spent.edit })">
             <i class="fa-solid fa-pencil"></i>
           </button>
         </td>

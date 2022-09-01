@@ -31,8 +31,8 @@ export class SheetParserService {
               //   console.log('newcurr: ', newcurr);
               //   console.log('actionArray.includes(newcurr): ', actionArray.includes(newcurr));
               //   console.log('balance: ', balance);
-                // console.log('d: ', d);
-                // console.log('actionArray.includes(newcurr) && !!d: ', actionArray.includes(newcurr) && !!d);
+              // console.log('d: ', d);
+              // console.log('actionArray.includes(newcurr) && !!d: ', actionArray.includes(newcurr) && !!d);
                 
               }
 
@@ -52,13 +52,13 @@ export class SheetParserService {
               // console.log(' ');
               // console.log(' ');
               
-              if (newcurr === index && d || use_index) {
+              if (newcurr === index && d || newcurr === index && use_index) {
                 const id = values.length - i;
                 const finalURL =  use_index ? `${url}/${id}` : `${url}/${this.replaceChars(chars, d)}` ;
                 Object.assign(obj, {[newcurr]: this.replaceChars(chars,d), url: finalURL, id})
                
                 return {...acc, ...obj}
-              } else if (actionArray.includes(newcurr)) {
+              } else if (actionArray.includes(newcurr) && !!d) {
                 actions.map(({action, key}:any) => {
                   console.log(newcurr, action);
                   
