@@ -57,7 +57,7 @@ export class MonthComponent implements OnInit {
       actions: [],
       chars:  [{ find: '# ', replace: ''}],
       url: 'spents',
-      index: 'nota_ligada',
+      index: '',
       use_index : true
     }
     
