@@ -1,15 +1,16 @@
-<section>
-  <section class="w-full flex justify-evenly">
+<section class="flex flex-col items-center">
+  <section class="flex justify-between w-10/12 mt-8">
     <h2 class="text-2xl px-4 py-2">{{monthLabel | titlecase}} </h2>
-    <button  mat-raised-button (click)="openDialog(balanceData)" type="button" >
-      Crear cierre de caja
-    </button>
-    <button  mat-raised-button (click)="openDialog(dateData)" type="button" >
-      Modificar fecha
-    </button>
-
+    <div>
+      <button  mat-raised-button (click)="openDialog(balanceData)" type="button" >
+        Crear cierre de caja
+      </button>
+      <button  mat-raised-button (click)="openDialog(dateData)" type="button" >
+        Modificar fecha
+      </button>
+    </div>
   </section>
-  <section class="flex">
+  <section class="flex justify-evenly w-10/12 mt-8">
     <table class="w-5/12">
       <thead>
         <th>Moneda o billete</th>
@@ -34,13 +35,17 @@
       </tr>
     </table>
     <table class="w-5/12">
+      <thead>
+        <th>Concepto</th>
+        <th>Total</th>
+      </thead>
       <tr *ngFor="let total of totals" class="border-b y-2">
         <th>{{total.key}}</th>
         <td>{{total.value}} </td>
       </tr>
     </table>
   </section>
-  <section class="flex">
+  <section class="flex justify-between w-10/12 mt-8">
     <table class="w-5/12">
       <thead>
         <th>Moneda o billete</th>
