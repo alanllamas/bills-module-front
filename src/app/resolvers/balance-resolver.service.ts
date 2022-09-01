@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { combineLatestAll, forkJoin, tap } from 'rxjs';
+import { combineLatestAll, forkJoin, of, tap } from 'rxjs';
 import { BalanceService } from '../balance/balance.service';
 import { SheetParserService } from '../utils/sheet-parser.service';
 
@@ -33,16 +33,21 @@ export class BalanceResolverService {
       // console.log('incomeRange: ', incomeRange);
       const outcomeRange = `${first.toUpperCase()}${rest.join('')}!G12:J`
       // console.log('outcomeRange: ', outcomeRange);
+      const configRange = `${first.toUpperCase()}${rest.join('')}!H1:I11`
+      // console.log('configRange: ', configRange);
+      
       return forkJoin({
         balanceA: this.balance.getForm(balanceRangeA),
         balanceB: this.balance.getForm(balanceRangeB),
         income: this.balance.getForm(incomeRange),
         outcome: this.balance.getForm(outcomeRange),
-      }).pipe(
-        tap(({balanceA, balanceB, income, outcome}: any) => console.log(`BEFORE MAP: `, [...this.parser.parseData(balanceA.values, config), ...this.parser.parseData(balanceB.values, config)].filter(data => data.cantidad !== undefined))))
+        config: this.balance.getForm(configRange),
+        month: of(month)
+      })
       
     }
-    return {}
-    // return this.balance.getForm("Historial de caja!B1:N").pipe(tap((data: any) => console.log(this.parseData(data.values))))
+    // return {}
+    return this.balance.getForm("Historial de caja!B1:N")
+    // .pipe(tap((data: any) => console.log(this.parser.parseData(data.values, config))))
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BalanceComponent } from './balance/balance/balance.component';
+import { MonthComponent } from './balance/month/month.component';
 import { BillComponent } from './bills/bill/bill.component';
 import { BillsComponent } from './bills/bills/bills.component';
 import { BalanceResolverService } from './resolvers/balance-resolver.service';
@@ -47,9 +48,9 @@ const routes: Routes = [
   },
   {
     path: 'balance/:month',
-    component: BalanceComponent,
+    component: MonthComponent,
     resolve: {
-      balance: BalanceResolverService
+      month: BalanceResolverService
     }
   },
 ];

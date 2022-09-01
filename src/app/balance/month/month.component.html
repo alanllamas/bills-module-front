@@ -1,0 +1,63 @@
+<section>
+  <section class="w-full flex justify-evenly">
+    <h2 class="text-2xl px-4 py-2">{{monthLabel | titlecase}} </h2>
+    <button  mat-raised-button (click)="openDialog(balanceData)" type="button" >
+      Crear cierre de caja
+    </button>
+    <button  mat-raised-button (click)="openDialog(dateData)" type="button" >
+      Modificar fecha
+    </button>
+
+  </section>
+  <section class="flex">
+    <table class="w-5/12">
+      <thead>
+        <th>Moneda o billete</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+      </thead>
+      <tr *ngFor="let coin of month.balance" class="border-b y-2">
+        <th>{{coin.label}}</th>
+        <td>{{coin.quantity}} </td>
+        <td>{{coin.value}} </td>
+      </tr>
+    </table>
+
+    <table class="w-1/4">
+      <thead>
+        <th>Concepto</th>
+        <th>Total</th>
+      </thead>
+      <tr *ngFor="let total of month.results" class="border-b y-2">
+        <th>{{total.label}}</th>
+        <td>{{total.value}} </td>
+      </tr>
+    </table>
+    <table class="w-5/12">
+      <tr *ngFor="let total of totals" class="border-b y-2">
+        <th>{{total.key}}</th>
+        <td>{{total.value}} </td>
+      </tr>
+    </table>
+  </section>
+  <section class="flex">
+    <table class="w-5/12">
+      <thead>
+        <th>Moneda o billete</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+      </thead>
+      <tr *ngFor="let coin of month.balance" class="border-b y-2">
+        <th>{{coin.label}}</th>
+        <td>{{coin.quantity}} </td>
+        <td>{{coin.value}} </td>
+      </tr>
+    </table>
+    <table class="w-5/12">
+      <tr *ngFor="let total of totals" class="border-b y-2">
+        <th>{{total.key}}</th>
+        <td>{{total.value}} </td>
+      </tr>
+    </table>
+  </section>
+</section>

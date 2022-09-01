@@ -2,4 +2,73 @@
 <button [routerLink]="['/balance','agosto']">navigate agosto</button>
 
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfn4wP57jW1sNp-CzZG-WKDq_u23aVhR0_OdABHa9d4pk_QSQ/viewform?embedded=true" width="640" height="1725" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+<div class="flex justify-between w-full px-6 py-4">
+    <div>
+      <!-- <mat-form-field  style="margin-left: 15px;"> -->
+        <label>Més</label>
+        <select matNativeControl name="months"
+          (change)="navigateMonth($event)">
+          <option value=""> </option>
+          <option [value]="month" *ngFor="let month of months">{{month | titlecase}}</option>
+        </select>
+      <!-- </mat-form-field> -->
+      <div *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+        <label>{{filter.name}}</label>
+        <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+          (change)="filterChange(filter,$event)">
+          <option value=""> </option>
+          <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+        </select>
+      </div>
+      &nbsp;
+      <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+
+      <!-- <form class="example-form">
+        <mat-form-field class="example-full-width" *ngFor="let filter of filterSelectObj" appearance="fill">
+
+          <mat-label>{{filter.name}}</mat-label>
+          
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Fecha"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filter.options" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form> -->
+    </div>
+    <button  mat-raised-button (click)="openDialog(createData)" type="button" >
+      Crear cierre de caja
+    </button>
+  </div>
+  <section class=" flex justify-center overflow-y-scroll h-120">
+  
+    <table mat-table [dataSource]="dataSource" class="" >
+      <section class="overflow-y-scroll text-center">
+        <tr class="space-x-3" mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="space-x-3" mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.fecha}} </th>
+          <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.fecha}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th class="px-6"  mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td class="px-6"  mat-cell *matCellDef="let spent">
+            <button (click)="openDialog({title:'Editar nota', url: spent.edit })">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+          </td>
+        </ng-container>
+      </section>
+    </table>
+  </section>
+  
+
+
+<!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfn4wP57jW1sNp-CzZG-WKDq_u23aVhR0_OdABHa9d4pk_QSQ/viewform?embedded=true" width="640" height="1725" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe> -->
