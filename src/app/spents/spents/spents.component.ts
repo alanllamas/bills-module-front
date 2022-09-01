@@ -81,13 +81,15 @@ export class SpentsComponent implements OnInit {
       actions: [{action:'form_response_edit_url', key: 'edit'}],
       chars:  [],
       url: 'spents',
-      index: 'comprobante',
+      index: 'fecha_de_egreso',
       use_index : true
     }
     const parsedData = this.parser.parseData( this.route.snapshot.data["spents"].values, config)
     this.headers = parsedData.headers
     this.spents = parsedData.values
       .filter((spent: any) => spent.fecha_de_egreso );
+
+      console.log(this.spents);
 
 
     this.dataSource.data = this.spents;

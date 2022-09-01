@@ -14,9 +14,9 @@ export class SheetParserService {
   // replacechars[1-2], url, indexheader, actions {action, key}
   parseData(values: any[], { chars, url, index, actions, use_index = false }: any) {
     const actionArray = actions.map(({action}:any) => action)
-    // console.log('actionArray: ', actionArray);
+    console.log('actionArray: ', actionArray);
     
-    const headers: any[] = values[0]
+    let headers: any[] = values[0]
     return {
       values: values.reduce((balanceacc: any[], balance: string[], i: number) => {
         if (i > 0) {
@@ -25,6 +25,16 @@ export class SheetParserService {
               let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
               let obj = {}
               let d =  balance[j]
+              if (newcurr === 'form_response_edit_url') {
+                
+              //   console.log('headers: ', headers);
+              //   console.log('newcurr: ', newcurr);
+              //   console.log('actionArray.includes(newcurr): ', actionArray.includes(newcurr));
+              //   console.log('balance: ', balance);
+                // console.log('d: ', d);
+                // console.log('actionArray.includes(newcurr) && !!d: ', actionArray.includes(newcurr) && !!d);
+                
+              }
 
               if (balance.includes("Terra Noble") && newcurr === index) d = 'Terra Noble ' + i;
               // if (!d) d = '0';
@@ -43,13 +53,15 @@ export class SheetParserService {
               // console.log(' ');
               
               if (newcurr === index && d || use_index) {
-                const id = i;
+                const id = values.length - i;
                 const finalURL =  use_index ? `${url}/${id}` : `${url}/${this.replaceChars(chars, d)}` ;
                 Object.assign(obj, {[newcurr]: this.replaceChars(chars,d), url: finalURL, id})
                
                 return {...acc, ...obj}
-              } else if (actionArray.includes(newcurr) && d) {
+              } else if (actionArray.includes(newcurr)) {
                 actions.map(({action, key}:any) => {
+                  console.log(newcurr, action);
+                  
                   if (newcurr === action) {
                     Object.assign(obj, { [key]: d })
                   }
@@ -63,17 +75,21 @@ export class SheetParserService {
             }, {})]
           }
         } else {
+          let arr = []
           this.headers = headers.reduce((acc, curr, j) => {
             if (!curr.includes(22)) {
               
               let obj = {}
               let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+              arr = [...arr, newcurr]
               Object.assign(obj, {[newcurr]: balance[j].trim().replace(/[\n]/g, ' ').normalize("NFD")})
               return {...acc, ...obj}
             }
             return acc
             
           }, {})
+          
+          headers = arr
         }
         
         return balanceacc
