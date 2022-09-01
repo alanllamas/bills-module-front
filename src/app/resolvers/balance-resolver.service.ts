@@ -29,9 +29,9 @@ export class BalanceResolverService {
       // console.log('balanceRange: ', balanceRange);
       const balanceRangeB = `${first.toUpperCase()}${rest.join('')}!E2:G11`
       // console.log('balanceRange: ', balanceRange);
-      const incomeRange = `${first.toUpperCase()}${rest.join('')}!B12:E`
+      const incomeRange = `${first.toUpperCase()}${rest.join('')}!B13:E`
       // console.log('incomeRange: ', incomeRange);
-      const outcomeRange = `${first.toUpperCase()}${rest.join('')}!G12:J`
+      const outcomeRange = `${first.toUpperCase()}${rest.join('')}!G13:J`
       // console.log('outcomeRange: ', outcomeRange);
       const configRange = `${first.toUpperCase()}${rest.join('')}!H1:I11`
       // console.log('configRange: ', configRange);

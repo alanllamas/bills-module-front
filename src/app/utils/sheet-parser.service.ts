@@ -9,7 +9,7 @@ export class SheetParserService {
 
   headers: any;
   replaceChars(chars: any[], data: string) {
-    return chars.reduce((acc, {find, replace}) => {acc = data.replaceAll(find, replace); return acc}, '')
+    return chars.length > 0 ? chars.reduce((acc, {find, replace}) => {acc = data.replaceAll(find, replace); return acc}, '') : data
   }
   // replacechars[1-2], url, indexheader, actions {action, key}
   parseData(values: any[], { chars, url, index, actions, use_index = false }: any) {
@@ -24,10 +24,27 @@ export class SheetParserService {
             balanceacc = [...balanceacc, headers.slice().reduce((acc, curr, j) => {
               let newcurr = curr.toLowerCase().trim().replace(/[\n ]/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
               let obj = {}
-              const d =  balance[j]
-              if (newcurr === index && d) {
-                const id = values.length - i;
-                const finalURL = use_index ? `${url}/${id}}` : `${url}/${this.replaceChars(chars, d)}`;
+              let d =  balance[j]
+
+              if (balance.includes("Terra Noble") && newcurr === index) d = 'Terra Noble ' + i;
+              // if (!d) d = '0';
+              // console.log(' ');
+              // console.log(' ');
+              // console.log(' ');
+              // console.log('balance: ', balance);
+              // console.log('i: ', i);
+              // console.log('newcurr: ', newcurr);
+              // console.log('d: ', d);
+              // // d = 'Terra Noble ' + i; 
+              // // console.log('d: ', d);
+              // console.log('acc: ', acc);
+              // console.log(' ');
+              // console.log(' ');
+              // console.log(' ');
+              
+              if (newcurr === index && d || use_index) {
+                const id = i;
+                const finalURL =  use_index ? `${url}/${id}` : `${url}/${this.replaceChars(chars, d)}` ;
                 Object.assign(obj, {[newcurr]: this.replaceChars(chars,d), url: finalURL, id})
                
                 return {...acc, ...obj}

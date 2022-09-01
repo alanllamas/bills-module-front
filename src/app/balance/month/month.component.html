@@ -35,34 +35,49 @@
       </tr>
     </table>
     <table class="w-5/12">
-      <thead>
-        <th>Concepto</th>
-        <th>Total</th>
-      </thead>
       <tr *ngFor="let total of totals" class="border-b y-2">
         <th>{{total.key}}</th>
         <td>{{total.value}} </td>
       </tr>
     </table>
   </section>
-  <section class="flex justify-between w-10/12 mt-8">
-    <table class="w-5/12">
-      <thead>
-        <th>Moneda o billete</th>
-        <th>Cantidad</th>
-        <th>Total</th>
-      </thead>
-      <tr *ngFor="let coin of month.balance" class="border-b y-2">
-        <th>{{coin.label}}</th>
-        <td>{{coin.quantity}} </td>
-        <td>{{coin.value}} </td>
-      </tr>
-    </table>
-    <table class="w-5/12">
-      <tr *ngFor="let total of totals" class="border-b y-2">
-        <th>{{total.key}}</th>
-        <td>{{total.value}} </td>
-      </tr>
-    </table>
+  <section class="flex justify-around w-full mt-8 mb-24">
+    <div class="h-80 w-5/12 overflow-y-scroll">
+      <table class="">
+        <thead>
+          <th>{{income.headers.nota}}</th>
+          <th>{{income.headers.fecha_de_nota}}</th>
+          <th>{{income.headers.cliente}}</th>
+          <th>{{income.headers.monto}}</th>
+  
+        </thead>
+        <tr *ngFor="let income of income.values" class="border-b y-2">
+          <td><a [href]="income.url" class="m-2 underline underline-offset-2 text-blue-500">{{income.nota}}</a></td>
+          <td>{{income.fecha_de_nota}}</td>
+          <td>{{income.cliente}} </td>
+          <td>{{income.monto}} </td>
+        </tr>
+      </table>
+    </div>
+    <div class="h-80 w-5/12 overflow-y-scroll">
+      <table class="">
+        <thead>
+          <th>ID</th>
+          <th>{{outcome.headers?.nota_ligada}}</th>
+          <th>{{outcome.headers?.fecha_de_vale}}</th>
+          <th>{{outcome.headers?.proveedor}}</th>
+          <th>{{outcome.headers?.monto}}</th>
+  
+        </thead>
+        <tr *ngFor="let outcome of outcome.values" class="border-b y-2">
+          <td><p class="mx-2">{{outcome.id}}</p></td>
+          <!-- <td><a [href]="outcome.url" class="m-2 underline text-blue-500">{{outcome.id}}</a></td> -->
+          <td>{{outcome?.nota_ligada || ''}}</td>
+          <td>{{outcome?.fecha_de_vale}}</td>
+          <td>{{outcome?.proveedor}}</td>
+          <td>{{outcome?.monto}}</td>
+        </tr>
+      </table>
+    </div>
   </section>
 </section>

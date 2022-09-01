@@ -17,6 +17,8 @@ export class MonthComponent implements OnInit {
   month:any = {}
   monthLabel = this.route.snapshot.data["month"].month
   totals = []
+  income = {values:[], headers:{ nota:'', fecha_de_nota: '', cliente: '', monto: '' }}
+  outcome = {values:[], headers:{ nota_ligada:'', fecha_de_vale: '', proveedor: '', monto: '' }}
 
   
   balanceData = {
@@ -45,15 +47,35 @@ export class MonthComponent implements OnInit {
       url: 'balance',
       index: 'fecha'
     }
+    const configIncome = {
+      actions: [],
+      chars:  [{ find: '# ', replace: ''}],
+      url: 'bills',
+      index: 'nota'
+    }
+    const configOutcome = {
+      actions: [],
+      chars:  [{ find: '# ', replace: ''}],
+      url: 'spents',
+      index: 'nota_ligada',
+      use_index : true
+    }
     
     
     const parsedData = this.parser.parseData( this.route.snapshot.data["month"].balanceA?.values, config)
     const parsedData2 = this.parser.parseData( this.route.snapshot.data["month"].balanceB?.values, config)
+    this.month = [...parsedData2.values, ...parsedData.values].reduce((acc, curr) => {
+      if (!curr.cantidad) {
+        const { denominacion, total } = curr
+        acc.results = [ ...acc.results, { label: denominacion, value: total } ]
+      } else {
+        const { denominacion, total, cantidad } = curr
+        acc.balance = [ ...acc.balance, { label: denominacion, value: total, quantity: cantidad } ]
+      }
+      return acc
+    }, { balance: [], results: [] })
+    
     const configData = this.parser.parseData( this.route.snapshot.data["month"].config?.values, configConfig)
-
-
-
-
     this.totals = configData.values.reduce((acc, curr) => {
       if (!curr.fecha_inicial.includes(22)) {
         acc = [...acc, {
@@ -75,20 +97,17 @@ export class MonthComponent implements OnInit {
       }
       return acc
     }, [])
+
+    this.income = this.parser.parseData( this.route.snapshot.data["month"].income?.values, configIncome)
+    console.log(this.income);
+
+
+    this.outcome = this.parser.parseData( this.route.snapshot.data["month"].outcome?.values, configOutcome)
+    
     
     this.headers = parsedData.headers
     
-    this.month = [...parsedData2.values, ...parsedData.values]
-      .reduce((acc, curr) => {
-        if (!curr.cantidad) {
-          const { denominacion, total } = curr
-          acc.results = [ ...acc.results, { label: denominacion, value: total } ]
-        } else {
-          const { denominacion, total, cantidad } = curr
-          acc.balance = [ ...acc.balance, { label: denominacion, value: total, quantity: cantidad } ]
-        }
-        return acc
-      }, { balance: [], results: [] })
+   
   }
 
   openDialog(data: any): void {
@@ -99,6 +118,7 @@ export class MonthComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      console.log(this.route.toString);
       this.router.navigate([], {skipLocationChange: true})
 
     });
