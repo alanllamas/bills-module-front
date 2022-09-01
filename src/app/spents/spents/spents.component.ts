@@ -31,11 +31,6 @@ export class SpentsComponent implements OnInit {
         options: []
       },
       {
-        name: 'Status de pago',
-        columnProp: 'status_de_pago',
-        options: []
-      },
-      {
         name: 'Monto Total',
         columnProp: 'monto_total',
         options: []
@@ -58,9 +53,8 @@ export class SpentsComponent implements OnInit {
   displayedColumns = [
     'numero_de_comprobante',
     'proveedor',
-    'fecha_de_egreso',
-    'status_de_pago',
     'monto_total',
+    'fecha_de_egreso',
     'metodo_de_pago',
     'concepto',
     'actions'
@@ -90,7 +84,9 @@ export class SpentsComponent implements OnInit {
       index: 'comprobante',
       use_index : true
     }
-    this.spents = this.parser.parseData( this.route.snapshot.data["spents"].values, config)
+    const parsedData = this.parser.parseData( this.route.snapshot.data["spents"].values, config)
+    this.headers = parsedData.headers
+    this.spents = parsedData.values
       .filter((spent: any) => spent.fecha_de_egreso );
 
 

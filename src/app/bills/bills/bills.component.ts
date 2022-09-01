@@ -61,8 +61,11 @@ export class BillsComponent implements OnInit {
       url: 'bills',
       index: 'numero_de_nota'
     }
-    this.bills = this.parser.parseData( this.route.snapshot.data["bills"].values, config)
+    const parsedData = this.parser.parseData( this.route.snapshot.data["bills"].values, config)
+    this.headers = parsedData.headers
+    this.bills = parsedData.values
       .filter((bill: any) => bill.fecha)
+    
     
     this.dataSource.data = this.bills;
     this.dataSource.filterPredicate = this.createFilter();
@@ -98,7 +101,7 @@ export class BillsComponent implements OnInit {
         let found = false;
         if (isFilterSet) {
           for (const col in searchTerms) {
-            found = searchTerms[col].trim().toLowerCase() ==  checkData(data, col)
+            found = searchTerms[col].trim().toLowerCase() == checkData(data, col)
           }
           return found
         } else {

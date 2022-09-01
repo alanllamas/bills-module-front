@@ -17,7 +17,7 @@
 </div>
 <section class="w-10/12 flex justify-center overflow-y-scroll h-120 m-auto">
   <table mat-table [dataSource]="dataSource" class="w-10/12">
-    <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
     <ng-container matColumnDef="numero_de_nota">
       <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.numero_de_nota}} </th>
