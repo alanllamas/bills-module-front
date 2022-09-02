@@ -35,6 +35,8 @@ export class BalanceResolverService {
       // console.log('outcomeRange: ', outcomeRange);
       const configRange = `${first.toUpperCase()}${rest.join('')}!H1:I11`
       // console.log('configRange: ', configRange);
+      const editRange = `${first.toUpperCase()}${rest.join('')}!AC3:AC4`
+      // console.log('editRange: ', editRange);
       
       return forkJoin({
         balanceA: this.balance.getForm(balanceRangeA),
@@ -42,6 +44,7 @@ export class BalanceResolverService {
         income: this.balance.getForm(incomeRange),
         outcome: this.balance.getForm(outcomeRange),
         config: this.balance.getForm(configRange),
+        edit_balance: this.balance.getForm(editRange),
         month: of(month)
       })
       

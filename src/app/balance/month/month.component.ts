@@ -29,10 +29,14 @@ export class MonthComponent implements OnInit {
     title: 'Modificar fecha',
     url:  'https://docs.google.com/forms/d/e/1FAIpQLSe_5mAXOs_pCVLKyVGRl3Vvj6oGx8c_rhktd7SB3po3paeN3w/viewform?edit2=2_ABaOnudX-FCg0mDinFV3-CvqhY2v8JDnKC-ea_tBAGyA6yO0xe8DtwHIphBgOzbSxw'
   }
-  
+  editBalanceData = {
+    title: 'Modificar cierre de caja',
+    url:  ''
+  }
+  edit_balance;
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data["month"]);
+    // console.log(this.route.snapshot.data["month"]);
     
     
     const config = {
@@ -58,6 +62,13 @@ export class MonthComponent implements OnInit {
       chars:  [{ find: '# ', replace: ''}],
       url: 'spents',
       index: '',
+      use_index : true
+    }
+    const configEdit = {
+      actions: [],
+      chars:  [{ find: '# ', replace: ''}],
+      url: 'balance',
+      index: 'form_response_edit_url',
       use_index : true
     }
     
@@ -99,10 +110,13 @@ export class MonthComponent implements OnInit {
     }, [])
 
     this.income = this.parser.parseData( this.route.snapshot.data["month"].income?.values, configIncome)
-    console.log(this.income);
+    // console.log(this.income);
 
 
     this.outcome = this.parser.parseData( this.route.snapshot.data["month"].outcome?.values, configOutcome)
+    this.edit_balance = this.parser.parseData( this.route.snapshot.data["month"].edit_balance?.values, configEdit)
+    // console.log(this.edit_balance);
+    this.editBalanceData.url = this.edit_balance.values[0].form_response_edit_url
     
     
     this.headers = parsedData.headers
@@ -118,7 +132,6 @@ export class MonthComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(this.route.toString);
       this.router.navigate([], {skipLocationChange: true})
 
     });

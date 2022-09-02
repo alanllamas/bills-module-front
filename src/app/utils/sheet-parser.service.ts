@@ -14,7 +14,7 @@ export class SheetParserService {
   // replacechars[1-2], url, indexheader, actions {action, key}
   parseData(values: any[], { chars, url, index, actions, use_index = false }: any) {
     const actionArray = actions.map(({action}:any) => action)
-    console.log('actionArray: ', actionArray);
+    // console.log('actionArray: ', actionArray);
     
     let headers: any[] = values[0]
     return {
