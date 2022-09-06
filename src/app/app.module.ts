@@ -9,24 +9,43 @@ import { BillsModule } from './bills/bills.module';
 import { SpentsModule } from './spents/spents.module';
 import { UtilsModule } from './utils/utils.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { BalanceModule } from './balance/balance.module';
+import { AuthModule } from './auth/auth.module';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { AuthState } from './states/auth.state';
+import { environment } from 'src/environments/environment';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxsModule.forRoot([ AuthState ], {}),
+    NgxsRouterPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot({}),
+    NgxsDispatchPluginModule.forRoot(),
+    AuthModule,
     BillsModule,
     SpentsModule,
     UtilsModule,
-    BalanceModule,
+    BalanceModule,  
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    NgxsStoragePluginModule.forRoot({
+      key: ['auth.token'],
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+<section>
+  <form (submit)="login($event)" class="flex flex-col m-auto border rounded w-1/4 mt-60 py-10 items-center">
+    <div class="p-5">
+      <label for="email">Correo</label>
+      <input class="border border-black mx-4 rounded" type="text" name="email" id="email">
+    </div>
+    <div class="p-5">
+
+      <label for="contraseña">contraseña</label>
+      <input class="border border-black mx-4 rounded" type="password" name="password" id="password">
+    </div>
+    <button type="submit" mat-raised-button class="w-1/2">Iniciar sesion</button>
+  </form>
+</section>
