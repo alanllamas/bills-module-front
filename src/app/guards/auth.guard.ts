@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { AuthState } from '../states/auth.state';
+import { Logout } from '../states/auth.actions';
 
 
 @Injectable({
@@ -28,6 +29,7 @@ export class AuthGuard implements CanActivate {
     const isLoggedIn: boolean = this.store.selectSnapshot(AuthState.isLoggedIn);
 
     if (!isLoggedIn) {
+      this.store.dispatch(new Logout())
       this.router.navigate(['/', 'login']);
     }
     return isLoggedIn;

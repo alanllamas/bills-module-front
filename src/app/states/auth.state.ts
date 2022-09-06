@@ -59,7 +59,11 @@ export class AuthState {
 
   @Action(AuthActions.Logout)
   logout({ patchState, dispatch }: StateContext<AuthStateModel>) {
-    patchState({ token: null });
+    patchState({
+      token: null,
+      expirationTime: null,
+      refreshToken: null
+    });
     dispatch(new Navigate(['login']));
   }
   
