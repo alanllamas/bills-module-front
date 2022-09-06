@@ -21,7 +21,7 @@ export class AuthService {
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  firebaseConfig =
+  // firebaseConfig =
   // {
   //   apiKey: "AIzaSyDHG0_TlvCq5YWy81tfR0xzuwhicjIgfPw",
   //   authDomain: "itacate-10070.firebaseapp.com",
@@ -31,14 +31,13 @@ export class AuthService {
   //   appId: "1:1090728081415:web:d8cfd8ec824ecf5d9e52a2",
   //   measurementId: "G-FDFRPGF8R9"
   // };
-  {...environment.FirebaseConfig, appId: environment.FirebaseConfig.appID}
 
   // databaseURL: "FIREBASE_DATABASE_URL"
 
   // appID: "1:1090728081415:web:d8cfd8ec824ecf5d9e52a2"
 
   // Initialize Firebase
-  app = initializeApp(this.firebaseConfig);
+  app = initializeApp(environment.FirebaseConfig);
   analytics = getAnalytics(this.app);
   auth = getAuth(this.app)
 

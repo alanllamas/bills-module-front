@@ -13,7 +13,7 @@ const envConfigFileProd = `export const environment = {
     projectId: '${process.env['projectId']}',
     storageBucket: '${process.env['storageBucket']}',
     messagingSenderId: '${process.env['messagingSenderId']}',
-    appID: '${process.env['appId']}',
+    appId: '${process.env['appId']}',
     measurementId: '${process.env['measurementId']}',
   }
 }`;
@@ -27,7 +27,7 @@ const envConfigFile = `export const environment = {
     projectId: '${process.env['projectId']}',
     storageBucket: '${process.env['storageBucket']}',
     messagingSenderId: '${process.env['messagingSenderId']}',
-    appID: '${process.env['appId']}',
+    appId: '${process.env['appId']}',
     measurementId: '${process.env['measurementId']}',
   }
 }`;
