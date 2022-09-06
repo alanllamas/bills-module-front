@@ -44,7 +44,6 @@ export class AuthService {
   constructor() { }
   async authenticate({ email, password }) {
     // console.log(email, password );
- console.log('environment.FirebaseConfig: ', {...environment.FirebaseConfig, appId: environment.FirebaseConfig.appID});
     
     const rawSignin = await signInWithEmailAndPassword(this.auth, email, password)
     const tokenData = rawSignin.user['stsTokenManager']
