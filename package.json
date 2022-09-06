@@ -29,6 +29,7 @@
     "@ngxs/storage-plugin": "^3.7.5",
     "@ngxs/store": "^3.7.5",
     "@popperjs/core": "^2.11.6",
+    "@types/node": "^18.7.15",
     "bootstrap": "5.2.0",
     "bootstrap-print-css": "^1.0.1",
     "dotenv": "^16.0.2",
