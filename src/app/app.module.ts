@@ -23,6 +23,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { BillsState } from './states/bills.state';
 import { MatButtonModule } from '@angular/material/button';
 import { SpentsState } from './states/spents.state';
+import { BalanceState } from './states/balance.state';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { SpentsState } from './states/spents.state';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([ AuthState, BillsState, SpentsState ], {}),
+    NgxsModule.forRoot([ AuthState, BillsState, SpentsState, BalanceState ], {}),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     NgxsDispatchPluginModule.forRoot(),

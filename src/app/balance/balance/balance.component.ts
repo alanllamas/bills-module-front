@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { Navigate } from '@ngxs/router-plugin';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { fetchBalance, SetMonth } from 'src/app/states/balance.actions';
+import { BalanceState } from 'src/app/states/balance.state';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 import { SheetParserService } from 'src/app/utils/sheet-parser.service';
 
@@ -11,8 +17,19 @@ import { SheetParserService } from 'src/app/utils/sheet-parser.service';
   styleUrls: ['./balance.component.scss']
 })
 export class BalanceComponent implements OnInit {
-    constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService, public router: Router) { 
+  @Select(BalanceState.balance) balance: Observable<any>
+  @Select(BalanceState.headers) headers: Observable<any>
+
+  @Dispatch() navigate = (id: string, url: string) => []
+  // @Dispatch() navigate = (id: string, url: string) => [new SetMonth(id), new Navigate([url])]
+  @Dispatch() fetch = () => [new fetchBalance()]
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService, public router: Router) { 
     this.filterSelectObj = [
+      {
+        name: 'Id',
+        columnProp: 'id',
+        options: []
+      },
       {
         name: 'Fecha',
         columnProp: 'fecha',
@@ -22,9 +39,7 @@ export class BalanceComponent implements OnInit {
   }
   filterValues: any = {};
   dataSource = new MatTableDataSource();
-  headers: any = {}
-  balance:any = {}
-  displayedColumns: any[] = ['fecha', 'actions'];
+  displayedColumns: any[] = ['id', 'fecha', 'actions'];
   filterSelectObj: any[] = []
   bill = null;
   actions = ['form_response_edit_url']
@@ -49,24 +64,13 @@ export class BalanceComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // this.balance = this.route.snapshot.data
-    const config = {
-      actions: [{action:'form_response_edit_url', key: 'edit'}],
-      chars:  [{ find: '/', replace: '-'}],
-      url: 'balance',
-      index: 'fecha'
-    }
-    const parsedData = this.parser.parseData( this.route.snapshot.data["balance"].values, config)
-    this.headers = parsedData.headers
-    this.balance = parsedData.values
-      .filter((balance: any) => balance.fecha)
-      console.log('this.balance: ', this.balance);
-    
-    this.dataSource.data = this.balance;
-    this.dataSource.filterPredicate = this.createFilter();
-    this.filterSelectObj.filter((o) => {
-      o.options = this.getFilterObject(this.balance, o.columnProp);
-    });
+    this.balance.subscribe(balance =>{
+      this.dataSource.data = balance;
+      this.dataSource.filterPredicate = this.createFilter();
+      this.filterSelectObj.filter((o) => {
+        o.options = this.getFilterObject(balance, o.columnProp);
+      });
+    })
   }
   navigateMonth(e) {
     console.log(e.target.value);
@@ -148,7 +152,8 @@ export class BalanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.router.navigate([], {skipLocationChange: true})
+      this.fetch()
+      
 
     });
   }

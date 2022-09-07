@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { Navigate } from '@ngxs/router-plugin';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { BalanceState } from 'src/app/states/balance.state';
+import { SetSpent } from 'src/app/states/spents.actions';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 import { SheetParserService } from 'src/app/utils/sheet-parser.service';
 
@@ -10,15 +16,13 @@ import { SheetParserService } from 'src/app/utils/sheet-parser.service';
   styleUrls: ['./month.component.scss']
 })
 export class MonthComponent implements OnInit {
+  @Select(BalanceState.month) month: Observable<any>
+
+  
+  @Dispatch() navigate = (url: string) => [new Navigate([url])]
 
   constructor(public route: ActivatedRoute, public parser: SheetParserService, public router: Router, public dialog: MatDialog) { }
 
-  headers: any = {}
-  month:any = {}
-  monthLabel = this.route.snapshot.data["month"].month
-  totals = []
-  income : any = {values:[], headers:{ nota:'', fecha_de_nota: '', cliente: '', monto: '' }}
-  outcome : any = {values:[], headers:{ nota_ligada:'', fecha_de_vale: '', proveedor: '', monto: '' }}
 
   
   balanceData = {
@@ -36,92 +40,12 @@ export class MonthComponent implements OnInit {
   edit_balance;
 
   ngOnInit(): void {
-    // console.log(this.route.snapshot.data["month"]);
-    
-    
-    const config = {
-      actions: [{action:'form_response_edit_url', key: 'edit'}],
-      chars:  [{ find: '/', replace: '-'}],
-      url: 'balance',
-      index: 'fecha'
-    }
-    const configConfig = {
-      actions: [{action:'form_response_edit_url', key: 'edit'}],
-      chars:  [{ find: '/', replace: '-'}],
-      url: 'balance',
-      index: 'fecha'
-    }
-    const configIncome = {
-      actions: [],
-      chars:  [{ find: '# ', replace: ''}],
-      url: 'bills',
-      index: 'nota'
-    }
-    const configOutcome = {
-      actions: [],
-      chars:  [{ find: '# ', replace: ''}],
-      url: 'spents',
-      index: '',
-      use_index : true
-    }
-    const configEdit = {
-      actions: [],
-      chars:  [{ find: '# ', replace: ''}],
-      url: 'balance',
-      index: 'form_response_edit_url',
-      use_index : true
-    }
-    
-    
-    const parsedData = this.parser.parseData( this.route.snapshot.data["month"].balanceA?.values, config)
-    const parsedData2 = this.parser.parseData( this.route.snapshot.data["month"].balanceB?.values, config)
-    this.month = [...parsedData2.values, ...parsedData.values].reduce((acc, curr) => {
-      if (!curr.cantidad) {
-        const { denominacion, total } = curr
-        acc.results = [ ...acc.results, { label: denominacion, value: total } ]
-      } else {
-        const { denominacion, total, cantidad } = curr
-        acc.balance = [ ...acc.balance, { label: denominacion, value: total, quantity: cantidad } ]
+    this.month.subscribe(month =>{
+      if (month) {
+        
+        this.editBalanceData.url = month.edit_balance_url
       }
-      return acc
-    }, { balance: [], results: [] })
-    
-    const configData = this.parser.parseData( this.route.snapshot.data["month"].config?.values, configConfig)
-    this.totals = configData.values.reduce((acc, curr) => {
-      if (!curr.fecha_inicial.includes(22)) {
-        acc = [...acc, {
-          key : curr.fecha_inicial,
-          value : curr.fecha_final
-        }]
-      } else {
-        acc = [
-          ...acc,
-          {
-            key : 'Fecha inicial',
-            value : curr.fecha_inicial
-          },
-          {
-            key : 'Fecha final',
-            value : curr.fecha_final
-          },
-        ]
-      }
-      return acc
-    }, [])
-
-    this.income = this.parser.parseData( this.route.snapshot.data["month"].income?.values, configIncome)
-    // console.log(this.income);
-
-
-    this.outcome = this.parser.parseData( this.route.snapshot.data["month"].outcome?.values, configOutcome)
-    this.edit_balance = this.parser.parseData( this.route.snapshot.data["month"].edit_balance?.values, configEdit)
-    // console.log(this.edit_balance);
-    this.editBalanceData.url = this.edit_balance.values[0].form_response_edit_url
-    
-    
-    this.headers = parsedData.headers
-    
-   
+    })
   }
 
   openDialog(data: any): void {

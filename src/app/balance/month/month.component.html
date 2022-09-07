@@ -1,6 +1,6 @@
 <section class="flex flex-col items-center">
   <section class="flex justify-between w-10/12 mt-8">
-    <h2 class="text-2xl px-4 py-2">{{monthLabel | titlecase}} </h2>
+    <h2 class="text-2xl px-4 py-2">{{(month | async)?.monthLabel | titlecase}} </h2>
     <div>
       <button  mat-raised-button (click)="openDialog(editBalanceData)" type="button" >
         Modificar cierre de caja Actual
@@ -20,7 +20,7 @@
         <th>Cantidad</th>
         <th>Total</th>
       </thead>
-      <tr *ngFor="let coin of month.balance" class="border-b y-2">
+      <tr *ngFor="let coin of (month | async)?.balance.balance" class="border-b y-2">
         <th>{{coin.label}}</th>
         <td>{{coin.quantity}} </td>
         <td>{{coin.value}} </td>
@@ -32,13 +32,13 @@
         <th>Concepto</th>
         <th>Total</th>
       </thead>
-      <tr *ngFor="let total of month.results" class="border-b y-2">
+      <tr *ngFor="let total of (month | async)?.balance.results" class="border-b y-2">
         <th>{{total.label}}</th>
         <td>{{total.value}} </td>
       </tr>
     </table>
     <table class="w-5/12">
-      <tr *ngFor="let total of totals" class="border-b y-2">
+      <tr *ngFor="let total of (month | async)?.totals" class="border-b y-2">
         <th>{{total.key}}</th>
         <td>{{total.value}} </td>
       </tr>
@@ -48,14 +48,17 @@
     <div class="h-80 w-5/12 overflow-y-scroll">
       <table class="">
         <thead>
-          <th>{{income.headers.nota}}</th>
-          <th>{{income.headers.fecha_de_nota}}</th>
-          <th>{{income.headers.cliente}}</th>
-          <th>{{income.headers.monto}}</th>
+          <th class="px-6"> {{(month | async).income.headers.id}} </th>
+          <th>{{(month | async)?.income.headers.nota}}</th>
+          <th>{{(month | async)?.income.headers.fecha_de_nota}}</th>
+          <th>{{(month | async)?.income.headers.cliente}}</th>
+          <th>{{(month | async)?.income.headers.monto}}</th>
   
         </thead>
-        <tr *ngFor="let income of income.values" class="border-b y-2">
-          <td><a [href]="income.url" class="m-2 underline underline-offset-2 text-blue-500">{{income.nota}}</a></td>
+        <tr *ngFor="let income of (month | async)?.income.values" class="border-b y-2">
+          
+          <td class="px-6 text-blue-500 underline" (click)="navigate(income.url)"># {{income.id}}</td>
+          <td>{{income.nota}}</td>
           <td>{{income.fecha_de_nota}}</td>
           <td>{{income.cliente}} </td>
           <td>{{income.monto}} </td>
@@ -65,16 +68,15 @@
     <div class="h-80 w-5/12 overflow-y-scroll">
       <table class="">
         <thead>
-          <th>ID</th>
-          <th>{{outcome.headers?.nota_ligada}}</th>
-          <th>{{outcome.headers?.fecha_de_vale}}</th>
-          <th>{{outcome.headers?.proveedor}}</th>
-          <th>{{outcome.headers?.monto}}</th>
+          <th class="px-6"> {{(month | async).outcome.headers.id}} </th>
+          <th>{{(month | async)?.outcome.headers?.nota_ligada}}</th>
+          <th>{{(month | async)?.outcome.headers?.fecha_de_vale}}</th>
+          <th>{{(month | async)?.outcome.headers?.proveedor}}</th>
+          <th>{{(month | async)?.outcome.headers?.monto}}</th>
   
         </thead>
-        <tr *ngFor="let outcome of outcome.values" class="border-b y-2">
-          <td><p class="mx-2">{{outcome.id}}</p></td>
-          <!-- <td><a [href]="outcome.url" class="m-2 underline text-blue-500">{{outcome.id}}</a></td> -->
+        <tr *ngFor="let outcome of (month | async)?.outcome.values" class="border-b y-2">
+          <td class="px-6 text-blue-500 underline" (click)="navigate(outcome.url)"># {{outcome.id}}</td>
           <td>{{outcome?.nota_ligada || ''}}</td>
           <td>{{outcome?.fecha_de_vale}}</td>
           <td>{{outcome?.proveedor}}</td>

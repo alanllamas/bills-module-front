@@ -52,9 +52,6 @@ const routes: Routes = [
   {
     path: 'balance',
     component: BalanceComponent,
-    resolve: {
-      balance: BalanceResolverService
-    },
     canActivate: [AuthGuard]
   },
   {
