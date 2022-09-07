@@ -17,8 +17,8 @@ export class MonthComponent implements OnInit {
   month:any = {}
   monthLabel = this.route.snapshot.data["month"].month
   totals = []
-  income = {values:[], headers:{ nota:'', fecha_de_nota: '', cliente: '', monto: '' }}
-  outcome = {values:[], headers:{ nota_ligada:'', fecha_de_vale: '', proveedor: '', monto: '' }}
+  income : any = {values:[], headers:{ nota:'', fecha_de_nota: '', cliente: '', monto: '' }}
+  outcome : any = {values:[], headers:{ nota_ligada:'', fecha_de_vale: '', proveedor: '', monto: '' }}
 
   
   balanceData = {

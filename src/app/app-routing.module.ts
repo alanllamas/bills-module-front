@@ -8,7 +8,7 @@ import { BillsComponent } from './bills/bills/bills.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BalanceResolverService } from './resolvers/balance-resolver.service';
-import { BillsResolverService } from './resolvers/bills-resolver.service';
+import { BillResolverService } from './resolvers/bill-resolver.service';
 import { SpentsResolverService } from './resolvers/spents-resolver.service';
 import { SpentComponent } from './spents/spent/spent.component';
 import { SpentsComponent } from './spents/spents/spents.component';
@@ -26,16 +26,13 @@ const routes: Routes = [
   {
     path: 'bills',
     component: BillsComponent,
-    resolve: {
-      bills: BillsResolverService
-    },
     canActivate: [AuthGuard]
   },
   {
     path: 'bills/:id',
     component: BillComponent,
     resolve: {
-      bills: BillsResolverService
+      bills: BillResolverService
     },
     canActivate: [AuthGuard]
   },

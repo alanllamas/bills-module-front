@@ -19,9 +19,13 @@
   <table mat-table [dataSource]="dataSource" class="w-10/12">
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+    <ng-container matColumnDef="id">
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.id}} </th>
+      <td class="px-6 text-blue-500 underline"  mat-cell *matCellDef="let bill" (click)="navigate(bill.id, bill.url)"># {{bill.id}}</td>
+    </ng-container>
     <ng-container matColumnDef="numero_de_nota">
       <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.numero_de_nota}} </th>
-      <td class="px-6"  mat-cell *matCellDef="let bill"><a [href]="bill.url"># {{bill.numero_de_nota}}</a></td>
+      <td class="px-6"  mat-cell *matCellDef="let bill"># {{bill.numero_de_nota}}</td>
     </ng-container>
     <ng-container matColumnDef="cliente">
       <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.cliente}} </th>
@@ -49,7 +53,7 @@
     </ng-container>
   </table>
 </section>
-<div class="w-3/4 m-auto py-5">
+<!-- <div class="w-3/4 m-auto py-5">
   <div id="note" class="w-1/2 m-auto hidden print:block">
   
     <section *ngIf="bill" class="border flex flex-col items-center p-10">
@@ -114,4 +118,4 @@
       </div>
     </section>
   </div>
-</div>
+</div> -->

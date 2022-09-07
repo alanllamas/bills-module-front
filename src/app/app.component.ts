@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Logout } from './states/auth.actions';
 import { AuthState } from './states/auth.state';
+import { fetchBills } from './states/bills.actions';
 
 
 @Component({
@@ -11,9 +12,15 @@ import { AuthState } from './states/auth.state';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Admin Itacate';
   @Select(AuthState.isLoggedIn) logged: Observable<boolean>
 
   @Dispatch() logout = () => new Logout()
+
+  constructor(public store: Store) {}
+  ngOnInit(): void {
+    this.store.dispatch([new fetchBills()])
+  }
+  
 }

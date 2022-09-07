@@ -20,6 +20,8 @@ import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { BillsState } from './states/bills.state';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([ AuthState ], {}),
+    NgxsModule.forRoot([ AuthState, BillsState ], {}),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     NgxsDispatchPluginModule.forRoot(),
@@ -46,6 +48,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     NgxsStoragePluginModule.forRoot({
       key: ['auth.token'],
     }),
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

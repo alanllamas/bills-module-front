@@ -4,6 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 import { SheetParserService } from 'src/app/utils/sheet-parser.service';
+import { Select } from '@ngxs/store';
+import { BillsState } from 'src/app/states/bills.state';
+import { Observable } from 'rxjs';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { SetBill } from 'src/app/states/bills.actions';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-bills',
@@ -11,11 +17,22 @@ import { SheetParserService } from 'src/app/utils/sheet-parser.service';
   styleUrls: ['./bills.component.scss']
 })
 export class BillsComponent implements OnInit {
+
+  @Select(BillsState.bills) bills: Observable<any>
+  @Select(BillsState.bills) headersObs: Observable<any>
+
+  @Dispatch() navigate = (id: string, url: string) => [new SetBill(id), new Navigate([url])]
+
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService) { 
     this.filterSelectObj = [
       {
         name: '# Nota',
         columnProp: 'numero_de_nota',
+        options: []
+      },
+      {
+        name: 'Id',
+        columnProp: 'id',
         options: []
       },
       {
@@ -38,40 +55,28 @@ export class BillsComponent implements OnInit {
   filterValues: any = {};
   dataSource = new MatTableDataSource();
   headers: any = {}
-  bills:any = {}
-  displayedColumns: any[] = ['numero_de_nota','cliente','fecha','status_de_pago', 'actions'];
+  displayedColumns: any[] = [ 'id' ,'numero_de_nota','cliente','fecha','status_de_pago', 'actions'];
   filterSelectObj: any[] = []
-  bill = null;
-  actions = ['form_response_edit_url']
 
   createData = {
     title: 'Nueva nota',
     url:  'https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true'
   }
-  editData = {
-    title: 'Editar nota',
-    url:  ''
-  }
   
   ngOnInit(): void {
+    this.headersObs.subscribe(headers => {
+      this.headers = headers
+
+    })
+    this.bills.subscribe(bills =>{
+      this.dataSource.data = bills;
+      this.dataSource.filterPredicate = this.createFilter();
+      this.filterSelectObj.filter((o) => {
+        o.options = this.getFilterObject(bills, o.columnProp);
+      });
+    })
     
-    const config = {
-      actions: [{action:'form_response_edit_url', key: 'edit'}],
-      chars:  [{ find: '# ', replace: ''}],
-      url: 'bills',
-      index: 'numero_de_nota'
-    }
-    const parsedData = this.parser.parseData( this.route.snapshot.data["bills"].values, config)
-    this.headers = parsedData.headers
-    this.bills = parsedData.values
-      .filter((bill: any) => bill.fecha)
     
-    
-    this.dataSource.data = this.bills;
-    this.dataSource.filterPredicate = this.createFilter();
-    this.filterSelectObj.filter((o) => {
-      o.options = this.getFilterObject(this.bills, o.columnProp);
-    });
   }
 
   createFilter() {
