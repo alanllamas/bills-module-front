@@ -8,7 +8,7 @@ import { Select } from '@ngxs/store';
 import { BillsState } from 'src/app/states/bills.state';
 import { Observable } from 'rxjs';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { SetBill } from 'src/app/states/bills.actions';
+import { fetchBills, SetBill } from 'src/app/states/bills.actions';
 import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
@@ -22,6 +22,7 @@ export class BillsComponent implements OnInit {
   @Select(BillsState.bills) headersObs: Observable<any>
 
   @Dispatch() navigate = (id: string, url: string) => [new SetBill(id), new Navigate([url])]
+  @Dispatch() fetch = () => [new fetchBills()]
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService) { 
     this.filterSelectObj = [
@@ -75,8 +76,6 @@ export class BillsComponent implements OnInit {
         o.options = this.getFilterObject(bills, o.columnProp);
       });
     })
-    
-    
   }
 
   createFilter() {
@@ -91,15 +90,7 @@ export class BillsComponent implements OnInit {
         }
       }
       let checkData = (data: any, col: string) => {
-
-        
-        // console.log(data['numero_de_nota']);
-        // console.log(typeof data[col]);
-        // console.log(data[col]);
-        const res = data[col].toString().toLowerCase()
-        // console.log(res);
-        
-        return res
+        return data[col].toString().toLowerCase()
       }
 
       let nameSearch = () => {
@@ -154,6 +145,7 @@ export class BillsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.fetch()
     });
   }
 
