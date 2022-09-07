@@ -19,7 +19,7 @@ import { Navigate } from '@ngxs/router-plugin';
 export class BillsComponent implements OnInit {
 
   @Select(BillsState.bills) bills: Observable<any>
-  @Select(BillsState.bills) headersObs: Observable<any>
+  @Select(BillsState.bills) headers: Observable<any>
 
   @Dispatch() navigate = (id: string, url: string) => [new SetBill(id), new Navigate([url])]
   @Dispatch() fetch = () => [new fetchBills()]
@@ -55,7 +55,6 @@ export class BillsComponent implements OnInit {
   }
   filterValues: any = {};
   dataSource = new MatTableDataSource();
-  headers: any = {}
   displayedColumns: any[] = [ 'id' ,'numero_de_nota','cliente','fecha','status_de_pago', 'actions'];
   filterSelectObj: any[] = []
 
@@ -65,10 +64,6 @@ export class BillsComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.headersObs.subscribe(headers => {
-      this.headers = headers
-
-    })
     this.bills.subscribe(bills =>{
       this.dataSource.data = bills;
       this.dataSource.filterPredicate = this.createFilter();

@@ -5,6 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { SheetParserService } from 'src/app/utils/sheet-parser.service';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { SpentsState } from 'src/app/states/spents.state';
+import { fetchSpents, SetSpent } from 'src/app/states/spents.actions';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-spents',
@@ -12,9 +18,19 @@ import { SheetParserService } from 'src/app/utils/sheet-parser.service';
   styleUrls: ['./spents.component.scss']
 })
 export class SpentsComponent implements OnInit {
+  @Select(SpentsState.spents) spents: Observable<any>
+  @Select(SpentsState.headers) headers: Observable<any>
+
+  @Dispatch() navigate = (id: string, url: string) => [new SetSpent(id), new Navigate([url])]
+  @Dispatch() fetch = () => [new fetchSpents()]
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService) { 
     this.filterSelectObj = [
+      {
+        name: 'Id',
+        columnProp: 'id',
+        options: []
+      },
       {
         name: '# Comprobante',
         columnProp: 'numero_de_comprobante',
@@ -48,9 +64,8 @@ export class SpentsComponent implements OnInit {
     ]
   }
   filterSelectObj: any[] = []
-  headers: any = {}
-  spents:any = {}
   displayedColumns = [
+    'id',
     'numero_de_comprobante',
     'proveedor',
     'monto_total',
@@ -65,38 +80,19 @@ export class SpentsComponent implements OnInit {
     title: 'Nuevo gasto',
     url:  'https://docs.google.com/forms/d/e/1FAIpQLSe4a6LQnbcnUcvJR8I-2bCWR2dbAUxf6-PYCktsZNe4K7KknQ/viewform?embedded=true'
   }
-  editData = {
-    title: 'Editar gasto',
-    url:  ''
-  }
 
   filterValues: any = {};
   dataSource = new MatTableDataSource();
 
 
   ngOnInit(): void {
-
-     
-    const config = {
-      actions: [{action:'form_response_edit_url', key: 'edit'}],
-      chars:  [],
-      url: 'spents',
-      index: 'fecha_de_egreso',
-      use_index : true
-    }
-    const parsedData = this.parser.parseData( this.route.snapshot.data["spents"].values, config)
-    this.headers = parsedData.headers
-    this.spents = parsedData.values
-      .filter((spent: any) => spent.fecha_de_egreso );
-
-      console.log(this.spents);
-
-
-    this.dataSource.data = this.spents;
-    this.dataSource.filterPredicate = this.createFilter();
-    this.filterSelectObj.filter((o) => {
-      o.options = this.getFilterObject(this.spents, o.columnProp);
-    });
+    this.spents.subscribe(spents =>{
+      this.dataSource.data = spents;
+      this.dataSource.filterPredicate = this.createFilter();
+      this.filterSelectObj.filter((o) => {
+        o.options = this.getFilterObject(spents, o.columnProp);
+      });
+    })
   }
 
   createFilter() {
@@ -172,6 +168,7 @@ export class SpentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed');
+      this.fetch()
     });
   }
 

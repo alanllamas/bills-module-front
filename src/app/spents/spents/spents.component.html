@@ -21,28 +21,32 @@
     <section class="overflow-y-scroll text-center">
       <tr class="space-x-3" mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
       <tr class="space-x-3" mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+      <ng-container matColumnDef="id">
+        <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).id}} </th>
+        <td class="px-6 text-blue-500 underline"  mat-cell *matCellDef="let spent" (click)="navigate(spent.id, spent.url)"># {{spent.id}}</td>
+      </ng-container>
       <ng-container matColumnDef="numero_de_comprobante">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.numero_de_comprobante}} </th>
-        <td mat-cell class="px-4" *matCellDef="let spent"><a [href]="spent.url"># {{spent.numero_de_comprobante}}</a></td>
+        <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).numero_de_comprobante}} </th>
+        <td class="px-6"  mat-cell *matCellDef="let spent"># {{spent.numero_de_comprobante}}</td>
       </ng-container>
       <ng-container matColumnDef="proveedor">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.proveedor}} </th>
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{(headers | async).proveedor}} </th>
         <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.proveedor}} </td>
       </ng-container>
       <ng-container matColumnDef="fecha_de_egreso">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.fecha_de_egreso}} </th>
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{(headers | async).fecha_de_egreso}} </th>
         <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.fecha_de_egreso}} </td>
       </ng-container>
       <ng-container matColumnDef="monto_total">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.monto_total}} </th>
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{(headers | async).monto_total}} </th>
         <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.monto_total}} </td>
       </ng-container>
       <ng-container matColumnDef="metodo_de_pago">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.metodo_de_pago}} </th>
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{(headers | async).metodo_de_pago}} </th>
         <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.metodo_de_pago}} </td>
       </ng-container>
       <ng-container matColumnDef="concepto">
-        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{headers.concepto}} </th>
+        <th mat-header-cell MatSortHeader *matHeaderCellDef> {{(headers | async).concepto}} </th>
         <td mat-cell class="px-4" *matCellDef="let spent"> {{spent.concepto}} </td>
       </ng-container>
       <ng-container matColumnDef="actions">

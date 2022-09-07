@@ -12,18 +12,6 @@ export class BillComponent implements OnInit {
   @Select(BillsState.headers) headers: Observable<any>
 
   constructor() { }
-  ngOnInit(): void {
-  
-    // const missingObjs = 10 - this.bill.products.length
-    // const emptydata = {
-    //   label: 'data',
-    //   quantity: '',
-    //   price: 0,
-    //   total: 0
-    // }
-
-    // const empty = new Array(missingObjs === -1 ? 10 : missingObjs).fill(emptydata)
-    // this.bill.products = [...this.bill.products, ...empty]
-  }
+  ngOnInit(): void { }
   
 }

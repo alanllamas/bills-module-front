@@ -20,27 +20,27 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
     <ng-container matColumnDef="id">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.id}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).id}} </th>
       <td class="px-6 text-blue-500 underline"  mat-cell *matCellDef="let bill" (click)="navigate(bill.id, bill.url)"># {{bill.id}}</td>
     </ng-container>
     <ng-container matColumnDef="numero_de_nota">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.numero_de_nota}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).numero_de_nota}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"># {{bill.numero_de_nota}}</td>
     </ng-container>
     <ng-container matColumnDef="cliente">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.cliente}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).cliente}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"> {{bill.cliente}} </td>
     </ng-container>
     <ng-container matColumnDef="monto_total">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.monto_total}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).monto_total}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"> {{bill.monto_total}} </td>
     </ng-container>
     <ng-container matColumnDef="fecha">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.fecha}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).fecha}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"> {{bill.fecha}} </td>
     </ng-container>
     <ng-container matColumnDef="status_de_pago">
-      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{headers.status_de_pago}} </th>
+      <th class="px-6"  mat-header-cell *matHeaderCellDef> {{(headers | async).status_de_pago}} </th>
       <td class="px-6"  mat-cell *matCellDef="let bill"> {{bill.status_de_pago}} </td>
     </ng-container>
     <ng-container matColumnDef="actions">
@@ -87,7 +87,7 @@
           <ng-container *ngFor="let product of bill.products">
             <tr [ngClass]="{'text-white': product.label === 'data' }" class="border-b">
               <td class="p-1 border text-center">{{product.quantity}}</td>
-              <td class="p-1 border">{{headers[product.label]}}</td>
+              <td class="p-1 border">{{(headers | async)[product.label]}}</td>
               <td class="p-1 border text-right">{{product.price | currency}}</td>
               <td class="p-1 border text-right">{{product.total | currency}}</td>
             </tr>

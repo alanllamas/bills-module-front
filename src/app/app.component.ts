@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Logout } from './states/auth.actions';
 import { AuthState } from './states/auth.state';
 import { fetchBills } from './states/bills.actions';
+import { fetchSpents } from './states/spents.actions';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 
   constructor(public store: Store) {}
   ngOnInit(): void {
-    this.store.dispatch([new fetchBills()])
+    this.store.dispatch([new fetchBills(), new fetchSpents()])
   }
   
 }

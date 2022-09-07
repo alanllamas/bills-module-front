@@ -1,17 +1,17 @@
 <div class="">
-    <h2>{{headers.numero_de_comprobante}}: {{spent.numero_de_comprobante}} | {{headers.proveedor}}: {{spent.proveedor}} | {{headers.fecha_de_egreso}}: {{spent.fecha_de_egreso}}  </h2>
-    <p> {{headers.status}}: {{spent.status}}</p>
-    <p> {{headers.categoria}}: {{spent.categoria}}</p>
-    <p> {{headers.proveedor}}: {{spent.proveedor}}</p>
-    <p> {{headers.comentarios}}: {{spent.comentarios}}</p>
-    <p> {{headers.costo_envio}}: {{spent.costo_envio}}</p>
-    <p> {{headers.fecha_de_egreso}}: {{spent.fecha_de_egreso}}</p>
-    <p> {{headers.metodo_de_pago}}: {{spent.metodo_de_pago}}</p>
-    <p> {{headers.monto}}: {{spent.monto}}</p>
-    <p> {{headers.monto_total}}: {{spent.monto_total}}</p>
-    <p> {{headers.comprobante}}: {{spent.comprobante}}</p>
-    <p> {{headers.concepto}}: {{spent.concepto}}</p>
-    <p> {{headers.comentarios}}: {{spent.comentarios}}</p>
+    <h2>{{(headers | async).numero_de_comprobante}}: {{(spent | async).numero_de_comprobante}} | {{(headers | async).proveedor}}: {{(spent | async).proveedor}} | {{(headers | async).fecha_de_egreso}}: {{(spent | async).fecha_de_egreso}}  </h2>
+    <p> {{(headers | async).status}}: {{(spent | async).status}}</p>
+    <p> {{(headers | async).categoria}}: {{(spent | async).categoria}}</p>
+    <p> {{(headers | async).proveedor}}: {{(spent | async).proveedor}}</p>
+    <p> {{(headers | async).comentarios}}: {{(spent | async).comentarios}}</p>
+    <p> {{(headers | async).costo_envio}}: {{(spent | async).costo_envio}}</p>
+    <p> {{(headers | async).fecha_de_egreso}}: {{(spent | async).fecha_de_egreso}}</p>
+    <p> {{(headers | async).metodo_de_pago}}: {{(spent | async).metodo_de_pago}}</p>
+    <p> {{(headers | async).monto}}: {{(spent | async).monto}}</p>
+    <p> {{(headers | async).monto_total}}: {{(spent | async).monto_total}}</p>
+    <p> {{(headers | async).comprobante}}: {{(spent | async).comprobante}}</p>
+    <p> {{(headers | async).concepto}}: {{(spent | async).concepto}}</p>
+    <p> {{(headers | async).comentarios}}: {{(spent | async).comentarios}}</p>
 
     
     <!-- <section id="note">
@@ -19,7 +19,7 @@
             <img src="http://placehold.it/280x170?text=El%20itacate" alt="">
             <div>
                 <h3>Nota de venta</h3>
-                <p class="rounded border border-light">{{spent.numero_de_comprobante}}</p>
+                <p class="rounded border border-light">{{(spent | async).numero_de_comprobante}}</p>
             </div>
         </div>
     </section> -->

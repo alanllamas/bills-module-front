@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { BillsState } from './states/bills.state';
 import { MatButtonModule } from '@angular/material/button';
+import { SpentsState } from './states/spents.state';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([ AuthState, BillsState ], {}),
+    NgxsModule.forRoot([ AuthState, BillsState, SpentsState ], {}),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     NgxsDispatchPluginModule.forRoot(),
