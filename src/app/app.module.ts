@@ -25,7 +25,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { SpentsState } from './states/spents.state';
 import { BalanceState } from './states/balance.state';
 import { WarehouseState } from './states/warehouse.state';
-
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { QrCodeModule } from 'ng-qrcode';
+import { WarehouseModule } from './warehouse/warehouse.module';
 
 @NgModule({
   declarations: [
@@ -45,13 +47,16 @@ import { WarehouseState } from './states/warehouse.state';
     BillsModule,
     SpentsModule,
     UtilsModule,
-    BalanceModule,  
+    BalanceModule,
+    WarehouseModule, 
     BrowserAnimationsModule,
     MatSidenavModule,
     NgxsStoragePluginModule.forRoot({
       key: ['auth.token'],
     }),
-    MatButtonModule
+    MatButtonModule,
+    NgxScannerQrcodeModule,
+    QrCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

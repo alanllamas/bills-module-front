@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   @Select(AuthState.isLoggedIn) logged: Observable<boolean>
 
   @Dispatch() logout = () => new Logout()
-
   constructor(public store: Store) {}
   ngOnInit(): void {
     this.logged.subscribe(data => {

@@ -12,6 +12,7 @@ import { BillResolverService } from './resolvers/bill-resolver.service';
 import { SpentResolverService } from './resolvers/spent-resolver.service';
 import { SpentComponent } from './spents/spent/spent.component';
 import { SpentsComponent } from './spents/spents/spents.component';
+import { WarehouseComponent } from './warehouse/warehouse/warehouse.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,11 @@ const routes: Routes = [
     resolve: {
       month: BalanceResolverService
     },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'warehouse',
+    component: WarehouseComponent,
     canActivate: [AuthGuard]
   },
 ];
