@@ -14,4 +14,12 @@ export class fetchCategories {
     static readonly type = '[WarehouseState] Fetch Categories';
     constructor() { }
 }
+export class SetWarehouses {
+    static readonly type = '[WarehouseState] Set Warehouses';
+    constructor(public warehouses: any) { }
+}
+export class fetchWarehouses {
+    static readonly type = '[WarehouseState] Fetch Warehouses';
+    constructor() { }
+}
 

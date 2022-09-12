@@ -16,6 +16,10 @@ export class WarehouseStateModel {
     headers: any[]
     categories: any[]
   }
+  warehouses: {
+    headers: any[]
+    warehouses: any[]
+  }
 }
 
 @State<WarehouseStateModel>({
@@ -29,6 +33,10 @@ export class WarehouseStateModel {
       headers: [],
       categories: []
     },
+    warehouses: {
+      headers: [],
+      warehouses: []
+    },
   }
 })
 
@@ -41,6 +49,14 @@ export class WarehouseState {
   @Selector()
   static inventory(state: WarehouseStateModel): WarehouseStateModel["inventory"] {
     return state.inventory;
+  }
+  @Selector()
+  static Categories(state: WarehouseStateModel): WarehouseStateModel["categories"] {
+    return state.categories;
+  }
+  @Selector()
+  static Warehouses(state: WarehouseStateModel): WarehouseStateModel["warehouses"] {
+    return state.warehouses;
   }
 
   
@@ -95,6 +111,34 @@ export class WarehouseState {
           // console.log('newWarehouseData: ', newWarehouseData);
           
           dispatch(new WarehouseActions.SetCategories({ headers, categories }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetWarehouses)
+  SetWarehouses({ patchState }: StateContext<WarehouseStateModel>, { warehouses }: WarehouseActions.SetWarehouses) {
+    patchState({ warehouses })
+  }
+  @Action(WarehouseActions.fetchWarehouses)
+  fetchWarehouses({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchWarehouses) {
+
+    const range = "'Almacenes'!B1:E";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'warehouses',
+            index: 'id',
+          }
+          console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const warehouses = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          // console.log('newWarehouseData: ', newWarehouseData);
+          
+          dispatch(new WarehouseActions.SetWarehouses({ headers, warehouses }))
         }
       )
     ).subscribe()
