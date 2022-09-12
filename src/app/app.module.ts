@@ -24,6 +24,7 @@ import { BillsState } from './states/bills.state';
 import { MatButtonModule } from '@angular/material/button';
 import { SpentsState } from './states/spents.state';
 import { BalanceState } from './states/balance.state';
+import { WarehouseState } from './states/warehouse.state';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { BalanceState } from './states/balance.state';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([ AuthState, BillsState, SpentsState, BalanceState ], {}),
+    NgxsModule.forRoot([ AuthState, BillsState, SpentsState, BalanceState, WarehouseState ], {}),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     NgxsDispatchPluginModule.forRoot(),

@@ -7,6 +7,7 @@ import { AuthState } from './states/auth.state';
 import { fetchBalance } from './states/balance.actions';
 import { fetchBills } from './states/bills.actions';
 import { fetchSpents } from './states/spents.actions';
+import { fetchCategories, fetchInventory } from './states/warehouse.actions';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class AppComponent implements OnInit {
       new fetchBills(),
       new fetchSpents(),
       new fetchBalance(),
+      new fetchInventory(),
+      new fetchCategories(),
     ])
   }
   
