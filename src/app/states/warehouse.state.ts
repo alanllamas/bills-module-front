@@ -102,6 +102,22 @@ export class WarehouseState {
   static Warehouses(state: WarehouseStateModel): WarehouseStateModel["warehouses"] {
     return state.warehouses;
   }
+  @Selector()
+  static MeasureUnits(state: WarehouseStateModel): WarehouseStateModel["measure_units"] {
+    return state.measure_units;
+  }
+  @Selector()
+  static ProductList(state: WarehouseStateModel): WarehouseStateModel["product_list"] {
+    return state.product_list;
+  }
+  @Selector()
+  static InMoves(state: WarehouseStateModel): WarehouseStateModel["in_moves"] {
+    return state.in_moves;
+  }
+  @Selector()
+  static OutMoves(state: WarehouseStateModel): WarehouseStateModel["out_moves"] {
+    return state.out_moves;
+  }
 
   
   @Action(WarehouseActions.SetInventory)
@@ -222,7 +238,6 @@ export class WarehouseState {
   }
   @Action(WarehouseActions.fetchProductList)
   fetchProductList({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProductList) {
-
     const range = "'Lista de productos'!B1:N";
     this.warehouse.getForm(range).pipe(
       tap(
