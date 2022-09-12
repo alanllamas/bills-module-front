@@ -12,14 +12,6 @@
     
   </nav>
   <div class="">
-    <p>warehouse works!</p>
-
-<qr-code value="Yo world!" size="300" errorCorrectionLevel="M"></qr-code>
-
-
-<ngx-scanner-qrcode #action="scanner" (data)="output = $event"></ngx-scanner-qrcode>
-<span>{{output}}</span>
-<button (click)="action.toggleCamera()" [disabled]="action.isLoading">{{action.isStart ? 'Stop' : 'Start'}}</button>
     <router-outlet></router-outlet>
   </div>
 </div>
