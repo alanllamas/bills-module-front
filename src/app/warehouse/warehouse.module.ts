@@ -2,11 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { QrCodeModule } from 'ng-qrcode';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    WarehouseComponent
+  ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    QrCodeModule,
+    NgxScannerQrcodeModule
+  ],
 })
 export class WarehouseModule { }
