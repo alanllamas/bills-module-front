@@ -9,6 +9,7 @@ export class SheetParserService {
   constructor(public billsService: BillsService) { }
  
   headers: any;
+  values: any;
   replaceChars(chars: any[], data: string) {
     return chars.length > 0 ? chars.reduce((acc, {find, replace}) => {acc = data.replaceAll(find, replace); return acc}, '') : data
   }
@@ -53,7 +54,7 @@ export class SheetParserService {
   parseData(values: any[], { chars, url, index, actions, product_list = [], products = [] }: any): {values: any[], headers: any[]} {
     const actionArray = actions.map(({action}:any) => action)
     let headers: any[] = values[0]
-    return {
+    const finalData = {
       values: values.reduce((balanceacc: any[], balance: string[], i: number) => {
         let billTotal = 0;
         let productArray: any = [];
@@ -66,7 +67,7 @@ export class SheetParserService {
               
               if (balance.includes("Terra Noble") && newcurr === index) d = 'Terra Noble ' + i;
               if (newcurr === 'id') {
-
+  
                 Object.assign(obj, {[newcurr]: d, url: `${url}/${d}`})
                
                 return {...acc, ...obj}
@@ -96,7 +97,7 @@ export class SheetParserService {
                     : acc;
                     return acc
                 }, 0);
-
+  
                 const product = {
                   label: newcurr,
                   quantity: d,
@@ -121,8 +122,10 @@ export class SheetParserService {
                 total: 0
               }
               const empty = new Array(missingObjs === -1 ? 10 : missingObjs).fill(emptydata)
-
+  
               Object.assign(acc, { products: [...productArray, ...empty], billTotal })
+              // console.log('acc: ', acc);
+              
               return acc
             }, {})]
           }
@@ -143,11 +146,16 @@ export class SheetParserService {
           
           headers = arr
         }
-
+        // console.log('balanceacc: ', balanceacc);
+        
         return balanceacc
         
       }, []),
       headers: this.headers
     }
+    // console.log('values: ', this.values);
+    // console.log('finalData: ', finalData);
+    
+    return {...finalData}
   }
 }
