@@ -7,7 +7,7 @@ import { AuthState } from './states/auth.state';
 import { fetchBalance } from './states/balance.actions';
 import { fetchBills } from './states/bills.actions';
 import { fetchSpents } from './states/spents.actions';
-import { fetchCategories, fetchInventory, fetchWarehouses } from './states/warehouse.actions';
+import { fetchCategories, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductList, fetchWarehouses } from './states/warehouse.actions';
 
 
 @Component({
@@ -23,14 +23,22 @@ export class AppComponent implements OnInit {
 
   constructor(public store: Store) {}
   ngOnInit(): void {
-    this.store.dispatch([
-      new fetchBills(),
-      new fetchSpents(),
-      new fetchBalance(),
-      new fetchInventory(),
-      new fetchCategories(),
-      new fetchWarehouses(),
-    ])
+    this.logged.subscribe(data => {
+      if (data) {
+        this.store.dispatch([
+          new fetchBills(),
+          new fetchSpents(),
+          new fetchBalance(),
+          new fetchInventory(),
+          new fetchCategories(),
+          new fetchWarehouses(),
+          new fetchMeasurementUnits(),
+          new fetchProductList(),
+          new fetchInMoves(),
+          new fetchOutMoves(),
+        ])
+      }
+    })
   }
   
 }
