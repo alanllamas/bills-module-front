@@ -1,8 +1,17 @@
-<p>warehouse works!</p>
+<!-- <p>warehouse works!</p>
 
 <span>{{output}}</span>
 <qr-code [value]="(products | async).product_list[0].codigo" size="300" errorCorrectionLevel="M"></qr-code>
 
-
 <ngx-scanner-qrcode #action="scanner" (data)="getData($event); action.toggleCamera()"></ngx-scanner-qrcode>
-<button (click)="action.toggleCamera()" [disabled]="action.isLoading">{{action.isStart ? 'Stop' : 'Start'}}</button>
+<button (click)="action.toggleCamera()" [disabled]="action.isLoading">{{action.isStart ? 'Stop' : 'Start'}}</button> -->
+<!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true" width="640" height="1487" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> -->
+<button  mat-raised-button (click)="openDialog(createData)" type="button" >
+  Crear cierre de caja
+</button>
+<button  mat-raised-button (click)="openDialog(createExit, 'exit')" type="button" >
+  Crear salida
+</button>
+<button  mat-raised-button (click)="openDialog(createEntry, 'entry')" type="button" >
+  Crear Entrada
+</button>

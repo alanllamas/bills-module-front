@@ -2173,6 +2173,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ngxs/form-plugin@^3.7.5":
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/@ngxs/form-plugin/-/form-plugin-3.7.5.tgz#6b091ac02635d94d854e0534ae9974ac186e4f78"
+  integrity sha512-xDq7bZ/ADP4XdQ3+VAuH7oznr29bQ6ldCEMbfM52Tfo0DjgOyHFporw+WM7DQnpc3dyWsaXmp1yrIzam/1E31Q==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngxs/logger-plugin@^3.7.5":
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/@ngxs/logger-plugin/-/logger-plugin-3.7.5.tgz#7de49c125fd0a654f2f1cb5399398c58992f0e35"

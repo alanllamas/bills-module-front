@@ -41,6 +41,12 @@ export class WarehouseStateModel {
     headers: any[]
     out_moves: any[]
     new: string
+    newExitForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
 }
 
@@ -79,7 +85,13 @@ export class WarehouseStateModel {
     out_moves: {
       headers: [],
       out_moves: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true',
+      newExitForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     }
   }
 })

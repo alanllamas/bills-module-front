@@ -21,7 +21,7 @@ export class BillsComponent implements OnInit {
   @Select(BillsState.bills) bills: Observable<any>
   @Select(BillsState.bills) headers: Observable<any>
 
-  @Dispatch() navigate = (id: string, url: string) => [new SetBill(id), new Navigate([url])]
+  @Dispatch() navigate = (id: number, url: string) => [new SetBill(id), new Navigate([url])]
   @Dispatch() fetch = () => [new fetchBills()]
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public parser: SheetParserService) { 
@@ -65,6 +65,8 @@ export class BillsComponent implements OnInit {
   
   ngOnInit(): void {
     this.bills.subscribe(bills =>{
+      console.log('bills: ', bills);
+      
       this.dataSource.data = bills;
       this.dataSource.filterPredicate = this.createFilter();
       this.filterSelectObj.filter((o) => {

@@ -16,7 +16,7 @@ export class BillResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.bills.subscribe(bills => {
       if (bills) {
-        this.store.dispatch([new SetBill(route.params['id'])])
+        this.store.dispatch([new SetBill(Number(route.params['id']))])
       }
     })
     return {}
