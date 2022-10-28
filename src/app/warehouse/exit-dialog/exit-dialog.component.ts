@@ -66,4 +66,11 @@ export class ExitDialogComponent implements OnInit {
       body: fd  
     })
   }
+  getData(e) {
+    if (e) {
+      console.log(e);
+      this.newExitForm.controls.codigo.setValue(e)
+      // this.output = e
+    }
+  }
 }
