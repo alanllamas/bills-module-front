@@ -100,6 +100,14 @@ export class WarehouseStateModel {
       errors: {}
     }
   }
+  escandallos: {
+    headers: any[]
+    escandallos: any[]
+  }
+  colores: {
+    headers: any[]
+    colores: any[]
+  }
 }
 
 @State<WarehouseStateModel>({
@@ -196,6 +204,14 @@ export class WarehouseStateModel {
         status: '',
         errors: {}
       }
+    },
+    escandallos: {
+      headers: [],
+      escandallos: [],
+    },
+    colores: {
+      headers: [],
+      colores: [],
     }
   }
 })
@@ -245,6 +261,14 @@ export class WarehouseState {
   @Selector()
   static Proveedores(state: WarehouseStateModel): WarehouseStateModel["proveedores"] {
     return state.proveedores;
+  }
+  @Selector()
+  static Escandallos(state: WarehouseStateModel): WarehouseStateModel["escandallos"] {
+    return state.escandallos;
+  }
+  @Selector()
+  static Colores(state: WarehouseStateModel): WarehouseStateModel["colores"] {
+    return state.colores;
   }
 
   
@@ -520,6 +544,62 @@ export class WarehouseState {
           const proveedores = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
           
           dispatch(new WarehouseActions.SetProveedores({ headers, proveedores }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetEscandallos)
+  SetEscandallos({ patchState }: StateContext<WarehouseStateModel>, { escandallos }: WarehouseActions.SetEscandallos) {
+    patchState({ escandallos })
+  }
+  @Action(WarehouseActions.fetchEscandallos)
+  fetchEscandallos({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchEscandallos) {
+
+    const range = "'codigos de producto y variante'!B2:F";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'escandallos',
+            index: 'producto',
+          }
+          // console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const escandallos = values
+          // .filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          
+          dispatch(new WarehouseActions.SetEscandallos({ headers, escandallos }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetColores)
+  SetColores({ patchState }: StateContext<WarehouseStateModel>, { colores }: WarehouseActions.SetColores) {
+    patchState({ colores })
+  }
+  @Action(WarehouseActions.fetchColores)
+  fetchColores({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchColores) {
+
+    const range = "'codigos de producto y variante'!H2:I";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'colores',
+            index: 'color',
+          }
+          // console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const colores = values
+          // .filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          
+          dispatch(new WarehouseActions.SetColores({ headers, colores }))
         }
       )
     ).subscribe()

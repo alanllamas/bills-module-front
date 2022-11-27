@@ -21,6 +21,8 @@ export class ProductionLogDialogComponent implements OnInit {
   @Select(WarehouseState.ProductList) productList: Observable<any>
   @Select(WarehouseState.ProdLog) prodLog: Observable<any>
   @Select(WarehouseState.ProdInput) prodInput: Observable<any>
+  @Select(WarehouseState.Escandallos) escandallos: Observable<any>
+  @Select(WarehouseState.Colores) colores: Observable<any>
 
   @Dispatch() fetch = () => [fetchProductionInput]
 
@@ -73,9 +75,6 @@ export class ProductionLogDialogComponent implements OnInit {
     });
    
   }
-  
-  
-  
 
   onNoClick(): void {
     this.dialogRef.close();

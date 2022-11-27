@@ -78,4 +78,20 @@ export class fetchProveedores {
     static readonly type = '[WarehouseState] Fetch Proveedores';
     constructor() { }
 }
+export class SetEscandallos {
+    static readonly type = '[WarehouseState] Set Escandallos';
+    constructor(public escandallos: any) { }
+}
+export class fetchEscandallos {
+    static readonly type = '[WarehouseState] Fetch Escandallos';
+    constructor() { }
+}
+export class SetColores {
+    static readonly type = '[WarehouseState] Set Colores';
+    constructor(public colores: any) { }
+}
+export class fetchColores {
+    static readonly type = '[WarehouseState] Fetch Colores';
+    constructor() { }
+}
 
