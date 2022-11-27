@@ -54,4 +54,28 @@ export class fetchOutMoves {
     static readonly type = '[WarehouseState] Fetch Out Moves';
     constructor() { }
 }
+export class SetProductionLog {
+    static readonly type = '[WarehouseState] Set Production Log';
+    constructor(public production_log: any) { }
+}
+export class fetchProductionLog {
+    static readonly type = '[WarehouseState] Fetch Production Log';
+    constructor() { }
+}
+export class SetProductionInput {
+    static readonly type = '[WarehouseState] Set Production Input';
+    constructor(public production_input: any) { }
+}
+export class fetchProductionInput {
+    static readonly type = '[WarehouseState] Fetch Production Input';
+    constructor() { }
+}
+export class SetProveedores {
+    static readonly type = '[WarehouseState] Set Proveedores';
+    constructor(public proveedores: any) { }
+}
+export class fetchProveedores {
+    static readonly type = '[WarehouseState] Fetch Proveedores';
+    constructor() { }
+}
 

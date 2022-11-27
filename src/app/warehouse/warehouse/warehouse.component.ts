@@ -6,8 +6,11 @@ import { Observable } from 'rxjs';
 import { fetchCategories, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductList } from 'src/app/states/warehouse.actions';
 import { WarehouseState } from 'src/app/states/warehouse.state';
 import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.component';
+import { CategoriesDialogComponent } from '../categories-dialog/categories-dialog.component';
 import { EntryDialogComponent } from '../entry-dialog/entry-dialog.component';
 import { ExitDialogComponent } from '../exit-dialog/exit-dialog.component';
+import { ProductListDialogComponent } from '../product-list-dialog/product-list-dialog.component';
+import { ProductionLogDialogComponent } from '../production-log-dialog/production-log-dialog.component';
 
 @Component({
   selector: 'app-warehouse',
@@ -22,7 +25,7 @@ export class WarehouseComponent implements OnInit {
   today = new Date()
 
   createData = {
-    title: 'Nueva nota',
+    title: 'Nuevo cierre de caja',
     url:  'https://docs.google.com/forms/d/e/1FAIpQLSfn4wP57jW1sNp-CzZG-WKDq_u23aVhR0_OdABHa9d4pk_QSQ/viewform?embedded=true',
     today: this.today
   }
@@ -34,6 +37,31 @@ export class WarehouseComponent implements OnInit {
   createExit = {
     title: 'Nueva salida',
     url:  'https://docs.google.com/forms/u/0/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true',
+    today: this.today
+  }
+  createLog = {
+    title: 'Nueva entrada en bitacora',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSfxyNGZx_3z874Lc8GrvyRvtGzbMZRcsAuNdhpqAFoKcJl1NA/viewform?embedded=true',
+    today: this.today
+  }
+  createProduct = {
+    title: 'Nuevo producto',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSfxyNGZx_3z874Lc8GrvyRvtGzbMZRcsAuNdhpqAFoKcJl1NA/viewform?embedded=true',
+    today: this.today
+  }
+  createUnit = {
+    title: 'Nueva unidad de medida',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLScfQVVYlOfCjv3bZTmUmeyl_X50JA3dG54sZIC7Mo0lLTFdvw/viewform?usp=sf_link',
+    today: this.today
+  }
+  createWarehouse = {
+    title: 'Nuevo almacen',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSdhmU-JsJmIRQH4XQOwG-UBAyN_F9iUh7Sge_kXNb5WwGNwDg/viewform?usp=sf_link',
+    today: this.today
+  }
+  createCategory = {
+    title: 'Nueva categoria',
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSfqPXp_g2QPNDu1EAgXcew7423zx_-AZjik34pEUHOj9MkHxg/formResponse',
     today: this.today
   }
   ngOnInit(): void {
@@ -56,6 +84,15 @@ export class WarehouseComponent implements OnInit {
         break;
       case 'entry':
         block = EntryDialogComponent
+        break;
+      case 'log':
+        block = ProductionLogDialogComponent
+        break;
+      case 'product':
+        block = ProductListDialogComponent
+        break;
+      case 'category':
+        block = CategoriesDialogComponent
         break;
     
       default:

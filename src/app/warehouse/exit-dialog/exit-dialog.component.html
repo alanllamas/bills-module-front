@@ -28,36 +28,36 @@
         <input formControlName="fecha" class="border rounded border-gray-600 h-10 p-2" [ngModel] ="today | date:'yyyy-MM-dd'" id="fecha" type="date">
       </div>
     </div>
-  <div class="flex mb-6 justify-around">
-    <div class="flex flex-col w-6/12 px-2">
-      <label class="mb-2" for="razon-salida">razon de salida: <span class="text-red-600">*</span></label>
-      <input formControlName="razon" class="border rounded border-gray-600 h-10 p-2" id="razon-salida" type="text">
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="razon-salida">razon de salida: <span class="text-red-600">*</span></label>
+        <input formControlName="razon" class="border rounded border-gray-600 h-10 p-2" id="razon-salida" type="text">
+      </div>
+      
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="autoriza">autoriza: <span class="text-red-600">*</span></label>
+        <input formControlName="autoriza" class="border rounded border-gray-600 h-10 p-2" id="autoriza" type="text">
+      </div>
     </div>
-    
-    <div class="flex flex-col w-6/12 px-2">
-      <label class="mb-2" for="autoriza">autoriza: <span class="text-red-600">*</span></label>
-      <input formControlName="autoriza" class="border rounded border-gray-600 h-10 p-2" id="autoriza" type="text">
-    </div>
-  </div>
-  <div class="flex mb-12 justify-around">
-        
-    <div class="flex flex-col w-6/12 px-2">
-      <label class="mb-2" for="area-peticion">area de peticion: <span class="text-red-600">*</span></label>
-      <input formControlName="pide" class="border rounded border-gray-600 h-10 p-2" id="area-peticion" type="text">
-    </div>
-    <div class="flex flex-col w-6/12 px-2">
-      <label class="mb-2" for="comentarios">comentarios: <span class="text-red-600">*</span></label>
+    <div class="flex mb-12 justify-around">
+          
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="area-peticion">area de peticion: <span class="text-red-600">*</span></label>
+        <input formControlName="pide" class="border rounded border-gray-600 h-10 p-2" id="area-peticion" type="text">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="comentarios">comentarios: <span class="text-red-600">*</span></label>
 
-      <input formControlName="comentarios" class="border rounded border-gray-600 h-10 p-2" id="comentarios" type="text">
+        <input formControlName="comentarios" class="border rounded border-gray-600 h-10 p-2" id="comentarios" type="text">
+      </div>
     </div>
-  </div>
-  <div class="flex justify-end w-full pr-2">
-  <button mat-raised-button mat-button class="bg-teal-600 text-white">
-    
-    <input type="submit"  value="Enviar" />
-  </button>
+    <div class="flex justify-end w-full pr-2">
+    <button mat-raised-button mat-button class="bg-teal-600 text-white">
+      
+      <input type="submit"  value="Enviar" />
+    </button>
 
-  </div>
-</form>
+    </div>
+  </form>
 </div>
 

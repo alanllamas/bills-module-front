@@ -16,6 +16,12 @@ export class WarehouseStateModel {
     headers: any[]
     categories: any[]
     new: string
+    newCategoryForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
   warehouses: {
     headers: any[]
@@ -31,17 +37,63 @@ export class WarehouseStateModel {
     headers: any[]
     product_list: any[]
     new: string
+    newProductForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
   in_moves: {
     headers: any[]
     in_moves: any[]
     new: string
+    newEntryForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
   out_moves: {
     headers: any[]
     out_moves: any[]
     new: string
     newExitForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
+  }
+  production_log: {
+    headers: any[]
+    log: any[]
+    new: string
+    newLogForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
+  }
+  production_input: {
+    headers: any[]
+    inputs: any[]
+    new: string
+    newId: string
+    newInputForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
+  }
+  proveedores: {
+    headers: any[]
+    proveedores: any[]
+    new: string
+    newProveedorForm: {
       model: undefined,
       dirty: false,
       status: '',
@@ -60,7 +112,13 @@ export class WarehouseStateModel {
     categories: {
       headers: [],
       categories: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLSfqPXp_g2QPNDu1EAgXcew7423zx_-AZjik34pEUHOj9MkHxg/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLSfqPXp_g2QPNDu1EAgXcew7423zx_-AZjik34pEUHOj9MkHxg/viewform?embedded=true',
+      newCategoryForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     },
     warehouses: {
       headers: [],
@@ -75,18 +133,64 @@ export class WarehouseStateModel {
     product_list: {
       headers: [],
       product_list: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLSdXYowk6t_l86IREMCbyRECu4JXmT6wivqNW9TI-3CX6Yxg2A/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLSdXYowk6t_l86IREMCbyRECu4JXmT6wivqNW9TI-3CX6Yxg2A/viewform?embedded=true',
+      newProductForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     },
     in_moves: {
       headers: [],
       in_moves: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true',
+      newEntryForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     },
     out_moves: {
       headers: [],
       out_moves: [],
       new: 'https://docs.google.com/forms/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true',
       newExitForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
+    },
+    production_log: {
+      headers: [],
+      log: [],
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true',
+      newLogForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
+    },
+    production_input: {
+      headers: [],
+      inputs: [],
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true',
+      newId: null,
+      newInputForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
+    },
+    proveedores: {
+      headers: [],
+      proveedores: [],
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true',
+      newProveedorForm: {
         model: undefined,
         dirty: false,
         status: '',
@@ -129,6 +233,18 @@ export class WarehouseState {
   @Selector()
   static OutMoves(state: WarehouseStateModel): WarehouseStateModel["out_moves"] {
     return state.out_moves;
+  }
+  @Selector()
+  static ProdLog(state: WarehouseStateModel): WarehouseStateModel["production_log"] {
+    return state.production_log;
+  }
+  @Selector()
+  static ProdInput(state: WarehouseStateModel): WarehouseStateModel["production_input"] {
+    return state.production_input;
+  }
+  @Selector()
+  static Proveedores(state: WarehouseStateModel): WarehouseStateModel["proveedores"] {
+    return state.proveedores;
   }
 
   
@@ -250,7 +366,7 @@ export class WarehouseState {
   }
   @Action(WarehouseActions.fetchProductList)
   fetchProductList({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProductList) {
-    const range = "'Lista de productos'!B1:N";
+    const range = "'Lista de productos'!B1:S";
     this.warehouse.getForm(range).pipe(
       tap(
         (data: any) => {
@@ -278,7 +394,7 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchInMoves)
   fetchInMoves({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchInMoves) {
 
-    const range = "'Entradas'!B1:R";
+    const range = "'Entradas'!B1:V";
     this.warehouse.getForm(range).pipe(
       tap(
         (data: any) => {
@@ -306,7 +422,7 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchOutMoves)
   fetchOutMoves({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchOutMoves) {
 
-    const range = "'Salidas'!B1:N";
+    const range = "'Salidas'!B1:U";
     this.warehouse.getForm(range).pipe(
       tap(
         (data: any) => {
@@ -322,6 +438,88 @@ export class WarehouseState {
           // console.log('newWarehouseData: ', newWarehouseData);
           
           dispatch(new WarehouseActions.SetOutMoves({ headers, out_moves }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetProductionLog)
+  SetProductionLog({ patchState }: StateContext<WarehouseStateModel>, { production_log }: WarehouseActions.SetProductionLog) {
+    patchState({ production_log })
+  }
+  @Action(WarehouseActions.fetchProductionLog)
+  fetchProductionLog({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProductionLog) {
+
+    const range = "'Bitacora de producción'!B1:R";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'prod_log',
+            index: 'id',
+          }
+          console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const log = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          // console.log('newWarehouseData: ', newWarehouseData);
+          
+          dispatch(new WarehouseActions.SetProductionLog({ headers, log }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetProductionInput)
+  SetProductionInput({ patchState }: StateContext<WarehouseStateModel>, { production_input }: WarehouseActions.SetProductionInput) {
+    patchState({ production_input })
+  }
+  @Action(WarehouseActions.fetchProductionInput)
+  fetchProductionInput({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProductionInput) {
+
+    const range = "'lista de insumos en produccion'!B1:F";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'prod_input',
+            index: 'id',
+          }
+          // console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const inputs = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          
+          dispatch(new WarehouseActions.SetProductionInput({ headers, inputs, newId: Number(inputs[0].id) + 1 }))
+        }
+      )
+    ).subscribe()
+
+  }
+  @Action(WarehouseActions.SetProveedores)
+  SetProveedores({ patchState }: StateContext<WarehouseStateModel>, { proveedores }: WarehouseActions.SetProveedores) {
+    patchState({ proveedores })
+  }
+  @Action(WarehouseActions.fetchProveedores)
+  fetchProveedores({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProveedores) {
+
+    const range = "'proveedores'!B1:I";
+    this.warehouse.getForm(range).pipe(
+      tap(
+        (data: any) => {
+          const config = {
+            actions: [],
+            chars:  [],
+            url: 'proveedores',
+            index: 'id',
+          }
+          // console.log('data: ', data);
+          const { headers, values } = this.parser.parseData( data.values, config)
+          const proveedores = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+          
+          dispatch(new WarehouseActions.SetProveedores({ headers, proveedores }))
         }
       )
     ).subscribe()

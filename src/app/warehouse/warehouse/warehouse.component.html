@@ -6,12 +6,25 @@
 <ngx-scanner-qrcode #action="scanner" (data)="getData($event); action.toggleCamera()"></ngx-scanner-qrcode>
 <button (click)="action.toggleCamera()" [disabled]="action.isLoading">{{action.isStart ? 'Stop' : 'Start'}}</button> -->
 <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScyG_hZnNpzviISUCiMNev0hqAFeT2ZEIT0HQE-BVWLns6uSg/viewform?embedded=true" width="640" height="1487" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> -->
-<button  mat-raised-button (click)="openDialog(createData)" type="button" >
-  Crear cierre de caja
+<button  mat-raised-button (click)="openDialog(createUnit)" type="button" >
+  Crear Unidad de medida
+</button>
+<button  mat-raised-button (click)="openDialog(createWarehouse)" type="button" >
+  Crear Almacen
+</button>
+<button  mat-raised-button (click)="openDialog(createCategory, 'category')" type="button" >
+  Crear Categoria de almacen
+</button>
+<button  mat-raised-button (click)="openDialog(createProduct, 'product')" type="button" >
+  Crear producto
+</button>
+<hr class="my-2">
+<button  mat-raised-button (click)="openDialog(createEntry, 'entry')" type="button" >
+  Crear Entrada de producto
 </button>
 <button  mat-raised-button (click)="openDialog(createExit, 'exit')" type="button" >
-  Crear salida
+  Crear salida de producto
 </button>
-<button  mat-raised-button (click)="openDialog(createEntry, 'entry')" type="button" >
-  Crear Entrada
+<button  mat-raised-button (click)="openDialog(createLog, 'log')" type="button" >
+  Nueva entrada de producción
 </button>
