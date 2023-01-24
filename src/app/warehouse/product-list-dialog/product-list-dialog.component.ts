@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable, take, tap } from 'rxjs';
 import { WarehouseState } from 'src/app/states/warehouse.state';
+import { environment } from 'src/environments/environment';
+import { WarehouseService } from '../warehouse.service';
 
 @Component({
   selector: 'app-product-list-dialog',
@@ -19,28 +21,34 @@ export class ProductListDialogComponent implements OnInit {
  @Select(WarehouseState.Warehouses) warehouses: Observable<any>
  @Select(WarehouseState.Categories) categories: Observable<any>
  @Select(WarehouseState.ProductList) prodList: Observable<any>
+ @Select(WarehouseState.Variants) variants: Observable<any>
 
 
  constructor(
    public dialogRef: MatDialogRef<any>,
    public router: Router,
+   public warehouseService: WarehouseService
+
  ) {}
- url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdXYowk6t_l86IREMCbyRECu4JXmT6wivqNW9TI-3CX6Yxg2A/formResponse';
+ url = `${environment.strapiURL}/api/product-lists/`;
+ 
 
  today = new Date()
  formResults;
  filteredCategories;
  fullCategories
  newProductForm = new FormGroup({
-   producto: new FormControl(''),
-   unidad_de_medida: new FormControl(''),
-   proveedor: new FormControl(''),
-   almacen: new FormControl(''),
-   categoria: new FormControl(''),
-   stock_minimo: new FormControl(''),
-   tiempo_de_entrega_dias_naturales: new FormControl(''),
-   caducidad_minima_dias: new FormControl(''),
-   caracteristicas_de_almacenamiento: new FormControl(''),
+   product: new FormControl(''),
+   measurement_unit: new FormControl(''),
+   warehouse: new FormControl(''),
+   warehouse_category: new FormControl(''),
+   variants: new FormControl(''),
+   minimum_stock: new FormControl(0),
+   delivery_days: new FormControl(0),
+   minimum_expiration: new FormControl(0),
+   storage_specifications: new FormControl(''),
+   product_code: new FormControl(''),
+   comments: new FormControl(''),
  })
  
  
@@ -60,37 +68,15 @@ export class ProductListDialogComponent implements OnInit {
   })
  }
  filterCategories(categories) {
-  return categories.filter(category => category.almacen === this.newProductForm.controls.almacen.value)
- }
-
- formatDate(date) {
-   const newFecha = new Date(date)
-   const fechaFinal = `${newFecha.getMonth() + 1}/${newFecha.getDate() + 1}/${newFecha.getFullYear()}`
-   // console.log(fechaFinal);
-   return fechaFinal
+  return categories.filter(category => category.almacen === this.newProductForm.controls.warehouse.value)
  }
 
  PostForm() {
-   this.prodList.pipe(take(1)).subscribe(data => {
-     this.formResults = data.newProductForm.model
-   })
-   const {  producto, unidad_de_medida, proveedor, almacen, categoria, stock_minimo, tiempo_de_entrega_dias_naturales, caducidad_minima_dias, caracteristicas_de_almacenamiento, 
-   } = this.formResults
-   const fd = new FormData()
-   fd.append('entry.2108438511', producto)
-   fd.append('entry.1342615307', unidad_de_medida)
-   fd.append('entry.436104813', proveedor)
-   fd.append('entry.522533887', almacen)
-   fd.append('entry.610134269', categoria)
-   fd.append('entry.618598884', stock_minimo)
-   fd.append('entry.2052608399', tiempo_de_entrega_dias_naturales)
-   fd.append('entry.1683183597', caducidad_minima_dias)
-   fd.append('entry.2098930376', caracteristicas_de_almacenamiento)
-
-   fetch(this.url, {
-     method: 'POST',
-     body: fd  
-   })
+  this.prodList.pipe(take(1)).subscribe(data => {
+    const { model } =  data.newProductForm
+    this.formResults = model
+    this.warehouseService.postStrapi(this.url, model)
+  })
  }
 
  }

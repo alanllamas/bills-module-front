@@ -27,11 +27,35 @@ export class WarehouseStateModel {
     headers: any[]
     warehouses: any[]
     new: string
+    newWarehouseForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
+  }
+  variants: {
+    variants: any[]
+    newVariantForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
+  }
+  users: {
+    users: any[]
   }
   measure_units: {
     headers: any[]
     measure_units: any[]
     new: string
+    newMeasureUnitsForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
   product_list: {
     headers: any[]
@@ -128,15 +152,39 @@ export class WarehouseStateModel {
         errors: {}
       }
     },
+    users: {
+      users: [],
+    },
     warehouses: {
       headers: [],
       warehouses: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLSdhmU-JsJmIRQH4XQOwG-UBAyN_F9iUh7Sge_kXNb5WwGNwDg/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLSdhmU-JsJmIRQH4XQOwG-UBAyN_F9iUh7Sge_kXNb5WwGNwDg/viewform?embedded=true',
+      newWarehouseForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
+    },
+    variants: {
+      variants: [],
+      newVariantForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     },
     measure_units: {
       headers: [],
       measure_units: [],
-      new: 'https://docs.google.com/forms/d/e/1FAIpQLScfQVVYlOfCjv3bZTmUmeyl_X50JA3dG54sZIC7Mo0lLTFdvw/viewform?embedded=true'
+      new: 'https://docs.google.com/forms/d/e/1FAIpQLScfQVVYlOfCjv3bZTmUmeyl_X50JA3dG54sZIC7Mo0lLTFdvw/viewform?embedded=true',
+      newMeasureUnitsForm: {
+        model: undefined,
+        dirty: false,
+        status: '',
+        errors: {}
+      }
     },
     product_list: {
       headers: [],
@@ -223,6 +271,10 @@ export class WarehouseState {
 
 
   @Selector()
+  static users(state: WarehouseStateModel): WarehouseStateModel["users"] {
+    return state.users;
+  }
+  @Selector()
   static inventory(state: WarehouseStateModel): WarehouseStateModel["inventory"] {
     return state.inventory;
   }
@@ -233,6 +285,10 @@ export class WarehouseState {
   @Selector()
   static Warehouses(state: WarehouseStateModel): WarehouseStateModel["warehouses"] {
     return state.warehouses;
+  }
+  @Selector()
+  static Variants(state: WarehouseStateModel): WarehouseStateModel["variants"] {
+    return state.variants;
   }
   @Selector()
   static MeasureUnits(state: WarehouseStateModel): WarehouseStateModel["measure_units"] {
@@ -270,7 +326,26 @@ export class WarehouseState {
   static Colores(state: WarehouseStateModel): WarehouseStateModel["colores"] {
     return state.colores;
   }
+  
+  @Action(WarehouseActions.SetUsers)
+  SetUsers({ patchState }: StateContext<WarehouseStateModel>, { users }: WarehouseActions.SetUsers) {
+    patchState({ users })
+  }
+  @Action(WarehouseActions.fetchUsers)
+  fetchUsers({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchUsers) {
 
+    this.warehouse.getStrapi('users').pipe(
+      tap(
+        ( data : any) => {
+
+          // console.log('users data: ', data);
+          
+          dispatch(new WarehouseActions.SetUsers({ users: data }))
+        }
+      )
+    ).subscribe()
+
+  }
   
   @Action(WarehouseActions.SetInventory)
   SetInventory({ patchState }: StateContext<WarehouseStateModel>, { inventory }: WarehouseActions.SetInventory) {
@@ -307,22 +382,13 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchCategories)
   fetchCategories({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchCategories) {
 
-    const range = "'Categorias'!B1:F";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('warehouse-categories').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'categories',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const categories = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('categories data: ', data);
           
-          dispatch(new WarehouseActions.SetCategories({ headers, categories }))
+          dispatch(new WarehouseActions.SetCategories({ categories: data }))
         }
       )
     ).subscribe()
@@ -335,26 +401,34 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchWarehouses)
   fetchWarehouses({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchWarehouses) {
 
-    const range = "'Almacenes'!B1:F";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('warehouses').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'warehouses',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const warehouses = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('warehouses data: ', data);
           
-          dispatch(new WarehouseActions.SetWarehouses({ headers, warehouses }))
+          dispatch(new WarehouseActions.SetWarehouses({ warehouses: data }))
         }
       )
     ).subscribe()
+  }
+  @Action(WarehouseActions.SetVariants)
+  SetVariants({ patchState }: StateContext<WarehouseStateModel>, { variants }: WarehouseActions.SetVariants) {
+    patchState({ variants })
+  }
+  @Action(WarehouseActions.fetchVariants)
+  fetchVariants({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchVariants) {
 
+    this.warehouse.getStrapi('variants').pipe(
+      tap(
+        ({ data }: any) => {
+
+          // console.log('variants data: ', data);
+          
+          dispatch(new WarehouseActions.SetVariants({ variants: data }))
+        }
+      )
+    ).subscribe()
   }
   @Action(WarehouseActions.SetMeasurementUnits)
   SetMeasurementUnits({ patchState }: StateContext<WarehouseStateModel>, { measure_units }: WarehouseActions.SetMeasurementUnits) {
@@ -363,26 +437,16 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchMeasurementUnits)
   fetchMeasurementUnits({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchMeasurementUnits) {
 
-    const range = "'Unidades de medida'!B1:E";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('measurement-units').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'measure_units',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const measure_units = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('measure_units data: ', data);
           
-          dispatch(new WarehouseActions.SetMeasurementUnits({ headers, measure_units }))
+          dispatch(new WarehouseActions.SetMeasurementUnits({ measure_units: data }))
         }
       )
     ).subscribe()
-
   }
   @Action(WarehouseActions.SetProductList)
   SetProductList({ patchState }: StateContext<WarehouseStateModel>, { product_list }: WarehouseActions.SetProductList) {
@@ -390,22 +454,13 @@ export class WarehouseState {
   }
   @Action(WarehouseActions.fetchProductList)
   fetchProductList({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProductList) {
-    const range = "'Lista de productos'!B1:S";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('product-lists').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'product_list',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const product_list = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('product list data: ', data);
           
-          dispatch(new WarehouseActions.SetProductList({ headers, product_list }))
+          dispatch(new WarehouseActions.SetProductList({ product_list: data }))
         }
       )
     ).subscribe()
@@ -417,23 +472,13 @@ export class WarehouseState {
   }
   @Action(WarehouseActions.fetchInMoves)
   fetchInMoves({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchInMoves) {
-
-    const range = "'Entradas'!B1:V";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('product-inputs','*&filters[available][$gt]=0').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'in_moves',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const in_moves = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('in_moves data: ', data);
           
-          dispatch(new WarehouseActions.SetInMoves({ headers, in_moves }))
+          dispatch(new WarehouseActions.SetInMoves({ in_moves: data }))
         }
       )
     ).subscribe()
@@ -446,26 +491,16 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchOutMoves)
   fetchOutMoves({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchOutMoves) {
 
-    const range = "'Salidas'!B1:U";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('product-outputs').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'out_moves',
-            index: 'id',
-          }
-          console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const out_moves = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
-          // console.log('newWarehouseData: ', newWarehouseData);
+        ({ data }: any) => {
+
+          // console.log('out_moves data: ', data);
           
-          dispatch(new WarehouseActions.SetOutMoves({ headers, out_moves }))
+          dispatch(new WarehouseActions.SetOutMoves({ out_moves: data }))
         }
       )
     ).subscribe()
-
   }
   @Action(WarehouseActions.SetProductionLog)
   SetProductionLog({ patchState }: StateContext<WarehouseStateModel>, { production_log }: WarehouseActions.SetProductionLog) {
@@ -484,7 +519,7 @@ export class WarehouseState {
             url: 'prod_log',
             index: 'id',
           }
-          console.log('data: ', data);
+          // console.log('data: ', data);
           const { headers, values } = this.parser.parseData( data.values, config)
           const log = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
           // console.log('newWarehouseData: ', newWarehouseData);
@@ -529,21 +564,13 @@ export class WarehouseState {
   @Action(WarehouseActions.fetchProveedores)
   fetchProveedores({ dispatch }: StateContext<WarehouseStateModel>, { }: WarehouseActions.fetchProveedores) {
 
-    const range = "'proveedores'!B1:I";
-    this.warehouse.getForm(range).pipe(
+    this.warehouse.getStrapi('providers').pipe(
       tap(
-        (data: any) => {
-          const config = {
-            actions: [],
-            chars:  [],
-            url: 'proveedores',
-            index: 'id',
-          }
-          // console.log('data: ', data);
-          const { headers, values } = this.parser.parseData( data.values, config)
-          const proveedores = values.filter((product: any) => product.id).sort((a, b) => b.id - a.id )
+        ({ data }: any) => {
+
+          // console.log('proveedores data: ', data);
           
-          dispatch(new WarehouseActions.SetProveedores({ headers, proveedores }))
+          dispatch(new WarehouseActions.SetProveedores({ proveedores: data }))
         }
       )
     ).subscribe()
@@ -605,4 +632,5 @@ export class WarehouseState {
     ).subscribe()
 
   }
+
 }

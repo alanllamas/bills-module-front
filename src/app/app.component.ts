@@ -7,7 +7,7 @@ import { AuthState } from './states/auth.state';
 import { fetchBalance } from './states/balance.actions';
 import { fetchBills } from './states/bills.actions';
 import { fetchSpents } from './states/spents.actions';
-import { fetchCategories, fetchColores, fetchEscandallos, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductionInput, fetchProductionLog, fetchProductList, fetchProveedores, fetchWarehouses } from './states/warehouse.actions';
+import { fetchCategories, fetchColores, fetchEscandallos, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductionInput, fetchProductionLog, fetchProductList, fetchProveedores, fetchUsers, fetchVariants, fetchWarehouses } from './states/warehouse.actions';
 
 
 @Component({
@@ -40,6 +40,8 @@ export class AppComponent implements OnInit {
           new fetchProveedores(),
           new fetchEscandallos(),
           new fetchColores(),
+          new fetchVariants(),
+          new fetchUsers(),
         ])
       }
     })

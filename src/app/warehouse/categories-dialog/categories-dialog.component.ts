@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable, take } from 'rxjs';
 import { WarehouseState } from 'src/app/states/warehouse.state';
+import { environment } from 'src/environments/environment';
+import { WarehouseService } from '../warehouse.service';
 
 @Component({
   selector: 'app-categories-dialog',
@@ -20,15 +22,16 @@ export class CategoriesDialogComponent implements OnInit {
  constructor(
    public dialogRef: MatDialogRef<any>,
    public router: Router,
+   public warehouseService: WarehouseService
  ) {}
- url = 'https://docs.google.com/forms/d/e/1FAIpQLSfqPXp_g2QPNDu1EAgXcew7423zx_-AZjik34pEUHOj9MkHxg/formResponse';
+ url = `${environment.strapiURL}/api/warehouse-categories/`;
 
  today = new Date()
  formResults;
  newCategoryForm = new FormGroup({
-   almacen: new FormControl(''),
-   categoria: new FormControl(''),
-   descripcion: new FormControl(''),
+  warehouse: new FormControl(''),
+  category: new FormControl(''),
+  description: new FormControl(''),
  })
 
  onNoClick(): void {
@@ -39,19 +42,11 @@ export class CategoriesDialogComponent implements OnInit {
  ngOnInit(): void { }
 
  PostForm() {
-   this.categories.pipe(take(1)).subscribe(data => {
-     this.formResults = data.newCategoryForm.model
-   })
-   const { almacen, categoria, descripcion } = this.formResults
-   const fd = new FormData()
-   fd.append('entry.420658761', categoria)
-   fd.append('entry.1003790157', descripcion)
-   fd.append('entry.1964191951', almacen)
-
-   fetch(this.url, {
-     method: 'POST',
-     body: fd  
-   })
+  this.categories.pipe(take(1)).subscribe(data => {
+    const { model } =  data.newCategoryForm
+    this.formResults = model
+    this.warehouseService.postStrapi(this.url, model)
+  })
  }
 
 

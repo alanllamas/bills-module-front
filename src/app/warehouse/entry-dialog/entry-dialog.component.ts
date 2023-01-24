@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Select } from '@ngxs/store';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { Select, Store } from '@ngxs/store';
 import { Observable, take } from 'rxjs';
+import { SetBatchCode } from 'src/app/states/warehouse.actions';
 import { WarehouseState } from 'src/app/states/warehouse.state';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-entry-dialog',
@@ -13,15 +16,21 @@ import { WarehouseState } from 'src/app/states/warehouse.state';
 })
 export class EntryDialogComponent implements OnInit {
 
+  @Select(WarehouseState.users) users: Observable<any>
   @Select(WarehouseState.InMoves) entries: Observable<any>
   @Select(WarehouseState.MeasureUnits) measureUnits: Observable<any>
   @Select(WarehouseState.ProductList) productList: Observable<any>
+  @Select(WarehouseState.Proveedores) providers: Observable<any>
+  @Select(WarehouseState.Variants) variants: Observable<any>
+
+  @Dispatch() setBatchcode = (product, variant, provider, date) => [new SetBatchCode(product, variant, provider, date)]
 
   constructor(
     public dialogRef: MatDialogRef<any>,
-    public router: Router
+    public router: Router,
+    public store: Store
   ) {}
-  url = 'https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/formResponse';
+  url = `${environment.strapiURL}/api/product-inputs/`;
 
   today = new Date()
   formResults;
@@ -33,6 +42,8 @@ export class EntryDialogComponent implements OnInit {
     fechaCaducidad: new FormControl(''),
     encargado: new FormControl(''),
     comentarios: new FormControl(''),
+    variante: new FormControl(''),
+    proveedor: new FormControl(''),
   })
 
   onNoClick(): void {
@@ -44,35 +55,39 @@ export class EntryDialogComponent implements OnInit {
 
   formatDate(date) {
     const newFecha = new Date(date)
-    const fechaFinal = `${newFecha.getMonth() + 1}/${newFecha.getDate() + 1}/${newFecha.getFullYear()}`
+    const fechaFinal = `${newFecha.getDate() + 1}${newFecha.getMonth() + 1}${newFecha.getFullYear()}`
     // console.log(fechaFinal);
     return fechaFinal
   }
+
 
   PostForm() {
     this.entries.pipe(take(1)).subscribe(data => {
       this.formResults = data.newEntryForm.model
     })
-    const { producto, cantidad, fechaEntrada, fechaConsumo, fechaCaducidad, encargado, comentarios } = this.formResults
-    console.log('this.formResults: ', this.formResults);
-    
-    const fd = new FormData()
-    fd.append('entry.1801376353', producto)
-    fd.append('entry.633248458', cantidad)
-    fd.append('entry.144156711', this.formatDate(fechaEntrada))
-    fd.append('entry.485415790', this.formatDate(fechaConsumo))
-    fd.append('entry.1623305401', this.formatDate(fechaCaducidad))
-    fd.append('entry.1907831378', encargado)
-    fd.append('entry.1808505957', comentarios)
+    const { producto, cantidad, fechaEntrada, fechaConsumo, fechaCaducidad, encargado, comentarios, variante, proveedor } = this.formResults
+
+    const request_data = {
+        best_before_date: fechaConsumo,
+        comments: comentarios,
+        expiration_date: fechaCaducidad,
+        input_date: fechaEntrada,
+        quantity: cantidad,
+        area_manager: encargado,
+        variant: variante,
+        product: producto,
+        provider: proveedor,
+    }
+    console.log(request_data);
 
     fetch(this.url, {
       method: 'POST',
-      body: fd  
+      body: JSON.stringify({ data: request_data }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${environment.strapiToken}`
+      }
     })
   }
-
-
-
-
 
 }

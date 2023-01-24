@@ -6,6 +6,14 @@ export class fetchInventory {
     static readonly type = '[WarehouseState] Fetch Inventory';
     constructor() { }
 }
+export class SetUsers {
+    static readonly type = '[WarehouseState] Set Users';
+    constructor(public users: any) { }
+}
+export class fetchUsers {
+    static readonly type = '[WarehouseState] Fetch Users';
+    constructor() { }
+}
 export class SetCategories {
     static readonly type = '[WarehouseState] Set Categories';
     constructor(public categories: any) { }
@@ -20,6 +28,14 @@ export class SetWarehouses {
 }
 export class fetchWarehouses {
     static readonly type = '[WarehouseState] Fetch Warehouses';
+    constructor() { }
+}
+export class SetVariants {
+    static readonly type = '[WarehouseState] Set Variants';
+    constructor(public variants: any) { }
+}
+export class fetchVariants {
+    static readonly type = '[WarehouseState] Fetch Variants';
     constructor() { }
 }
 export class SetMeasurementUnits {
@@ -93,5 +109,9 @@ export class SetColores {
 export class fetchColores {
     static readonly type = '[WarehouseState] Fetch Colores';
     constructor() { }
+}
+export class SetBatchCode {
+    static readonly type = '[WarehouseState] Set Batch Code';
+    constructor(public product, public variant, public provider, public date) { }
 }
 

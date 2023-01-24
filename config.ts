@@ -15,7 +15,9 @@ const envConfigFileProd = `export const environment = {
     messagingSenderId: '${process.env['messagingSenderId']}',
     appId: '${process.env['appId']}',
     measurementId: '${process.env['measurementId']}',
-  }
+  },
+  strapiURL:'${process.env['strapiURL']}',
+  strapiToken:'${process.env['strapiToken']}',
 }`;
 
 const envConfigFile = `export const environment = {
@@ -29,7 +31,9 @@ const envConfigFile = `export const environment = {
     messagingSenderId: '${process.env['messagingSenderId']}',
     appId: '${process.env['appId']}',
     measurementId: '${process.env['measurementId']}',
-  }
+  },
+  strapiURL:'${process.env['strapiURL']}',
+  strapiToken:'${process.env['strapiToken']}',
 }`;
 
 // console.group('environment variables endpoints:')

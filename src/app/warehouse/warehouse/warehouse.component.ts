@@ -9,8 +9,10 @@ import { FormDialogComponent } from 'src/app/utils/form-dialog/form-dialog.compo
 import { CategoriesDialogComponent } from '../categories-dialog/categories-dialog.component';
 import { EntryDialogComponent } from '../entry-dialog/entry-dialog.component';
 import { ExitDialogComponent } from '../exit-dialog/exit-dialog.component';
+import { MeasurementUnitDialogComponent } from '../measurement-unit-dialog/measurement-unit-dialog.component';
 import { ProductListDialogComponent } from '../product-list-dialog/product-list-dialog.component';
 import { ProductionLogDialogComponent } from '../production-log-dialog/production-log-dialog.component';
+import { WarehouseDialogComponent } from '../warehouse-dialog/warehouse-dialog.component';
 
 @Component({
   selector: 'app-warehouse',
@@ -93,6 +95,12 @@ export class WarehouseComponent implements OnInit {
         break;
       case 'category':
         block = CategoriesDialogComponent
+        break;
+      case 'units':
+        block = MeasurementUnitDialogComponent
+        break;
+      case 'warehouse':
+        block = WarehouseDialogComponent
         break;
     
       default:

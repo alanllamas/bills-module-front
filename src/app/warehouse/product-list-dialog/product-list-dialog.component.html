@@ -7,36 +7,36 @@
   <form [formGroup]="newProductForm" ngxsForm="warehouse.product_list.newProductForm" (ngSubmit)="PostForm() " class=" flex flex-col py-4">
     <div class="flex mb-6 justify-around">
       <div class="flex flex-col w-6/12 px-2">
-        <label class="mb-2" for="producto">producto: <span class="text-red-600">*</span></label>
-        <input formControlName="producto" class="border rounded border-gray-600 h-10 p-2" id="producto" type="text">
+        <label class="mb-2" for="product">producto: <span class="text-red-600">*</span></label>
+        <input formControlName="product" class="border rounded border-gray-600 h-10 p-2" id="product" type="text">
       </div>
       
       <div class="flex flex-col w-6/12 px-2">
-        <label class="mb-2" for="unidad_de_medida">unidad de medida: <span class="text-red-600">*</span></label>
-        <select formControlName="unidad_de_medida" class="border rounded border-gray-600 h-10 p-2" name="unidad_de_medida" id="unidad_de_medida">
-          <option [value]="unit.abreviatura" *ngFor="let unit of (measureUnits | async).measure_units" >{{unit.abreviatura}}</option>
+        <label class="mb-2" for="measurement_unit">unidad de medida: <span class="text-red-600">*</span></label>
+        <select formControlName="measurement_unit" class="border rounded border-gray-600 h-10 p-2" name="measurement_unit" id="measurement_unit">
+          <option [value]="unit.id" *ngFor="let unit of (measureUnits | async).measure_units" >{{unit.attributes.abbreviation_plural}}</option>
         </select>
       </div>
     </div>
     <div class="flex mb-6 justify-around">
       <div class="flex flex-col w-full px-2">
-        <label class="mb-2" for="proveedor">proveedor: <span class="text-red-600">*</span></label>
-        <select formControlName="proveedor" class="border rounded border-gray-600 h-10 p-2" name="proveedor" id="proveedor">
-          <option [value]="proveedor.proveedor" *ngFor="let proveedor of (proveedores | async).proveedores" >{{proveedor.proveedor}}</option>
+        <label class="mb-2" for="warehouse">Almacen: <span class="text-red-600">*</span></label>
+        <select formControlName="warehouse" class="border rounded border-gray-600 h-10 p-2" name="warehouse" id="warehouse">
+          <option [value]="warehouse.id" *ngFor="let warehouse of (warehouses | async).warehouses" >{{warehouse.attributes.title}}</option>
         </select>
       </div>
     </div>
     <div class="flex mb-6 justify-around">
       <div class="flex flex-col w-6/12 px-2">
-        <label class="mb-2" for="almacen">almacen: <span class="text-red-600">*</span></label>
-        <select formControlName="almacen" class="border rounded border-gray-600 h-10 p-2" name="almacen" id="almacen">
-          <option [value]="warehouse.almacen" *ngFor="let warehouse of (warehouses | async).warehouses" >{{warehouse.almacen}}</option>
+        <label class="mb-2" for="warehouse_category">categoria: <span class="text-red-600">*</span></label>
+        <select formControlName="warehouse_category" class="border rounded border-gray-600 h-10 p-2" name="warehouse_category" id="warehouse_category">
+          <option [value]="category.id" *ngFor="let category of (categories | async).categories" >{{category.attributes.category}}</option>
         </select>
       </div>
       <div class="flex flex-col w-6/12 px-2">
-        <label class="mb-2" for="categoria">categoria: <span class="text-red-600">*</span></label>
-        <select formControlName="categoria" class="border rounded border-gray-600 h-10 p-2" name="categoria" id="categoria">
-          <option [value]="category.nombre" *ngFor="let category of filteredCategories" >{{category.nombre}}</option>
+        <label class="mb-2" for="variants">variants: <span class="text-red-600">*</span></label>
+        <select formControlName="variants" multiple class="border rounded border-gray-600 h-10 p-2" name="variants" id="variants">
+          <option [value]="variant.id" *ngFor="let variant of (variants | async).variants" >{{variant.attributes.variant}}</option>
         </select>
       </div>
     </div>
@@ -44,23 +44,34 @@
     <div class="flex mb-12 justify-around">
       
       <div class="flex flex-col w-6/12 px-2">
-        <label class="mb-2" for="stock_minimo">stock minimo<span class="text-red-600">*</span></label>
-        <input formControlName="stock_minimo" class="border rounded border-gray-600 h-10 p-2" id="stock_minimo" type="text">
+        <label class="mb-2" for="minimum_stock">stock minimo<span class="text-red-600">*</span></label>
+        <input formControlName="minimum_stock" class="border rounded border-gray-600 h-10 p-2" id="minimum_stock" type="number">
       </div>
       <div class="flex flex-col w-6/12 px-2">
         <label class="mb-2" for="tiempo_de_entrega_dias_naturales">tiempo de entrega dias naturales: <span class="text-red-600">*</span></label>
-        <input formControlName="tiempo_de_entrega_dias_naturales" class="border rounded border-gray-600 h-10 p-2" id="tiempo_de_entrega_dias_naturales" type="text">
+        <input formControlName="tiempo_de_entrega_dias_naturales" class="border rounded border-gray-600 h-10 p-2" id="tiempo_de_entrega_dias_naturales" type="number">
       </div>
     </div>
     <div class="flex mb-12 justify-around">
       
       <div class="flex flex-col w-6/12 px-2">
         <label class="mb-2" for="caducidad_minima_dias">caducidad minima dias<span class="text-red-600">*</span></label>
-        <input formControlName="caducidad_minima_dias" class="border rounded border-gray-600 h-10 p-2" id="caducidad_minima_dias" type="text">
+        <input formControlName="caducidad_minima_dias" class="border rounded border-gray-600 h-10 p-2" id="caducidad_minima_dias" type="number">
       </div>
       <div class="flex flex-col w-6/12 px-2">
         <label class="mb-2" for="caracteristicas_de_almacenamiento">caracteristicas de almacenamiento: <span class="text-red-600">*</span></label>
         <input formControlName="caracteristicas_de_almacenamiento" class="border rounded border-gray-600 h-10 p-2" id="caracteristicas_de_almacenamiento" type="text">
+      </div>
+    </div>
+    <div class="flex mb-12 justify-around">
+      
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="product_code">Codigo de producto<span class="text-red-600">*</span></label>
+        <input formControlName="product_code" class="border rounded border-gray-600 h-10 p-2" id="product_code" type="text">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="comments">Comentarios: <span class="text-red-600">*</span></label>
+        <input formControlName="comments" class="border rounded border-gray-600 h-10 p-2" id="comments" type="text">
       </div>
     </div>
     <div class="flex justify-end w-full pr-2">

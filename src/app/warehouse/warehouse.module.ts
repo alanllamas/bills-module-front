@@ -15,6 +15,8 @@ import { ProductListDialogComponent } from './product-list-dialog/product-list-d
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 import { ProductionLogDialogComponent } from './production-log-dialog/production-log-dialog.component';
 import { ProductionInputDialogComponent } from './production-input-dialog/production-input-dialog.component';
+import { MeasurementUnitDialogComponent } from './measurement-unit-dialog/measurement-unit-dialog.component';
+import { WarehouseDialogComponent } from './warehouse-dialog/warehouse-dialog.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { ProductionInputDialogComponent } from './production-input-dialog/produc
     CategoriesDialogComponent,
     ProductionLogDialogComponent,
     ProductionInputDialogComponent,
+    MeasurementUnitDialogComponent,
+    WarehouseDialogComponent,
   ],
   imports: [
     CommonModule,
