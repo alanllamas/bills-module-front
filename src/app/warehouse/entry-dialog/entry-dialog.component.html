@@ -1,0 +1,70 @@
+
+<div class="" tabindex="-1">
+  <div class="flex justify-between mb-6">
+    <h2 class="text-2xl">Nueva Entrada</h2>
+    <button type="button" class="" [mat-dialog-close]><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  
+  <form [formGroup]="newEntryForm" ngxsForm="warehouse.in_moves.newEntryForm" (ngSubmit)="PostForm()" class=" flex flex-col py-4">
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="producto">producto: <span class="text-red-600">*</span></label>
+        <select formControlName="producto" class="border rounded border-gray-600 h-10 p-2" name="producto" id="producto">
+          <option [value]="product.id" *ngFor="let product of (productList | async).product_list" >{{product.attributes.product}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="proveedor">proveedor: <span class="text-red-600">*</span></label>
+        <select formControlName="proveedor" class="border rounded border-gray-600 h-10 p-2" name="proveedor" id="proveedor">
+          <option [value]="provider.id" *ngFor="let provider of (providers | async).proveedores" >{{provider.attributes.first_name}} {{provider.attributes.last_name}}</option>
+        </select>
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="variante">variante: <span class="text-red-600">*</span></label>
+        <select formControlName="variante" class="border rounded border-gray-600 h-10 p-2" name="variante" id="variante">
+          <option [value]="variant.id" *ngFor="let variant of (variants | async).variants" >{{variant.attributes.variant}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="batch_code">cantidad: <span class="text-red-600">*</span></label>
+        <input formControlName="cantidad" class="border rounded border-gray-600 h-10 p-2" id="cantidad" type="text">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="fechaEntrada">fecha de entrada: <span class="text-red-600">*</span></label>
+        <input formControlName="fechaEntrada" [ngModel] ="today | date:'yyyy-MM-dd'" class="border rounded border-gray-600 h-10 p-2" id="fechaEntrada" type="date">
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="fechaConsumo">fecha preferente de consumo: <span class="text-red-600">*</span></label>
+        <input formControlName="fechaConsumo" class="border rounded border-gray-600 h-10 p-2" id="fechaConsumo" type="date">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="fechaCaducidad">fecha de caducidad: <span class="text-red-600">*</span></label>
+        <input formControlName="fechaCaducidad" class="border rounded border-gray-600 h-10 p-2" id="fechaCaducidad" type="date">
+      </div>
+    </div>
+    <div class="flex mb-12 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="encargado">encargado de area: <span class="text-red-600">*</span></label>
+        <select formControlName="encargado" class="border rounded border-gray-600 h-10 p-2" name="encargado" id="encargado">
+          <option [value]="user.id" *ngFor="let user of (users | async).users" >{{ user.username }}</option>
+        </select>
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="comentarios">comentarios: <span class="text-red-600">*</span></label>
+        <input formControlName="comentarios" class="border rounded border-gray-600 h-10 p-2" id="comentarios" type="text">
+      </div>
+    </div>
+    <div class="flex justify-end w-full pr-2">
+      <button mat-raised-button mat-button class="bg-teal-600 text-white">
+        <input type="submit" value="Enviar" />
+      </button>
+    </div>
+  </form>
+</div>
+

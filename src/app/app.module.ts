@@ -14,6 +14,7 @@ import { BalanceModule } from './balance/balance.module';
 import { AuthModule } from './auth/auth.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { AuthState } from './states/auth.state';
 import { environment } from 'src/environments/environment';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
@@ -25,7 +26,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { SpentsState } from './states/spents.state';
 import { BalanceState } from './states/balance.state';
 import { WarehouseState } from './states/warehouse.state';
-
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { QrCodeModule } from 'ng-qrcode';
+import { WarehouseModule } from './warehouse/warehouse.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,17 +45,22 @@ import { WarehouseState } from './states/warehouse.state';
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     NgxsDispatchPluginModule.forRoot(),
+    NgxsFormPluginModule.forRoot(),
+    FormsModule,
     AuthModule,
     BillsModule,
     SpentsModule,
     UtilsModule,
-    BalanceModule,  
+    BalanceModule,
+    WarehouseModule, 
     BrowserAnimationsModule,
     MatSidenavModule,
     NgxsStoragePluginModule.forRoot({
       key: ['auth.token'],
     }),
-    MatButtonModule
+    MatButtonModule,
+    NgxScannerQrcodeModule,
+    QrCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

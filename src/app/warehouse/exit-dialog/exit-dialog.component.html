@@ -1,0 +1,70 @@
+
+<div class="" tabindex="-1">
+  <div class="flex justify-between mb-6">
+    <h2 class="text-2xl">Nueva salida</h2>
+    <button type="button" class="" [mat-dialog-close]><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <ngx-scanner-qrcode #action="scanner" [ngClass]="{'hidden': !action.isStart}" (data)="getData($event); action.toggleCamera()"></ngx-scanner-qrcode>
+  <button class="bg-teal-600 text-white" mat-raised-button mat-button (click)="action.toggleCamera()" [disabled]="action.isLoading">{{action.isStart ? 'Salir' : 'Escanear codigo'}}</button>
+  <form [formGroup]="newExitForm" [ngClass]="{'hidden': action.isStart}" ngxsForm="warehouse.out_moves.newExitForm" (ngSubmit)="PostForm() " class=" flex flex-col py-4">
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="batch_code">codigo de lote: <span class="text-red-600">*</span></label>
+        <input formControlName="batch_code" class="border rounded border-gray-600 h-10 p-2" id="batch_code" type="text">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="requester">solicitante: <span class="text-red-600">*</span></label>
+        <select formControlName="requester" class="border rounded border-gray-600 h-10 p-2" name="requester" id="requester">
+          <option [value]="user.id" *ngFor="let user of (users | async).users" >{{user.username}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="quantity">cantidad: <span class="text-red-600">*</span></label>
+        <input formControlName="quantity" class="border rounded border-gray-600 h-10 p-2" id="quantity" type="number">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="output_date">fecha de salida: <span class="text-red-600">*</span></label>
+        <input formControlName="output_date" class="border rounded border-gray-600 h-10 p-2" [ngModel] ="today | date:'yyyy-MM-dd'" id="output_date" type="date">
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="output_reason">razon de salida: <span class="text-red-600">*</span></label>
+        <select formControlName="output_reason" class="border rounded border-gray-600 h-10 p-2" name="output_reason" id="output_reason">
+          <option [value]="reason" *ngFor="let reason of output_reasons" >{{reason}}</option>
+        </select>
+      </div>
+      
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="authorized_by">autorizado por: <span class="text-red-600">*</span></label>
+        <select formControlName="authorized_by" class="border rounded border-gray-600 h-10 p-2" name="authorized_by" id="authorized_by">
+          <option [value]="user.id" *ngFor="let user of (users | async).users" >{{user.username}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex mb-12 justify-around">
+          
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="request_area">area de peticion: <span class="text-red-600">*</span></label>
+        <select formControlName="request_area" class="border rounded border-gray-600 h-10 p-2" name="request_area" id="request_area">
+          <option [value]="area" *ngFor="let area of request_areas" >{{area}}</option>
+        </select>
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="comments">comentarios: <span class="text-red-600">*</span></label>
+
+        <input formControlName="comments" class="border rounded border-gray-600 h-10 p-2" id="comments" type="text">
+      </div>
+    </div>
+    <div class="flex justify-end w-full pr-2">
+    <button mat-raised-button mat-button class="bg-teal-600 text-white">
+      
+      <input type="submit"  value="Enviar" />
+    </button>
+
+    </div>
+  </form>
+</div>
+

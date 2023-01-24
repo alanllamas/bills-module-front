@@ -41,12 +41,6 @@ export class BillsState {
     'docena',
     'media_docena',
     'pieza',
-    // 'frijol',
-    // 'haba',
-    // 'chicharo',
-    // 'chicharron',
-    // 'requeson',
-    // 'garbanzo',
     'frijoles_refritos',
     'nopales',
     'salsa_verde',
@@ -139,9 +133,10 @@ export class BillsState {
             product_list: this.product_list,
             products: this.products,
           }
-          const newBillsData = this.parser.parseData( billsData.values, config)
-          newBillsData.values = newBillsData.values.filter((bill: any) => bill.fecha).sort((a, b) => b.id - a.id )
-          dispatch(new BillsActions.SetBills(newBillsData.values, newBillsData.headers))
+          console.log(billsData);
+          
+          const newBillsData = this.parser.parseData(billsData.values, config) 
+          dispatch(new BillsActions.SetBills(newBillsData.values.filter((bill: any) => bill.fecha).sort((a, b) => b.id - a.id ), newBillsData.headers))
         }
       )
     ).subscribe()
@@ -149,6 +144,8 @@ export class BillsState {
   }
   @Action(BillsActions.SetBill)
   SetBill({ patchState, getState }: StateContext<BillsStateModel>, { id }: BillsActions.SetBill) {
+    console.log(getState().bills.filter(bill => bill.id === id)[0]);
+    
     patchState({ bill: getState().bills.filter(bill => bill.id === id)[0] })
   }
   

@@ -7,7 +7,7 @@ import { AuthState } from './states/auth.state';
 import { fetchBalance } from './states/balance.actions';
 import { fetchBills } from './states/bills.actions';
 import { fetchSpents } from './states/spents.actions';
-import { fetchCategories, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductList, fetchWarehouses } from './states/warehouse.actions';
+import { fetchCategories, fetchColores, fetchEscandallos, fetchInMoves, fetchInventory, fetchMeasurementUnits, fetchOutMoves, fetchProductionInput, fetchProductionLog, fetchProductList, fetchProveedores, fetchUsers, fetchVariants, fetchWarehouses } from './states/warehouse.actions';
 
 
 @Component({
@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   @Select(AuthState.isLoggedIn) logged: Observable<boolean>
 
   @Dispatch() logout = () => new Logout()
-
   constructor(public store: Store) {}
   ngOnInit(): void {
     this.logged.subscribe(data => {
@@ -36,6 +35,13 @@ export class AppComponent implements OnInit {
           new fetchProductList(),
           new fetchInMoves(),
           new fetchOutMoves(),
+          new fetchProductionLog(),
+          new fetchProductionInput(),
+          new fetchProveedores(),
+          new fetchEscandallos(),
+          new fetchColores(),
+          new fetchVariants(),
+          new fetchUsers(),
         ])
       }
     })

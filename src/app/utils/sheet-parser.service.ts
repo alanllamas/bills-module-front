@@ -66,11 +66,16 @@ export class SheetParserService {
               let d =  balance[j]
               
               if (balance.includes("Terra Noble") && newcurr === index) d = 'Terra Noble ' + i;
-              if (newcurr === 'id') {
-  
-                Object.assign(obj, {[newcurr]: d, url: `${url}/${d}`})
-               
-                return {...acc, ...obj}
+              // console.log('newcurr: ', newcurr);
+              if (newcurr === 'id' && d) {
+                // console.log('newcurr id: ', newcurr);
+                // console.log('d id: ', d);
+                
+                // Object.assign(obj, {'id': d, url: `${url}/${d}`})
+                obj = {...acc, 'id': Number(d), url: `${url}/${d}`}
+                // console.log('obj: ', obj);
+                
+                return obj
               } 
               if (newcurr === index && d) {
                 Object.assign(obj, {[newcurr]: this.replaceChars(chars,d)})

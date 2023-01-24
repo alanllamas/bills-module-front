@@ -1,0 +1,80 @@
+
+<div class="" tabindex="-1">
+  <div class="flex justify-between mb-6">
+    <h2 class="text-2xl">Nueva Entrada en bitacora de producción</h2>
+    <button type="button" class="" [mat-dialog-close]><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScSRmuFfWfZ6ni4hv9u1-Hh8oNDMhk7ST4k3GrKFY7iyp5l9w/viewform?embedded=true" width="640" height="543" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> -->
+  <form [formGroup]="newLogForm" ngxsForm="warehouse.production_log.newLogForm" (ngSubmit)="PostForm() " class=" flex flex-col py-4">
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <!-- ligar a escandallos -->
+        <label class="mb-2" for="producto">producto: <span class="text-red-600">*</span></label>
+        <select formControlName="producto" class="border rounded border-gray-600 h-10 p-2" name="producto" id="producto">
+          <option [value]="escandallo.producto" *ngFor="let escandallo of (escandallos | async).escandallos" >{{escandallo.producto}}</option>
+        </select>
+      </div>
+      
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="cantidad">cantidad: <span class="text-red-600">*</span></label>
+        <input formControlName="cantidad" class="border rounded border-gray-600 h-10 p-2" id="cantidad" type="text">
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-full px-2">
+        <label class="mb-2" for="insumos">insumos: <span class="text-red-600">*</span></label>
+        <input formControlName="insumos" class="border rounded border-gray-600 h-10 p-2" disabled id="insumos" type="text">
+        <div class="px-2 py-4">
+          <div class="flex justify-between">
+            <h3>Lista de insumos</h3>
+            <button mat-raised-button mat-button (click)="openDialog(createInput, 'input')"  class="bg-teal-600 text-white">agregar insumo</button>
+          </div>
+          <table class="w-full text-left">
+            <thead>
+              <th>Id</th>
+              <th>Codigo de salida</th>
+              <th>Codigo de lote</th>
+              <th>Cantidad</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let input of inputList">
+                <td>{{input.id}}</td>
+                <td>{{input.codigo_salida}}</td>
+                <td>{{input.codigo_lote}}</td>
+                <td>{{input.cantidad}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="flex mb-6 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="fecha">fecha de produccion: <span class="text-red-600">*</span></label>
+        <input formControlName="fecha" [ngModel] ="today | date:'yyyy-MM-dd'" class="border rounded border-gray-600 h-10 p-2" id="fecha" type="date">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="variante">variante: <span class="text-red-600">*</span></label>
+        <select formControlName="variante" class="border rounded border-gray-600 h-10 p-2" name="variante" id="variante">
+          <option [value]="color.color" *ngFor="let color of (colores | async).colores" >{{color.color}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex mb-12 justify-around">
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="responsable">responsable de producción <span class="text-red-600">*</span></label>
+        <input formControlName="responsable" class="border rounded border-gray-600 h-10 p-2" id="responsable" type="text">
+      </div>
+      <div class="flex flex-col w-6/12 px-2">
+        <label class="mb-2" for="comentarios">comentarios: <span class="text-red-600">*</span></label>
+        <input formControlName="comentarios" class="border rounded border-gray-600 h-10 p-2" id="comentarios" type="text">
+      </div>
+    </div>
+    <div class="flex justify-end w-full pr-2">
+      <button mat-raised-button mat-button class="bg-teal-600 text-white">
+        <input type="submit" (click)="onNoClick()" value="Enviar" />
+      </button>
+    </div>
+  </form>
+</div>
+
