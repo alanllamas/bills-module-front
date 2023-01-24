@@ -60,7 +60,7 @@ export class BalanceComponent implements OnInit {
 
   createData = {
     title: 'Nueva nota',
-    url:  'https://docs.google.com/forms/d/e/1FAIpQLSfn4wP57jW1sNp-CzZG-WKDq_u23aVhR0_OdABHa9d4pk_QSQ/viewform?embedded=true'
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSfeGdqRXHaEbvMvDDNP8NqzDONlErU-xQJlchOFJvHdHwtKgg/viewform?embedded=true'
   }
   
   ngOnInit(): void {

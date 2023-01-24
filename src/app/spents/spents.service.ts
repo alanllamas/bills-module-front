@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class SpentsService {
 
-  spreadsheetId = '1ngjMaDo5KeXP0mcSD9u0yd4cByZXfOqw2WHPHOocXL8'
+  spreadsheetId = '1B7Rl-OpAZJG6WPPl5k-LKtZTwt7uZapoM4jUMhAI-mE'
   range = 'Full Data Egresos!A2:BA'
   apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
 

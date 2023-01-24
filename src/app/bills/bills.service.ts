@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BillsService {
-  spreadsheetId = '1ngjMaDo5KeXP0mcSD9u0yd4cByZXfOqw2WHPHOocXL8'
+  spreadsheetId = '1B7Rl-OpAZJG6WPPl5k-LKtZTwt7uZapoM4jUMhAI-mE'
   range = 'Full Data!A1:BA'
   apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
 

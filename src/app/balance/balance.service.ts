@@ -16,7 +16,7 @@ export class BalanceService {
   constructor(public http: HttpClient) { }
   getForm = (range: string) => {
     
-    this.spreadsheetId = '1K3OwbHzHqnbJzysqMoNRnIustkK9ISf5Uos_wVkFa68'
+    this.spreadsheetId = '13OQXwByyImo3jjDdJ7_07KXxcsDelqeVXnKweMcGB0E'
     this.range = range
     this.apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
     this.googleSheet = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`

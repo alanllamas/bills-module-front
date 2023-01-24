@@ -31,7 +31,7 @@ export class MonthComponent implements OnInit {
   }
   dateData = {
     title: 'Modificar fecha',
-    url:  'https://docs.google.com/forms/d/e/1FAIpQLSe_5mAXOs_pCVLKyVGRl3Vvj6oGx8c_rhktd7SB3po3paeN3w/viewform?edit2=2_ABaOnudX-FCg0mDinFV3-CvqhY2v8JDnKC-ea_tBAGyA6yO0xe8DtwHIphBgOzbSxw'
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSceb9ogtE2QpxqTLQR5Lxs0XXsnva5P7i2iB_yI6TLKFrYo_w/viewform?embedded=true'
   }
   editBalanceData = {
     title: 'Modificar cierre de caja',

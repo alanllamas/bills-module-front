@@ -60,9 +60,8 @@ export class BillsComponent implements OnInit {
 
   createData = {
     title: 'Nueva nota',
-    url:  'https://docs.google.com/forms/d/e/1FAIpQLSezaDkzOMKpkR5A2K17n8XfbNPiEee4zM9wKesraR_rn0kpRA/viewform?embedded=true'
+    url:  "https://docs.google.com/forms/d/e/1FAIpQLSdTpMt566yO9x7cR-3iWQv-rmDhq5W_c6YV0VWFo07jgyY2EQ/viewform?embedded=true"
   }
-  
   ngOnInit(): void {
     this.bills.subscribe(bills =>{
       this.dataSource.data = bills;
