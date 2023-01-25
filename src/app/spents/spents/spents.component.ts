@@ -78,7 +78,7 @@ export class SpentsComponent implements OnInit {
 
   createData = {
     title: 'Nuevo gasto',
-    url:  'https://docs.google.com/forms/d/e/1FAIpQLSc0xIsQOM9mB1G8xnKhcxZ1Kavq6noOyOrnLY1bpGkyjl7U3Q/viewform?embedded=true'
+    url:  'https://docs.google.com/forms/d/e/1FAIpQLSeoJnmuHZYx2bRVuV_g_Z71ORWV7FyqkdtTMxiW5PNYeTuWNg/viewform?embedded=true'
   }
 
   filterValues: any = {};
