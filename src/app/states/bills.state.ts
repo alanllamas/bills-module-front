@@ -103,6 +103,9 @@ export class BillsState {
     afilado_de_piedras: [
       'afilado_de_piedras',
     ],
+    pinole: [
+      'pinole'
+    ]
   }
   constructor(public bills: BillsService, public parser: SheetParserService) { }
 
