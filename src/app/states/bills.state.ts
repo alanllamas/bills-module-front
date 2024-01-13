@@ -59,6 +59,13 @@ export class BillsState {
     'maiz_rojo',
     'maiz_blanco',
     'afilado_de_piedras',
+    'pinole',
+    "tortilla_azul_17cm_dza",
+    "tortilla_amarilla_17cm_dza",
+    "tortilla_especialidad_17cm_dza",
+    "tortilla_azul_20cm_dza",
+    "tortilla_amarilla_20cm_dza",
+    "tortilla_especialidad_20cm_dza",
   ]
   products = {
     masa: [
@@ -105,7 +112,18 @@ export class BillsState {
     ],
     pinole: [
       'pinole'
+    ],
+    tortilla17: [
+      "tortilla_azul_17cm_dza",
+      "tortilla_amarilla_17cm_dza",
+      "tortilla_especialidad_17cm_dza",
+    ],
+    tortilla20: [
+      "tortilla_azul_20cm_dza",
+      "tortilla_amarilla_20cm_dza",
+      "tortilla_especialidad_20cm_dza",
     ]
+
   }
   constructor(public bills: BillsService, public parser: SheetParserService) { }
 
@@ -134,6 +152,7 @@ export class BillsState {
     this.bills.getForm().pipe(
       tap(
         (billsData: any) => {
+          
           const config = {
             actions: [{action:'form_response_edit_url', key: 'edit'}],
             chars:  [{ find: '# ', replace: ''}],
@@ -143,6 +162,7 @@ export class BillsState {
             products: this.products,
           }
           const newBillsData = this.parser.parseData( billsData.values, config)
+          console.log('newBillsData: ', newBillsData);
           newBillsData.values = newBillsData.values.filter((bill: any) => bill.fecha).sort((a, b) => b.id - a.id )
           dispatch(new BillsActions.SetBills(newBillsData.values, newBillsData.headers))
         }

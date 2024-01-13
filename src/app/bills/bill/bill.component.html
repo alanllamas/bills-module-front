@@ -1,6 +1,11 @@
 <div class="w-3/4 m-auto py-5">
-  
-  <button mat-raised-button printSectionId="note" ngxPrint [useExistingCss]="true">Imprimir Nota</button>
+  <div class="w-full flex">
+    <button class="mx-2" mat-raised-button printSectionId="note" ngxPrint [useExistingCss]="true">Imprimir Nota</button>
+    <button class="mx-2" mat-raised-button (click)="openDialog({title:'Editar nota', url: this.billData.edit })">
+      Editar 
+      <i class="fa-solid fa-pencil"></i>
+    </button>
+  </div>
   <div id="note" class="w-1/2 m-auto">
 
     <section class="border flex flex-col items-center p-10">
