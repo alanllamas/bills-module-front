@@ -30,7 +30,7 @@ export class BillsService {
     },
     tlacoyos : {
       docena: 180,
-      media_docena: 100,
+      media_docena: 130,
       pieza: 15
     },
     complementos: {
