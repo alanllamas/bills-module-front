@@ -16,7 +16,7 @@ import { SpentsComponent } from './spents/spents/spents.component';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: BillsComponent,
     canActivate: [AuthGuard]
   },
   {
