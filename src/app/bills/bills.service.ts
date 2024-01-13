@@ -14,7 +14,7 @@ export class BillsService {
   creditCustomers = ['One & Only Mandarina']
   prices = {
     masa : {
-      default: 50,
+      default: 65,
       credit30: 97.5,
     },
     tortilla : {
