@@ -46,6 +46,9 @@ export class BillsState {
     'tortilla_azul_12cm_kg',
     'tortilla_amarilla_12cm_kg',
     'tortilla_especialidad_12cm_kg',
+    'tortilla_blanca_15cm_kg',
+    'tortilla_blanca_14cm_kg',
+    'tortilla_blanca_12cm_kg',
     'sopes_(dz)',
     'docena',
     'media_docena',
@@ -144,6 +147,13 @@ export class BillsState {
       'tortilla_azul_12cm_kg',
       'tortilla_amarilla_12cm_kg',
       'tortilla_especialidad_12cm_kg',
+    ],
+    tortillaBlancaKg: [
+      'tortilla_blanca_15cm_kg',
+      'tortilla_blanca_14cm_kg',
+    ],
+    tortillaBlancaKg12: [
+      'tortilla_blanca_12cm_kg'
     ],
 
   }
