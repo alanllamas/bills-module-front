@@ -37,6 +37,15 @@ export class BillsState {
     'tortilla_azul_10cm_dza',
     'tortilla_amarilla_10cm_dza',
     'tortilla_especialidad_10cm_dza',
+    'tortilla_azul_de_15_cm_kg',
+    'tortilla_amarilla_de_15cm_kg',
+    'tortilla_especialidad_15cm_kg',
+    'tortilla_azul_14cm_kg',
+    'tortilla_amarilla_14cm_kg',
+    'tortilla_especialidad_14cm_kg',
+    'tortilla_azul_12cm_kg',
+    'tortilla_amarilla_12cm_kg',
+    'tortilla_especialidad_12cm_kg',
     'sopes_(dz)',
     'docena',
     'media_docena',
@@ -122,7 +131,20 @@ export class BillsState {
       "tortilla_azul_20cm_dza",
       "tortilla_amarilla_20cm_dza",
       "tortilla_especialidad_20cm_dza",
-    ]
+    ],
+    tortillaKg: [
+      'tortilla_azul_de_15_cm_kg',
+      'tortilla_amarilla_de_15cm_kg',
+      'tortilla_especialidad_15cm_kg',
+      'tortilla_azul_14cm_kg',
+      'tortilla_amarilla_14cm_kg',
+      'tortilla_especialidad_14cm_kg'
+    ],
+    tortillaKg12: [
+      'tortilla_azul_12cm_kg',
+      'tortilla_amarilla_12cm_kg',
+      'tortilla_especialidad_12cm_kg',
+    ],
 
   }
   constructor(public bills: BillsService, public parser: SheetParserService) { }
