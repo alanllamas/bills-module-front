@@ -78,6 +78,8 @@ export class BillsState {
     "tortilla_azul_20cm_dza",
     "tortilla_amarilla_20cm_dza",
     "tortilla_especialidad_20cm_dza",
+    'tortillas_anaquel_1/2_Kg'
+
   ]
   products = {
     masa: [
