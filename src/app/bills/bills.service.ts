@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class BillsService {
   spreadsheetId = '1B7Rl-OpAZJG6WPPl5k-LKtZTwt7uZapoM4jUMhAI-mE'
-  range = 'Full Data!A1:BY'
+  range = 'Full Data!A1:BZ'
   apiKey = 'AIzaSyAg6Uxjg6_SznPVuNipzDwv0adNZa8bl7k'
 
   googleForm = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`
@@ -68,6 +68,9 @@ export class BillsService {
     tortillaBlancaKg12: {
       default: 90,
       credit30: 135
+    },
+    tortillaAnaquelMedioKg: {
+      default: 85
     }
   }
 

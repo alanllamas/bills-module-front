@@ -155,6 +155,9 @@ export class BillsState {
     tortillaBlancaKg12: [
       'tortilla_blanca_12cm_kg'
     ],
+    tortillaAnaquelMedioKg: [
+      'tortillas_anaquel_1/2_Kg'
+    ],
 
   }
   constructor(public bills: BillsService, public parser: SheetParserService) { }
