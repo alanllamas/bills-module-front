@@ -78,7 +78,7 @@ export class BillsState {
     "tortilla_azul_20cm_dza",
     "tortilla_amarilla_20cm_dza",
     "tortilla_especialidad_20cm_dza",
-    'tortillas_anaquel_1/2_Kg'
+    'tortillas_anaquel_1/2_kg'
 
   ]
   products = {
@@ -158,7 +158,7 @@ export class BillsState {
       'tortilla_blanca_12cm_kg'
     ],
     tortillaAnaquelMedioKg: [
-      'tortillas_anaquel_1/2_Kg'
+      'tortillas_anaquel_1/2_kg'
     ],
 
   }
@@ -198,6 +198,8 @@ export class BillsState {
             product_list: this.product_list,
             products: this.products,
           }
+          console.log('billsData: ', billsData);
+          
           const newBillsData = this.parser.parseData( billsData.values, config)
           console.log('newBillsData: ', newBillsData);
           newBillsData.values = newBillsData.values.filter((bill: any) => bill.fecha).sort((a, b) => b.id - a.id )
