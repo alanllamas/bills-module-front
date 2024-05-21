@@ -18,7 +18,7 @@ export class BillsService {
       credit30: 97.5,
     },
     tortilla : {
-      default: 45,
+      default: 50,
       credit30: 67.5,
     },
     maiz : {
@@ -26,7 +26,7 @@ export class BillsService {
       credit30: 67.5,
     },
     sopes: {
-      default: 45
+      default: 50
     },
     tlacoyos : {
       docena: 180,
@@ -44,7 +44,7 @@ export class BillsService {
       credit30: 250
     },
     pinole: {
-      default: 150,
+      default: 200,
       credit30: 225
     },
     tortilla17: {
@@ -54,11 +54,11 @@ export class BillsService {
       default: 95
     },
     tortillaKg: {
-      default: 105,
+      default: 110,
       credit30: 157.5
     },
     tortillaKg12: {
-      default: 115,
+      default: 120,
       credit30: 172.5
     },
     tortillaBlancaKg: {
