@@ -22,7 +22,7 @@ export class BillsService {
       credit30: 67.5,
     },
     maiz : {
-      default: 60,
+      default: 65,
       credit30: 67.5,
     },
     sopes: {
